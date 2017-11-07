@@ -10,9 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 //トップページ
-Route::get('/', function(){
-    return '<a href="/bbs">BBS</a>';
+Route::get('/', function () {
+    return view('home');
 });
 
 //スレッド一覧表示
@@ -29,3 +30,30 @@ Route::get('/bbs/show', 'BbsController@show');
 
 //掲示板への書き込み
 Route::post('/bbs/store', 'BbsController@store');
+
+//パスワード変更
+Route::get('/edit', function () {
+    return view('edit');
+});
+
+Route::post('/password','EditController@password');
+//アイコン
+Route::get('/iconEdit','EditController@iconEdit');
+Route::post('/upload', 'EditController@upload');
+
+//Admin-home
+Route::get('/', function () {
+    return view('/auth/login');
+});
+
+Route::get('/admin_home',function(){
+    return view('/admin_home');
+});
+
+// ログイン状態の'admin'ユーザーのみアクセス可能
+Route::group(['middleware' => ['auth', 'can:admin']], function () {
+    Route::get('/admin_home', 'BanController@user');
+});
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
