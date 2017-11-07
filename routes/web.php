@@ -11,10 +11,10 @@
 |
 */
 
+Auth::routes();
+
 //トップページ
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 //スレッド一覧表示
 Route::get('/bbs', 'BbsController@index');
@@ -31,29 +31,15 @@ Route::get('/bbs/show', 'BbsController@show');
 //掲示板への書き込み
 Route::post('/bbs/store', 'BbsController@store');
 
-//パスワード変更
+//パスワード変更ページ
 Route::get('/edit', function () {
     return view('edit');
 });
-
+//パスワード変更
 Route::post('/password','EditController@password');
-//アイコン
+
+//アイコン編集ページ
 Route::get('/iconEdit','EditController@iconEdit');
+
+//アイコンアップロード
 Route::post('/upload', 'EditController@upload');
-
-//Admin-home
-Route::get('/', function () {
-    return view('/auth/login');
-});
-
-Route::get('/admin_home',function(){
-    return view('/admin_home');
-});
-
-// ログイン状態の'admin'ユーザーのみアクセス可能
-Route::group(['middleware' => ['auth', 'can:admin']], function () {
-    Route::get('/admin_home', 'BanController@user');
-});
-
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
