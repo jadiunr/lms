@@ -1,11 +1,11 @@
-@extends('layouts.bbs_layout')
+@extends('layouts.app')
 
 @section('css')
     <link href="/css/bbs/index.css" rel="stylesheet">
 @endsection
 
 @section('content')
-    <h4><a href="/home">Home</a>->BBS</h4><hr>
+    <h4>BBS</h4><hr>
     <div align="center">{{ $threads->links() }}</div>
     <table class="table table-bordered">
         <tr>

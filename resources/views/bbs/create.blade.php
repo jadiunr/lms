@@ -1,4 +1,4 @@
-@extends('layouts.bbs_layout')
+@extends('layouts.app')
 
 @section('css')
     <link href="/css/bbs/create.css" rel="stylesheet">
