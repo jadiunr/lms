@@ -38,7 +38,7 @@ class EditController extends Controller
             $user->icon = basename($filename);
             $user->save();
 
-            return redirect('/iconEdit')->with('success', '保存しました。');
+            return redirect('/icon')->with('success', '保存しました。');
         } else {
             return redirect()
                 ->back()

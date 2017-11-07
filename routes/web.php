@@ -13,33 +13,37 @@
 
 Auth::routes();
 
-//トップページ
-Route::get('/', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function() {
 
-//スレッド一覧表示
-Route::get('/bbs', 'BbsController@index');
+    //トップページ
+    Route::get('/', 'HomeController@index');
 
-//スレッド作成ページ表示
-Route::get('/bbs/create', 'BbsController@create');
+    //スレッド一覧表示
+    Route::get('/bbs', 'BbsController@index');
 
-//スレッド作成処理
-Route::post('/bbs/create', 'BbsController@create_thread');
+    //スレッド作成ページ表示
+    Route::get('/bbs/create', 'BbsController@create');
 
-//スレッド詳細表示
-Route::get('/bbs/show', 'BbsController@show');
+    //スレッド作成処理
+    Route::post('/bbs/create', 'BbsController@create_thread');
 
-//掲示板への書き込み
-Route::post('/bbs/store', 'BbsController@store');
+    //スレッド詳細表示
+    Route::get('/bbs/show', 'BbsController@show');
 
-//パスワード変更ページ
-Route::get('/edit', function () {
-    return view('edit');
+    //掲示板への書き込み
+    Route::post('/bbs/store', 'BbsController@store');
+
+    //パスワード変更ページ
+    Route::get('/edit', function () {
+        return view('edit');
+    });
+    //パスワード変更
+    Route::post('/password','EditController@password');
+
+    //アイコン編集ページ
+    Route::get('/icon','EditController@iconEdit');
+
+    //アイコンアップロード
+    Route::post('/upload', 'EditController@upload');
+
 });
-//パスワード変更
-Route::post('/password','EditController@password');
-
-//アイコン編集ページ
-Route::get('/iconEdit','EditController@iconEdit');
-
-//アイコンアップロード
-Route::post('/upload', 'EditController@upload');
