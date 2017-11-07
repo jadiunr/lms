@@ -11,15 +11,20 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            //$table->string('user',16)-
+            $table->increments('id',12)->unique();//主キー
+            $table->string('name',12)->unique();//ユーザー名
+            $table->string('password',512);//パスワードハッシュ化されたもの
+            $table->string('email',32)->unique();//メールアドレス
+            $table->string('icon',80)->nullable();//icon null許可
+            $table->boolean('admin')->default('0'); //デフォルトfalse
+            $table->timestamps();//更新日
+            $table->rememberToken();//?
+
         });
     }
 
