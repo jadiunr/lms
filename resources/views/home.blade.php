@@ -62,7 +62,7 @@
                     <li class="list-group-item">5位　学籍番号　0.00%</li>
                 </ul>
 
-            <img src="qa.png" width="165px" height="auto">
+            <a href="/bbs"><img src="qa.png" width="165px" height="auto"></a>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="#">新着質問</a></li>
                     <li class="list-group-item"><a href="#">新着質問</a></li>
