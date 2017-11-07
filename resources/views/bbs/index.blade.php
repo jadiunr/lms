@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h3>BBS</h3><hr>
+    <h4><a href="/home">Home</a>->BBS</h4><hr>
     <div align="center">{{ $threads->links() }}</div>
     <table class="table table-bordered">
         <tr>
