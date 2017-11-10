@@ -15,6 +15,7 @@
     <style>
         body {
             font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
+            background-color: #ffffff;
         }
     </style>
 </head>
