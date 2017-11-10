@@ -63,10 +63,10 @@ class ExamController extends Controller
         $problem_answer = DB::table('problems')->where('id',$request->id)->first();
 
         if($problem_answer->explain == $answer){
-            return redirect('/exam/learning/'.$request->id)->with('flash_message', 'Great!');
+            return redirect('/exam_fe/learning/'.$request->id)->with('flash_message', 'Great!');
         }
 
-        return redirect('/exam/learning/'.$request->id)->with('flash_message', 'Fuck!');
+        return redirect('/exam_fe/learning/'.$request->id)->with('flash_message', 'Fuck!');
 
     }
 
