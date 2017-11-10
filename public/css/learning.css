@@ -1,0 +1,62 @@
+/*　　四択css   */
+ul.select-list button {font-size:12px;
+    width:50px;
+    height:28px;
+}
+
+ul.select-list{
+    list-style: none;
+}
+ul.select-list a {
+     color:black;
+}
+.select-list li {
+    margin-bottom: 30px;
+
+}
+.select-list span{
+    margin-left: 30px;
+    font-size: 15px;
+}
+/*  前の問題　次の問題*/
+.problem-btm a{
+    display: inline-block;
+    color:black;
+
+}
+.problem-btm button {
+    width: 120px;
+    height: 40px;
+
+}
+.problem-btm {
+    text-align: center;
+}
+/*  解答ボタン　モード選択ボタン*/
+ul.select-list2 {
+    list-style: none;
+}
+.select-list2 button{
+    width: 120px;
+    height: 40px;
+    color:black;
+
+}
+.button-layout-parent {
+    position: relative;
+}
+.button-layout-kids {
+    position: absolute;
+    left:190px;
+    top:145px;
+
+}
+/* 　スクロールバー　*/
+.scrollbox a{
+    display: block;
+}
+.scrollbox a:hover{
+    background-color: #dddddd;
+}
+
+
