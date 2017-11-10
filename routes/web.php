@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/password','EditController@password');
 
     //アイコン編集ページ
-    Route::get('/icon','EditController@iconEdit');
+    Route::get('/edit','EditController@edit');
 
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');

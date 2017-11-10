@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Hash;
 class EditController extends Controller
 {
 
-    public function iconEdit()
+    public function edit()
     {
         $user = Auth::user();
 
-        return view('iconEdit', compact('user'));
+        return view('edit')->with(compact('user'));
     }
 
     public function upload(Request $request)
@@ -38,7 +38,7 @@ class EditController extends Controller
             $user->icon = basename($filename);
             $user->save();
 
-            return redirect('/icon')->with('success', '保存しました。');
+            return redirect('/edit')->with('success', 'アイコンを保存しました。');
         } else {
             return redirect()
                 ->back()
@@ -58,15 +58,29 @@ class EditController extends Controller
         $user       =Auth::user();
         $db_password = $user->password;//現在のパスワード
         $password    =$request->oldpassword;//現在のパスワードを入力されたもの
-        $new_password =$request->newpassword;//新しく設定するパスワード
+        $new_password1 =$request->newpassword1;//新しく設定するパスワード
+        $new_password2 =$request->newpassword2;//新しく設定するパスワード(確認)
 
-        if(Hash::check($password,$db_password))//平文のパスワードをハッシュ化してDBのパスワードを比較
-        {
-            $hash_password = Hash::make($new_password);//新規パスワードをハッシュ化
-            $user->password = $hash_password;//ハッシュ化したのをDBにいれる
-            $user->save();//終わり
-            return view('password')->with(compact('password','new_password','user'));
+        if($new_password1===$new_password2){
+            if(Hash::check($password,$db_password))//平文のパスワードをハッシュ化してDBのパスワードを比較
+            {
+                $hash_password = Hash::make($new_password1);//新規パスワードをハッシュ化
+                $user->password = $hash_password;//ハッシュ化したのをDBにいれる
+                $user->save();//終わり
+                return redirect('edit')->with(compact('user'))->with('success', 'パスワードを変更しました。');
+            }else{
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withErrors(['password' => 'パスワードが間違っています。']);
+            }
+        }else{
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['password' => '新しいパスワードが一致していません。']);
         }
+
     }
 
 }
