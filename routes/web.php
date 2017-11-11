@@ -46,7 +46,8 @@ Route::group(['middleware' => 'auth'], function() {
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
 
-    Route::get('/exam_fe',ExamController::class."@index")->name('top'); //試験メニュー画面のtop画面
+    //試験メニュー画面のtop画面
+    Route::get('/exam_fe',ExamController::class."@index")->name('top');
 
     Route::get('/exam_fe/learning',ExamController::class."@learn")->name('learning'); //ラーニングモードの画面
 

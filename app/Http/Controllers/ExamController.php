@@ -24,7 +24,8 @@ class ExamController extends Controller
 
 
 
-    function learn_id(Request $request,$id){
+    function learn_id($id){
+
 
         $post= Problem::with([])->get();
         $problem_Previous = DB::table('problems')->where('id', $id)->first();
@@ -43,11 +44,7 @@ class ExamController extends Controller
             $Next_btn = $post[$id]->id;
         }
 
-        $validator = Validator::make($request->query(), [
-            'id' => 'exists:problems,id'
-        ]);
-
-        if($validator->fails()) {
+        if(is_null($problem_Previous)){
             $error="問題が設定されていません。こちらのサービス提供に不手際がありました。申し訳ございませんでした。<br>全ての問題はこちらの会社のCEO<strong style=\"color: red\">MIZUKAMI</strong>の責任";
             return view('posts.learning')->with(['error'=>$error,'problem_number'=>$post[0],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn]);
         }

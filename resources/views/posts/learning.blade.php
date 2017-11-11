@@ -90,14 +90,14 @@
                 <div>
                     <div class="scrollbox"style="height:350px;overflow:auto;border:1px solid #aaa;padding:10px;">
                              @for($i = 1; $i < 81; $i++)
-                                    <p><a href="{{url('/exam_fe/learning?id='.$i,$i)}}" style="text-decoration: none ;color:black;">問{{$i}} コンテンツ<input type="checkbox"  name="check[]" style="margin-left:10px ;"></a></p>
+                                    <p><a href='/exam_fe/learning/{{$i}}' style="text-decoration: none ;color:black;">問{{$i}} コンテンツ<input type="checkbox"  name="check[]" style="margin-left:10px ;"></a></p>
                             @endfor
                     </div>
                 </div>
 
                 <div class="problem-btm" style="margin-top: 30px">
-                    <a href='{{url('/exam_fe/learning?id='.$Previous_btn,$Previous_btn)}}'><button>前の問題</button></a>
-                    <a href='{{url('/exam_fe/learning?id='.$Next_btn,$Next_btn)}}'><button>次の問題</button></a>
+                    <a href='/exam_fe/learning/{{$Previous_btn}}'><button>前の問題</button></a>
+                    <a href='/exam_fe/learning/{{$Next_btn}}'><button>次の問題</button></a>
                 </div>
             </div>
 
