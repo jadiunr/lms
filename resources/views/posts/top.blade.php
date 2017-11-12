@@ -32,7 +32,7 @@ font-size: 20px;
 　　　<div class="button" style="clear:both;margin-top: 150px;margin-left: 200px;">
 
         <div style="float:left;">
-            <a href="{{route('learning')}}" class="b-t-n1"><span class="b-t-n2">ラーニングモード</span></a>
+            <a href="/{{$exam_id}}/exam/learning" class="b-t-n1"><span class="b-t-n2">ラーニングモード</span></a>
 
         </div>
         <div style="float:left;">
