@@ -29,7 +29,6 @@ class ThreadRequest extends FormRequest
     {
         return [
             'title' => 'required|max:100',
-            'name' => 'required',
             'comment' => 'required|max:1000'
         ];
     }
@@ -39,7 +38,6 @@ class ThreadRequest extends FormRequest
         return [
             'title.required' => 'タイトルが未入力です',
             'title.max' => 'タイトルは最大100文字まで入力できます。',
-            'name.required' => '名前が未入力です。',
             'comment.required' => '本文が未入力です',
             'comment.max' => '本文は最大1000文字まで入力できます。'
         ];

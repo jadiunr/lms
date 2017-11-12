@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Post;
 use App\Thread;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\BbsRequest;
 use App\Http\Requests\ThreadRequest;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class BbsController extends Controller
 {
@@ -44,7 +46,7 @@ class BbsController extends Controller
         $last_insert_id = $thread->id;
         $post = new Post();
         $post->thread_id = $last_insert_id;
-        $post->name = $request->name;
+        $post->user_id = Auth::user()->id;
         $post->comment = $request->comment;
         $post->save();
 
@@ -57,7 +59,7 @@ class BbsController extends Controller
          */
         $post = new Post();
         $post->thread_id = $request->thread_id;
-        $post->name = $request->name;
+        $post->user_id = Auth::user()->id;
         $post->comment = $request->comment;
         $post->save();
 
@@ -79,6 +81,9 @@ class BbsController extends Controller
         $first_id = Post::where('thread_id', $request->id)->first()->id;
         //スレッド作成者のコメントオブジェクト
         $first_comment = Post::where('id', $first_id)->first();
+        //スレッド作成者のユーザー名
+        $user_name = User::where('id', $first_comment->user_id)->first()->name;
+
 
         //コメントの数をチェック
         $check = Post::where('thread_id', $request->id)
@@ -98,7 +103,7 @@ class BbsController extends Controller
         return view('bbs.show', [
             "first_comment" => $first_comment,
             "thread_id" => $request->id,
-            "posts" => $posts
+            "posts" => $posts,
         ]);
     }
 }

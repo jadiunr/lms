@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property int $thread_id
- * @property string $name
+ * @property int $user_id
  * @property string $comment
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -28,5 +28,9 @@ class Post extends Model
 
     public function thread() {
         return $this->belongsTo('App\Thread');
+    }
+
+    public function user() {
+        return $this->belongsTo('App\User');
     }
 }
