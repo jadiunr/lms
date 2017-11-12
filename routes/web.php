@@ -46,11 +46,15 @@ Route::group(['middleware' => 'auth'], function() {
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
 
-    Route::get('/exam',ExamController::class."@index")->name('top'); //試験メニュー画面のtop画面
+    //試験メニュー画面のtop画面
+    Route::get('/{exam_id}/exam',ExamController::class."@index")->name('top');
 
-    Route::get('/exam/learning',ExamController::class."@learn")->name('learning'); //ラーニングモードの画面
+    //ラーニングモードの画面
+    Route::get('/{exam_id}/exam/learning',ExamController::class."@learn");
 
-    Route::get('/exam/learning/{id}',ExamController::class."@learn_id")->name('problem_id');//ラーニングモード各問題画面
+    //ラーニングモード各問題画面
+    Route::get('/{exam_id}/exam/learning/{id}',ExamController::class."@learn_id")->name('problem_id');
 
-    Route::get('/exam/learning/answer/{id}',ExamController::class."@answer");
+    //正誤判定
+    Route::get('/{exam_id}/exam/learning/answer/{problem_id}/{problem_answer}',ExamController::class."@answer");
 });
