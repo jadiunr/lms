@@ -18,6 +18,7 @@
             background-color: #ffffff;
         }
     </style>
+    @yield('css')
 </head>
 <body>
     <div id="app">
