@@ -63,10 +63,10 @@
                     <div class="col-lg-6">
                         @if(isset($problem_id))
                         <ul class="select-list">
-                            <li><a href='{{url('/exam_fe/learning/answer?id='.$problem_id->id,'ア')}}' class="select-btn"><button>ア</button></a><span>{{$problem_id->answer1}}</span></li>
-                            <li><a href='{{url('/exam_fe/learning/answer?id='.$problem_id->id,'イ')}}' class="select-btn"><button>イ</button></a><span>{{$problem_id->answer2}}</span></li>
-                            <li><a href='{{url('/exam_fe/learning/answer?id='.$problem_id->id,'ウ')}}' class="select-btn"><button>ウ</button></a><span>{{$problem_id->answer3}}</span></li>
-                            <li><a href='{{url('/exam_fe/learning/answer?id='.$problem_id->id,'エ')}}' class="select-btn"><button>エ</button></a><span>{{$problem_id->answer4}}</span></li>
+                            <li><a href='/{{$exam_id}}/exam/learning/answer/{{$problem_id->id}}/ア' class="select-btn"><button>ア</button></a><span>{{$problem_id->answer1}}</span></li>
+                            <li><a href='/{{$exam_id}}/exam/learning/answer/{{$problem_id->id}}/イ' class="select-btn"><button>イ</button></a><span>{{$problem_id->answer2}}</span></li>
+                            <li><a href='/{{$exam_id}}/exam/learning/answer/{{$problem_id->id}}/ウ' class="select-btn"><button>ウ</button></a><span>{{$problem_id->answer3}}</span></li>
+                            <li><a href='/{{$exam_id}}/exam/learning/answer/{{$problem_id->id}}/エ' class="select-btn"><button>エ</button></a><span>{{$problem_id->answer4}}</span></li>
                         </ul>
                         @endif
                     </div>
@@ -88,16 +88,16 @@
             <div class="col-lg-3" style="margin-top: 100px">
 
                 <div>
-                    <div class="scrollbox"style="height:350px;overflow:auto;border:1px solid #aaa;padding:10px;">
+                    <div class="scrollbox" style="height:350px;overflow:auto;border:1px solid #aaa;padding:10px;">
                              @for($i = 1; $i < 81; $i++)
-                                    <p><a href='/exam_fe/learning/{{$i}}' style="text-decoration: none ;color:black;">問{{$i}} コンテンツ<input type="checkbox"  name="check[]" style="margin-left:10px ;"></a></p>
+                                    <p><a href='/{{$exam_id}}/exam/learning/{{$i}}' style="text-decoration: none ;color:black;">問{{$i}} コンテンツ<input type="checkbox"  name="check[]" style="margin-left:10px ;"></a></p>
                             @endfor
                     </div>
                 </div>
 
                 <div class="problem-btm" style="margin-top: 30px">
-                    <a href='/exam_fe/learning/{{$Previous_btn}}'><button>前の問題</button></a>
-                    <a href='/exam_fe/learning/{{$Next_btn}}'><button>次の問題</button></a>
+                    <a href='/{{$exam_id}}/exam/learning/{{$Previous_btn}}'><button>前の問題</button></a>
+                    <a href='/{{$exam_id}}/exam/learning/{{$Next_btn}}'><button>次の問題</button></a>
                 </div>
             </div>
 
