@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+<style>
+.table .center {
+    vertical-align: middle;
+    text-align: center;
+}
+</style>
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-md-offset-0">
@@ -10,41 +17,41 @@
                 </div>
             @endif
 
-            <table class="table table-bordered">
+            <table class="table table-striped">
                 <tr>
-                    <th>ID</th>
-                    <th>名前</th>
-                    <th>メールアドレス</th>
-                    <th>アイコン</th>
-                    <th>作成日</th>
-                    <th>更新日</th>
-                    <th>権限</th>
-                    <th>編集</th>
-                    <th>削除</th>
+                    <th class="center">ID</th>
+                    <th class="center">名前</th>
+                    <th class="center">メールアドレス</th>
+                    <th class="center">アイコン</th>
+                    <th class="center">作成日</th>
+                    <th class="center">更新日</th>
+                    <th class="center">権限</th>
+                    <th class="center">編集</th>
+                    <th class="center">削除</th>
                 </tr>
                 @foreach($users as $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>
+                        <td class="center">{{ $user->id }}</td>
+                        <td class="center">{{ $user->name }}</td>
+                        <td class="center">{{ $user->email }}</td>
+                        <td class="center">
                             @if($user->icon)
-                                <img src="{{ asset('storage/img/' . $user->icon) }}" alt="icon" width="24" height="24" />
+                                <img src="{{ asset('storage/img/' . $user->icon) }}" alt="icon" width="48" height="48" />
                             @else
-                                <img src="/default_icon/animal_serval.png" alt="icon" width="24" height="24">
+                                <img src="/default_icon/animal_serval.png" alt="icon" width="48" height="48">
                             @endif
                         </td>
-                        <td>{{ $user->created_at }}</td>
-                        <td>{{ $user->updated_at }}</td>
-                        <td>
+                        <td class="center">{{ $user->created_at }}</td>
+                        <td class="center">{{ $user->updated_at }}</td>
+                        <td class="center">
                             @if($user->admin == True)
                                 <span style="color:red;font-weight:bold">管理者</span>
                             @else
                                 ユーザ
                             @endif
                         </td>
-                        <td><a href="{{ route('admin.editUser', ['id' => $user->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
-                        <td><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
+                        <td class="center"><a href="{{ route('admin.editUser', ['id' => $user->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
+                        <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
                     </tr>
                 @endforeach
             </table>
