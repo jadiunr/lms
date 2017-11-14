@@ -28,7 +28,6 @@ class BbsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
             'comment' => 'required|max:1000',
         ];
     }
@@ -36,7 +35,6 @@ class BbsRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => '名前が未入力です。',
             'comment.required' => '本文が未入力です。',
             'comment.max' => '本文は最大1000文字まで入力できます。'
         ];
