@@ -29,7 +29,13 @@
             <tr>
                 <td width="70%">{{ Html::link('/bbs/show?id='.$thread->id, $thread->title) }}</td>
                 <td>{{ $thread->posts()->count()-1 }}</td>
-                <td>未解決</td>
+                <td>
+                    @if($thread->solved)
+                        解決済み
+                    @else
+                        未解決
+                    @endif
+                </td>
                 <td>マネジメント</td>
             </tr>
         @endforeach
