@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class AdminController extends Controller
 {
@@ -24,8 +24,10 @@ class AdminController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->file('file')){
+            \File::delete('storage/img/' . $user->icon);
             $filename = $request->file->store('public/img');
-            $user->icon = basename($filename);
+            $image = Image::make('storage/img/' .basename($filename))->resize(200,200)->save();
+            $user->icon = $image->basename;
         }
         $user->admin = $request->admin;
         $user->save();
