@@ -7,6 +7,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class EditController extends Controller
 {
@@ -26,16 +28,17 @@ class EditController extends Controller
                 'required',
                 // アップロードされたファイルであること
                 'file',
-                // 最小縦横120px 最大縦横400px
-                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
             ]
         ]);
 
         if ($request->file('file')->isValid([])) {
+            $user = Auth::user();
+            \File::delete('storage/img/' . $user->icon);
             $filename = $request->file->store('public/img');
 
-            $user = Auth::user();
-            $user->icon = basename($filename);
+            $image = Image::make('storage/img/' .basename($filename))->resize(200,200)->save();
+
+            $user->icon = $image->basename;
             $user->save();
 
             return redirect('/edit')->with('success', 'アイコンを保存しました。');
