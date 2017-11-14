@@ -21,9 +21,8 @@
 <nav class="navbar navbar-default bootsnav">
     <div class="container">
         @yield('navbar-1')
-
         <div class="navbar-header">
-            <a class="navbar-brand" href="#brand" style="font-size: 60px;margin-top: 12px" >OIC</a>
+            <a class="navbar-brand" href="#brand" style="font-size: 30px;margin-top: 12px" >E-Learning</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-menu">

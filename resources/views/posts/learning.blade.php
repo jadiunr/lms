@@ -91,6 +91,7 @@
                     </div>
                 </div>
             </div>
+            @if(isset($problem_id))
             <div class="row" id="1" style="margin-top: 50px;margin-left:90px;position: relative">
                 <div id="answer_content" style="display: none">
                     <p style="font-size: 15px;line-height: 35px">
@@ -99,6 +100,7 @@
                     <div style="position: absolute;left: 610px;margin-top: 50px; margin-bottom: 50px; font-size: 30px; border-bottom: solid 3px red;">A.<span style="margin-left:10px;padding-right:10px  ">{{$problem_id->explain}}</span></div>
                 </div>
             </div>
+            @endif
         </div>
 
 
