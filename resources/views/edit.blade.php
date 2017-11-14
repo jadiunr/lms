@@ -26,12 +26,12 @@
                 <img src="{{ asset('storage/img/' . $user->icon) }}" alt="icon" />
             </p>
         @endif
-        {!! Form::label('file', '画像アップロード', ['class' => 'control-label']) !!}
+        {!! Form::label('file', 'アイコンアップロード', ['class' => 'control-label']) !!}
         {!! Form::file('file') !!}
     </div>
 
     <div class="form-group">
-        {!! Form::submit('アップロード', ['class' => 'btn btn-default']) !!}
+        {!! Form::submit('アイコン変更', ['class' => 'btn btn-default']) !!}
     </div>
     {!! Form::close() !!}
 
@@ -50,7 +50,7 @@
             <span class="error">{{$errors->first('newpassword2')}}</span><br>
         @endif
         <input type="hidden" name="_token" value="{{csrf_token()}}">
-        <input type="submit" value="変更" style="width:300px;height: 50px">
+        {!! Form::submit('パスワード変更', ['class' => 'btn btn-default']) !!}
     </form>
 
 
