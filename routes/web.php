@@ -34,9 +34,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/bbs/store', 'BbsController@store');
 
     //パスワード変更ページ
-    Route::get('/edit', function () {
-        return view('edit');
-    });
+    Route::get('/edit', 'EditController@getIndex');
+
     //パスワード変更
     Route::post('/password','EditController@password');
 
@@ -58,21 +57,23 @@ Route::group(['middleware' => 'auth'], function() {
     //正誤判定
     Route::get('/{exam_id}/exam/learning/answer/{problem_id}/{problem_answer}',ExamController::class."@answer");
 
-    //管理者::ユーザ管理ページ表示
-    Route::get('/admin/users', [
-        'uses' => 'AdminController@getUsers',
-        'as' => 'admin.users'
-    ]);
+    Route::group(['middleware' => 'admin'], function(){
+        //管理者::ユーザ管理ページ表示
+        Route::get('/admin/users', [
+            'uses' => 'AdminController@getUsers',
+            'as' => 'admin.users'
+        ]);
 
-    //管理者::ユーザ編集ページ表示
-    Route::get('/admin/users/edit/{id}', [
-        'uses' => 'AdminController@editUser',
-        'as' => 'admin.editUser'
-    ]);
+        //管理者::ユーザ編集ページ表示
+        Route::get('/admin/users/edit/{id}', [
+            'uses' => 'AdminController@editUser',
+            'as' => 'admin.editUser'
+        ]);
 
-    //管理者::ユーザ更新処理
-    Route::post('/admin/users/update/{id}', [
-        'uses' => 'AdminController@updateUser',
-        'as' => 'admin.updateUser'
-    ]);
+        //管理者::ユーザ更新処理
+        Route::post('/admin/users/update/{id}', [
+            'uses' => 'AdminController@updateUser',
+            'as' => 'admin.updateUser'
+        ]);
+    });
 });
