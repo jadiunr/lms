@@ -34,7 +34,7 @@
     </div>
 
     <div class="form-group">
-        {!! Form::submit('Submit', ['class' => 'btn btn-primary form-control']) !!}
+        {!! Form::submit('回答する！', ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
     <hr>
