@@ -57,4 +57,22 @@ Route::group(['middleware' => 'auth'], function() {
 
     //正誤判定
     Route::get('/{exam_id}/exam/learning/answer/{problem_id}/{problem_answer}',ExamController::class."@answer");
+
+    //管理者::ユーザ管理ページ表示
+    Route::get('/admin/users', [
+        'uses' => 'AdminController@getUsers',
+        'as' => 'admin.users'
+    ]);
+
+    //管理者::ユーザ編集ページ表示
+    Route::get('/admin/users/edit/{id}', [
+        'uses' => 'AdminController@editUser',
+        'as' => 'admin.editUser'
+    ]);
+
+    //管理者::ユーザ更新処理
+    Route::post('/admin/users/update/{id}', [
+        'uses' => 'AdminController@updateUser',
+        'as' => 'admin.updateUser'
+    ]);
 });
