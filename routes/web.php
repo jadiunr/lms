@@ -33,13 +33,10 @@ Route::group(['middleware' => 'auth'], function() {
     //掲示板への書き込み
     Route::post('/bbs/store', 'BbsController@store');
 
-    //パスワード変更ページ
-    Route::get('/edit', 'EditController@getIndex');
-
     //パスワード変更
     Route::post('/password','EditController@password');
 
-    //アイコン編集ページ
+    //情報変更ページ(アイコン, パスワード)
     Route::get('/edit','EditController@edit');
 
     //アイコンアップロード
