@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth'], function() {
     //掲示板への書き込み
     Route::post('/bbs/store', 'BbsController@store');
 
+    //質問を解決済みにする処理
+    Route::post('/bbs/solved', 'BbsController@solved');
+
     //パスワード変更
     Route::post('/password','EditController@password');
 

@@ -56,6 +56,7 @@ class BbsController extends Controller
     public function store(BbsRequest $request) {
         /*
          * コメントをデータベースに登録する処理を書く
+         * 解決済みの場合はエラーを返す処理が必要だがまだ実装していない
          */
         $post = new Post();
         $post->thread_id = $request->thread_id;
@@ -81,9 +82,6 @@ class BbsController extends Controller
         $first_id = Post::where('thread_id', $request->id)->first()->id;
         //スレッド作成者のコメントオブジェクト
         $first_comment = Post::where('id', $first_id)->first();
-        //スレッド作成者のユーザー名
-        $user_name = User::where('id', $first_comment->user_id)->first()->name;
-
 
         //コメントの数をチェック
         $check = Post::where('thread_id', $request->id)
@@ -100,10 +98,26 @@ class BbsController extends Controller
             $posts = [];
         }
 
+        //閲覧者が質問の投稿者かどうかを判定するため
+        $user_id = Auth::user()->id;
+
         return view('bbs.show', [
             "first_comment" => $first_comment,
             "thread_id" => $request->id,
             "posts" => $posts,
+            "user_id" => $user_id
         ]);
+    }
+
+    public function solved(Request $request) {
+        /*
+         * 質問を解決済みにする
+         * ここでも質問の投稿者IDとの照合が必要だがまだ実装していない
+         */
+        $thread = Thread::where('id', $request->thread_id)->first();
+        $thread->solved = true;
+        $thread->save();
+
+        return redirect()->back();
     }
 }
