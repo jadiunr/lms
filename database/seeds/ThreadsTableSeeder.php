@@ -15,6 +15,7 @@ class ThreadsTableSeeder extends Seeder
         for($i = 1;$i <= 25;$i++){
             $thread = new Thread();
             $thread->title = 'dummy_thread' . $i;
+            $thread->category = 'その他';
             $thread->save();
         }
     }

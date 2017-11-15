@@ -36,7 +36,9 @@
                         未解決
                     @endif
                 </td>
-                <td>マネジメント</td>
+                <td>
+                    {{ $thread->category }}
+                </td>
             </tr>
         @endforeach
     </table>

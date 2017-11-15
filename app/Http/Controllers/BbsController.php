@@ -42,6 +42,7 @@ class BbsController extends Controller
          */
         $thread = new Thread();
         $thread->title = $request->title;
+        $thread->category = $request->category;
         $thread->save();
         $last_insert_id = $thread->id;
         $post = new Post();
