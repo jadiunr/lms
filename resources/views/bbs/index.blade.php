@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-sm-2"><h4>BBS</h4></div>
+        <div class="col-sm-2"><h4>質問掲示板</h4></div>
         <div class="col-sm-3 col-sm-offset-7">
             <div class="input-group">
                 <input type="text" class="form-control">

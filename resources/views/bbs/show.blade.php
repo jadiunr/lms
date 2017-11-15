@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h4>{{ Html::link('/bbs', 'BBS') }}->{{ $first_comment->thread->title }}</h4><hr>
+    <h4>{{ Html::link('/bbs', '質問掲示板') }}->{{ $first_comment->thread->title }}</h4><hr>
     <div class="media">
         <a class="media-left" href="#">
             @if($first_comment->user->icon)
