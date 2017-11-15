@@ -12,7 +12,6 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class EditController extends Controller
 {
-
     public function edit()
     {
         $user = Auth::user();
