@@ -65,6 +65,7 @@ class BbsController extends Controller
         $post->comment = $request->comment;
         $post->save();
 
+        $request->session()->flash('message','投稿しました');
         return redirect()->back();
     }
 
