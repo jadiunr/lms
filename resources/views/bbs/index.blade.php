@@ -39,7 +39,7 @@
                     @endif
                 </td>
                 <td>
-                    {{ $thread->category }}
+                    {{ $thread->category->name }}
                 </td>
             </tr>
         @endforeach

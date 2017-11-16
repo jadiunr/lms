@@ -15,8 +15,10 @@
             @endif
         </a>
         <div class="media-body">
-            <h4 class="media-heading">{{ $first_comment->user->name }}&emsp;<em>{{ $first_comment->updated_at }}</em></h4>
+            <h4 class="media-heading">{{ $first_comment->user->name }}</h4>
             <p>{!! nl2br(e($first_comment->comment)) !!}</p><br>
+            <em>{{ $first_comment->updated_at }}</em>&nbsp;&nbsp;
+            <span class="label label-warning">{{ $first_comment->thread->category->name }}</span>
         </div>
     </div>
     <hr>
@@ -84,9 +86,9 @@
                 @endif
             </a>
             <div class="media-body">
-                <h4>{{ $post->user->name }}&emsp;<em>{{ $post->updated_at }}</em></h4>
-                <p>{!! nl2br(e($post->comment)) !!}</p>
-                <br>
+                <h4>{{ $post->user->name }}</h4>
+                <p>{!! nl2br(e($post->comment)) !!}</p><br>
+                <em>{{ $post->updated_at }}</em>
             </div>
         </div>
         <hr>

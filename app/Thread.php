@@ -23,4 +23,8 @@ class Thread extends Model
     public function posts() {
         return $this->hasMany('App\Post');
     }
+
+    public function category() {
+        return $this->belongsTo('App\Category');
+    }
 }
