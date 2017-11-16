@@ -23,7 +23,7 @@
     <table class="table table-bordered">
         <tr>
             <th>タイトル</th>
-            <th>回答数</th>
+            <th>コメント数</th>
             <th>質問の状態</th>
             <th>カテゴリ</th>
         </tr>

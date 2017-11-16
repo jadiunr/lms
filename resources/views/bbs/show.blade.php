@@ -49,17 +49,17 @@
         </div>
 
         <div class="form-group">
-            {!! Form::submit('回答する！', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('コメントする！', ['class' => 'btn btn-primary form-control']) !!}
         </div>
         {!! Form::close() !!}
         <hr>
     @endif
 
     @if($posts)
-        <p class="text-center">回答一覧</p>
+        <p class="text-center">コメント一覧</p>
         <hr>
     @else
-        <p class="text-center">回答がありません</p>
+        <p class="text-center">コメントがありません</p>
         <hr>
     @endif
 
