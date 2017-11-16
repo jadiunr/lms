@@ -113,10 +113,22 @@ class BbsController extends Controller
     public function solved(Request $request) {
         /*
          * 質問を解決済みにする
-         * ここでも質問の投稿者IDとの照合が必要だがまだ実装していない
+         * 質問の投稿者IDとの照合が必要だがまだ実装していない
          */
         $thread = Thread::where('id', $request->thread_id)->first();
         $thread->solved = true;
+        $thread->save();
+
+        return redirect()->back();
+    }
+
+    public function reopen(Request $request) {
+        /*
+         * 質問を未解決に戻す
+         * 質問の投稿者IDとの照合が必要だがまだ実装していない
+         */
+        $thread = Thread::where('id', $request->thread_id)->first();
+        $thread->solved = false;
         $thread->save();
 
         return redirect()->back();
@@ -131,7 +143,7 @@ class BbsController extends Controller
                 ->orderBy('id','desc')
                 ->get();
         } else {
-            $threads = Thread::all();
+            return redirect()->back();
         }
 
         return view('bbs.search', [

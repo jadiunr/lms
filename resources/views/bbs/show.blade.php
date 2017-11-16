@@ -22,9 +22,20 @@
     <hr>
 
     @if($first_comment->thread->solved)
-        <h3 class="text-center"><span class="label label-info">この質問は解決済みです</span></h3>
-        <p class="text-center">質問者が {{ $first_comment->thread->updated_at }} にこの質問を解決済みにしました。</p>
+        <p class="text-center">
+            この質問は解決済みです<br>
+            質問者が {{ $first_comment->thread->updated_at }} にこの質問を解決済みにしました。
+        </p>
+        @if($first_comment->user_id == $user_id)
+            {!! Form::open(['action' => 'BbsController@reopen']) !!}
+            {!! Form::hidden('thread_id', $thread_id) !!}
+            {!! Form::submit('この質問を未解決に戻す', ['class' => 'center-block btn btn-info']) !!}
+            {!! Form::close() !!}
+        @endif
     @elseif($first_comment->user_id == $user_id)
+        <p class="text-center">
+            解決済みにした後でも未解決状態に戻すことができます。
+        </p>
         {!! Form::open(['action' => 'BbsController@solved']) !!}
         {!! Form::hidden('thread_id', $thread_id) !!}
         {!! Form::submit('この質問を解決済みにする！', ['class' => 'center-block btn btn-success']) !!}
@@ -45,7 +56,7 @@
         @endif
         <div class="form-group">
             {!! Form::label('comment', 'Comment:') !!}
-            {!! Form::textarea('comment', null, ['class' => 'form-control', 'cols' => 50, 'rows' => 8]) !!}
+            {!! Form::textarea('comment', null, ['class' => 'form-control', 'cols' => 50, 'rows' => 6]) !!}
         </div>
 
         <div class="form-group">
