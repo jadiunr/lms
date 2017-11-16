@@ -8,12 +8,14 @@
     <div class="row">
         <div class="col-sm-2"><h4>質問掲示板</h4></div>
         <div class="col-sm-3 col-sm-offset-7">
+            {!! Form::open(['method' => 'get', 'action' => 'BbsController@search']) !!}
             <div class="input-group">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="key_w">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="submit">検索</button>
                 </span>
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
     <hr>

@@ -36,6 +36,9 @@ Route::group(['middleware' => 'auth'], function() {
     //質問を解決済みにする処理
     Route::post('/bbs/solved', 'BbsController@solved');
 
+    //掲示板の検索機能
+    Route::get('/bbs/search', 'BbsController@search');
+
     //パスワード変更
     Route::post('/password','EditController@password');
 

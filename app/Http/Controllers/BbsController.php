@@ -121,4 +121,22 @@ class BbsController extends Controller
 
         return redirect()->back();
     }
+
+    public function search(Request $request) {
+        /*
+         * 検索機能
+         */
+        if($request->key_w) {
+            $threads = Thread::where('title','LIKE',"%$request->key_w%")
+                ->orderBy('id','desc')
+                ->get();
+        } else {
+            $threads = Thread::all();
+        }
+
+        return view('bbs.search', [
+            "key_w" => $request->key_w,
+            "threads" => $threads
+        ]);
+    }
 }
