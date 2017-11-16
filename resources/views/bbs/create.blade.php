@@ -7,6 +7,11 @@
 @section('content')
     <h4>{{ Html::link('/bbs', '戻る') }}</h4><hr>
     {!! Form::open() !!}
+    <div class="form-group">
+        {!! Form::label('category', 'Category:') !!}<br>
+        {!! Form::select('category', [1 => 'その他', 2 => 'テクノロジー', 3 => 'マネジメント', 4 => 'ストラテジー']) !!}
+    </div>
+
     @if ($errors->has('title'))
         <span style="color:red;">{{ $errors->first('title') }}</span>
     @endif
@@ -24,7 +29,7 @@
     </div>
 
     <div class="form-group">
-        {!! Form::submit('Submit', ['class' => 'btn btn-primary form-control']) !!}
+        {!! Form::submit('質問する！', ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
 @endsection
