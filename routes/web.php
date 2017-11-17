@@ -16,12 +16,6 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
 
     //トップページ
-
-    //管理者メイン画面表示
-    Route::group(['middleware'=>['auth','can:admin']],function(){
-        Route::get('/','HomeController@index');
-    });
-
     Route::get('/', 'HomeController@index');
 
     //スレッド一覧表示
@@ -55,7 +49,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/name','EditController@name');
 
     //情報変更ページ(アイコン, パスワード)
-    Route::get('/edit','EditController@edit');
+    Route::get('/edit', [
+        'uses' => 'EditController@edit',
+        'as' => 'user.edit'
+    ]);
 
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
