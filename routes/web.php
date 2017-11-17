@@ -45,6 +45,9 @@ Route::group(['middleware' => 'auth'], function() {
     //パスワード変更
     Route::post('/password','EditController@password');
 
+    //名前変更
+    Route::post('/name','EditController@name');
+
     //情報変更ページ(アイコン, パスワード)
     Route::get('/edit','EditController@edit');
 
