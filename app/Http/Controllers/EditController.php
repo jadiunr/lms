@@ -106,6 +106,24 @@ class EditController extends Controller
 
     public function name(Request $request)
     {
+        $messages = [
+            'min' => '最低1文字です。',
+            'max' => '最高12文字です。'
+        ];
 
+        $validator = validator::make($request->all(),[
+            'name' => 'min:1|max:12'
+        ],$messages);
+
+        if ($validator->fails()) {
+            return redirect('/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }else {
+            $user = Auth::user();
+            $user->name = $request->name;
+            $user->save();
+            return redirect('edit')->with(compact('user'))->with('success', '名前を変更しました。');
+        }
     }
 }

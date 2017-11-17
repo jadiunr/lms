@@ -10,7 +10,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     {{-- エラーメッセージ --}}
-    @if ($errors->any())
+    @if ($errors->has('file'))
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->get('file') as $error)
@@ -36,11 +36,13 @@
     {!! Form::close() !!}
 
     <h2>名前変更</h2>
+    @if($errors->has('name'))
+        <div class="alert alert-danger">
+            <span class="error">{{$errors->first('name')}}</span><br>
+        </div>
+    @endif
     <form action="name" method="post">
         新しい名前:<input type="text" name="name"><br>
-        @if($errors->has('name'))
-            <span class="error">{{$errors->first('')}}</span><br>
-        @endif
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         {!! Form::submit('名前変更', ['class' => 'btn btn-default']) !!}
     </form>
