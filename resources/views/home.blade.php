@@ -11,7 +11,7 @@
                         <h3 class="panel-title">新着情報</h3>
                     </div>
                     <div class="panel-body">
-                        <ul id="chengelog">
+                        <ul id="chengelog" style="list-style:none;">
                             <li><a href="#"><h5>2017/10/31<br>
                                     H29年秋基本情報技術者試験午前問題を追加しました。</h5></a></li>
                             <li><a href="#"><h5>2017/10/30<br>
@@ -32,7 +32,7 @@
                         <h3 class="panel-title">試験選択</h3>
                     </div>
                     <div class="panel-body">
-                        <ul>
+                        <ul style="list-style:none;">
                             <li><h5>ITパスポート</h5></li>
                             <li><h5>応用情報技術者試験</h5></li>
                             <li><a href="/FE/exam"><h5>基本情報技術者試験</h5></a></li>
@@ -46,10 +46,10 @@
                         <h3 class="panel-title">質問一覧</h3>
                     </div>
                     <div class="panel-body">
-                        <ul>
-                            <li><a href="#">新着質問</a></li>
-                            <li><a href="#">新着質問</a></li>
-                            <li><a href="#">新着質問</a></li>
+                        <ul style="list-style:none;">
+                            <li><a href="#"><h5>新着質問</h5></a></li>
+                            <li><a href="#"><h5>新着質問</h5></a></li>
+                            <li><a href="#"><h5>新着質問</h5></a></li>
                         </ul>
                     </div>
                 </div>
