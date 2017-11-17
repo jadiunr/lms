@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container">
-    <h2>アイコン変更</h2>
-    {!! Form::open(['url' => '/upload', 'method' => 'post', 'files' => true]) !!}
-
     {{--成功時のメッセージ--}}
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+    <h2>アイコン変更</h2>
+    {!! Form::open(['url' => '/upload', 'method' => 'post', 'files' => true]) !!}
+
     {{-- エラーメッセージ --}}
     @if ($errors->has('file'))
         <div class="alert alert-danger">
