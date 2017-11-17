@@ -43,54 +43,59 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
                         @guest
                         @else
                             @if(Auth::user()->admin == True)
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                        Admin Menu <span class="caret"></span>
+                                        管理者メニュー <span class="caret"></span>
                                     </a>
 
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#">試験管理</a>
+                                            <a href="{{ route('admin.exams') }}">試験管理</a>
                                             <a href="{{ route('admin.users') }}">ユーザ管理</a>
                                             <a href="#">成績一覧</a>
                                         </li>
                                     </ul>
                                 </li>
                             @endif
-                        @endguest
+                            @endguest
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">ログイン</a></li>
                             <li><a href="{{ route('register') }}">新規登録</a></li>
-                            @else
-                                <li> <a href="#">
-                                        {{ Auth::user()->name }}
-                                    </a></li>
+                        @else
+                            <li><a href="#">試験選択</a></li>
+                            <li><a href="#">ランキング</a></li>
+                            <li><a href="#">質問掲示板</a></li>
+                            <li><a href="#">新着情報</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
 
-                                <li>
-                                    <a href="#">設定</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        ログアウト
-                                    </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">個人成績</a></li>
+                                    <li><a href="#">設定</a></li>
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                            ログアウト
+                                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                                <li><a href="#">新着情報　<span class="badge">0</span></a></li>
-                                @endguest
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </div>

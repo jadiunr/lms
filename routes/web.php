@@ -89,5 +89,10 @@ Route::group(['middleware' => 'auth'], function() {
             'uses' => 'AdminController@updateUser',
             'as' => 'admin.updateUser'
         ]);
+
+        Route::get('/admin/exams', [
+           'uses' => 'AdminController@getExams',
+            'as' => 'admin.exams'
+        ]);
     });
 });

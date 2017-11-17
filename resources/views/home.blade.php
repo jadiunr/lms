@@ -5,32 +5,10 @@
 
 
         <div class="col-md-10">
-
-            {{--Adminのみ表示--}}
-
-            @can('admin')
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h3>管理者限定メニュー</h3></div>
-
-                    <div class="panel-body">
-                        <ul id="admin_menu">
-                            <li><a href="#"><h4>新規試験登録</h4></a></li>
-                            <li><a href="#"><h4>試験編集</h4></a></li>
-                            <li><a href="#"><h4>試験削除</h4></a></li>
-                            <li><a href="#"><h4>問題追加</h4></a></li>
-                            <li><a href="#"><h4>問題編集</h4></a></li>
-                            <li><a href="#"><h4>問題削除</h4></a></li>
-                        </ul>
-                    </div>
-                </div>
-            @endcan
-
-            {{--Admin・User共通表示--}}
-
             <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">チェンジログ</h3>
+                        <h3 class="panel-title">新着情報</h3>
                     </div>
                     <div class="panel-body">
                         <ul id="chengelog">
