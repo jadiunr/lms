@@ -13,7 +13,7 @@
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
-                @foreach ($errors->all() as $error)
+                @foreach ($errors->get('file') as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
@@ -49,15 +49,15 @@
     <form action="password" method="post">
         現在のパスワード:<input type="password" name="oldpassword"><br>
         @if($errors->has('oldpassword'))
-            <span class="error">{{$errors->first('oldpassword')}}</span><br>
+            <span class="error" style="color:red">{{$errors->first('oldpassword')}}</span><br>
         @endif
         新しいパスワード:<input type="password" name="newpassword1"><br>
-        @if($errors->has('newpassword'))
-            <span class="error">{{$errors->first('newpassword1')}}</span><br>
+        @if($errors->has('newpassword1'))
+            <span class="error" style="color:red">{{$errors->first('newpassword1')}}</span><br>
         @endif
         新しいパスワード(確認):<input type="password" name="newpassword2"><br>
-        @if($errors->has('newpassword'))
-            <span class="error">{{$errors->first('newpassword2')}}</span><br>
+        @if($errors->has('newpassword2'))
+            <span class="error" style="color:red">{{$errors->first('newpassword2')}}</span><br>
         @endif
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         {!! Form::submit('パスワード変更', ['class' => 'btn btn-default']) !!}
