@@ -26,7 +26,7 @@
                 <img src="{{ asset('storage/img/' . $user->icon) }}" alt="icon" />
             </p>
         @endif
-        {!! Form::label('file', 'アイコンアップロード', ['class' => 'control-label']) !!}
+        {!! Form::label('file', '画像アップロード', ['class' => 'control-label']) !!}
         {!! Form::file('file') !!}
     </div>
 
@@ -34,6 +34,16 @@
         {!! Form::submit('アイコン変更', ['class' => 'btn btn-default']) !!}
     </div>
     {!! Form::close() !!}
+
+    <h2>名前変更</h2>
+    <form action="name" method="post">
+        新しい名前:<input type="text" name="name"><br>
+        @if($errors->has('name'))
+            <span class="error">{{$errors->first('')}}</span><br>
+        @endif
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        {!! Form::submit('名前変更', ['class' => 'btn btn-default']) !!}
+    </form>
 
     <h2>パスワード変更</h2>
     <form action="password" method="post">
