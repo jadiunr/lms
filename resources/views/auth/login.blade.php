@@ -56,7 +56,7 @@
                                 </button>
 
                                 　　パスワードを忘れた方は
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a href="{{ route('password.request') }}">
                                     こちら
                                 </a>
                             </div>
