@@ -72,7 +72,7 @@
                         @else
                             <li><a href="#">試験選択</a></li>
                             <li><a href="#">ランキング</a></li>
-                            <li><a href="#">質問掲示板</a></li>
+                            <li><a href="/bbs">質問掲示板</a></li>
                             <li><a href="#">新着情報</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
