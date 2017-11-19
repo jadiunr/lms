@@ -149,17 +149,17 @@ class BbsController extends Controller
         /*
          * 検索機能
          */
-        if($request->key_w) {
-            $threads = Thread::where('title','LIKE',"%$request->key_w%")
-                ->orderBy('id','desc')
-                ->get();
-        } else {
-            return redirect()->back();
-        }
+        $query = Thread::query();
 
-        //質問の解決状態で絞る
+        $query->where('title','LIKE',"%$request->key_w%");
+
+        //質問の状態で絞る
+        $query->where('solved',$request->solved);
 
         //質問のカテゴリで絞る
+        $query->where('category_id',$request->category);
+
+        $threads = $query->get();
 
         return view('bbs.search', [
             "key_w" => $request->key_w,
