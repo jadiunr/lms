@@ -147,6 +147,10 @@ class BbsController extends Controller
             return redirect()->back();
         }
 
+        //質問の解決状態で絞る
+
+        //質問のカテゴリで絞る
+
         return view('bbs.search', [
             "key_w" => $request->key_w,
             "threads" => $threads

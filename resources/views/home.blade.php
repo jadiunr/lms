@@ -2,10 +2,7 @@
 
 @section('content')
     <div class="row">
-
-
-        <div class="col-md-10">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">新着情報</h3>
@@ -26,7 +23,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+
+            <div class="col-md-5">
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <h3 class="panel-title">試験選択</h3>
@@ -54,14 +52,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-
 
         <div class="col-md-2">
-
-            <img src="seseki.png" width="165px" height="auto">
-
-            <img src="rank.png" width="165px" height="auto">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">ランキング</h3>
+                </div>
                 <ul class="list-group">
                     <li class="list-group-item">1位　学籍番号　0.00%</li>
                     <li class="list-group-item">2位　学籍番号　0.00%</li>
@@ -69,6 +65,7 @@
                     <li class="list-group-item">4位　学籍番号　0.00%</li>
                     <li class="list-group-item">5位　学籍番号　0.00%</li>
                 </ul>
+            </div>
         </div>
     </div>
 @endsection
