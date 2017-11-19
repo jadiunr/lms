@@ -17,6 +17,9 @@
             font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
             background-color: #ffffff;
         }
+        #app {
+            margin-bottom: 50px;
+        }
     </style>
     @yield('css')
 </head>
@@ -102,7 +105,7 @@
         </nav>
 
         <div class="container">
-        @yield('content')
+            @yield('content')
         </div>
         
     </div>

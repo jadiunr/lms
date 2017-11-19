@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Post;
 use App\Thread;
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\BbsRequest;
@@ -103,11 +104,20 @@ class BbsController extends Controller
         //閲覧者が質問の投稿者かどうかを判定するため
         $user_id = Auth::user()->id;
 
+        //関連する質問
+        $category_id = $first_comment->thread->category_id;
+        $related_threads = Thread::where('category_id', $category_id)
+            ->whereNotIn('id', [$request->id])
+            ->orderBy('id', 'desc')
+            ->take(10)
+            ->get();
+
         return view('bbs.show', [
             "first_comment" => $first_comment,
             "thread_id" => $request->id,
             "posts" => $posts,
-            "user_id" => $user_id
+            "user_id" => $user_id,
+            "related_threads" => $related_threads
         ]);
     }
 
