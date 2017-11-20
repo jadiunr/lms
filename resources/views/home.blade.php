@@ -43,13 +43,11 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">質問一覧</h3>
                     </div>
-                    <div class="panel-body">
-                        <ul style="list-style:none;">
+                        <ul class="list-group">
                             @foreach($threads as $thread)
-                                <li><h5>{{ Html::link('/bbs/show?id='.$thread->id, $thread->title) }}</h5></li>
+                                <li class="list-group-item">{{ Html::link('/bbs/show?id='.$thread->id, $thread->title) }}</li>
                             @endforeach
                         </ul>
-                    </div>
                 </div>
             </div>
 

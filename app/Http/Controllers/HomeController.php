@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         //最新のスレッド三件を取得
         $threads = Thread::latest('updated_at')
-            ->take(5)
+            ->take(4)
             ->get();
 
         return view('home', compact('threads'));
