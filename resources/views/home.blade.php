@@ -45,9 +45,9 @@
                     </div>
                     <div class="panel-body">
                         <ul style="list-style:none;">
-                            <li><a href="#"><h5>新着質問</h5></a></li>
-                            <li><a href="#"><h5>新着質問</h5></a></li>
-                            <li><a href="#"><h5>新着質問</h5></a></li>
+                            @foreach($threads as $thread)
+                                <li><h5>{{ Html::link('/bbs/show?id='.$thread->id, $thread->title) }}</h5></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

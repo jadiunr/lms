@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Thread;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        //最新のスレッド三件を取得
+        $threads = Thread::latest('updated_at')
+            ->take(5)
+            ->get();
+
+        return view('home', compact('threads'));
     }
 }

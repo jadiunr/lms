@@ -102,7 +102,7 @@
             @endforeach
         </div>
         <div class="col-md-4">
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">関連する質問</h3>
                 </div>
