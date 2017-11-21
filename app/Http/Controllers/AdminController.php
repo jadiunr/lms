@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Exam;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class AdminController extends Controller
 {
+    //ユーザ管理
+
     public function getUsers(){
         $users = User::all();
         return view('admin.users', ['users' => $users]);
@@ -36,7 +39,10 @@ class AdminController extends Controller
         return redirect()->route('admin.users');
     }
 
+    // 試験管理
+
     public function getExams(){
-        return view('admin.exams');
+        $exams = Exam::all();
+        return view('admin.exams', ['exams' => $exams]);
     }
 }
