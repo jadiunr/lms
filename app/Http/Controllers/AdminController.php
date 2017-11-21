@@ -35,4 +35,8 @@ class AdminController extends Controller
         \Session::flash('flash_message', 'User successfully edited!');
         return redirect()->route('admin.users');
     }
+
+    public function getExams(){
+        return view('admin.exams');
+    }
 }

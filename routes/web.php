@@ -49,7 +49,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/name','EditController@name');
 
     //情報変更ページ(アイコン, パスワード)
-    Route::get('/edit','EditController@edit');
+    Route::get('/edit', [
+        'uses' => 'EditController@edit',
+        'as' => 'user.edit'
+    ]);
 
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
@@ -67,22 +70,26 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/{exam_id}/exam/learning/answer/{problem_id}/{problem_answer}',ExamController::class."@answer");
 
     Route::group(['middleware' => 'admin'], function(){
+
         //管理者::ユーザ管理ページ表示
         Route::get('/admin/users', [
             'uses' => 'AdminController@getUsers',
             'as' => 'admin.users'
         ]);
-
         //管理者::ユーザ編集ページ表示
         Route::get('/admin/users/edit/{id}', [
             'uses' => 'AdminController@editUser',
             'as' => 'admin.editUser'
         ]);
-
         //管理者::ユーザ更新処理
         Route::post('/admin/users/update/{id}', [
             'uses' => 'AdminController@updateUser',
             'as' => 'admin.updateUser'
+        ]);
+
+        Route::get('/admin/exams', [
+           'uses' => 'AdminController@getExams',
+            'as' => 'admin.exams'
         ]);
     });
 });
