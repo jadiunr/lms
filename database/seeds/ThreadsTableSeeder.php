@@ -12,11 +12,11 @@ class ThreadsTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 1;$i <= 25;$i++){
+
             $thread = new Thread();
-            $thread->title = 'dummy_thread' . $i;
+            $thread->title = '解説が見れない';
             $thread->category_id = 1;
             $thread->save();
-        }
+
     }
 }
