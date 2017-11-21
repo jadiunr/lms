@@ -11,6 +11,8 @@
             {!! Form::open(['method' => 'get', 'action' => 'BbsController@search']) !!}
             <div class="input-group">
                 <input type="text" class="form-control" name="key_w">
+                {!! Form::hidden('solved', 0) !!}
+                {!! Form::hidden('category', 1) !!}
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="submit">検索</button>
                 </span>
