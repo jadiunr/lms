@@ -54,20 +54,23 @@ Route::group(['middleware' => 'auth'], function() {
         'as' => 'user.edit'
     ]);
 
+//    /exam/{試験区分}/{試験ブロック}/{モード(ラーニング)}
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
 
+    Route::get('/exam/{exam_id}',ExamController::class."@block");
+
     //試験メニュー画面のtop画面
-    Route::get('/{exam_id}/exam',ExamController::class."@index")->name('top');
+    Route::get('/exam/{exam_id}/{block_id}',ExamController::class."@index")->name('top');
 
     //ラーニングモードの画面
-    Route::get('/{exam_id}/exam/learning',ExamController::class."@learn");
+    Route::get('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@learn");
 
     //ラーニングモード各問題画面
-    Route::get('/{exam_id}/exam/learning/{id}',ExamController::class."@learn_id")->name('problem_id');
+    Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}',ExamController::class."@learn_id")->name('problem_id');
 
     //正誤判定
-    Route::get('/{exam_id}/exam/learning/answer/{problem_id}/{problem_answer}',ExamController::class."@answer");
+    Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}',ExamController::class."@answer");
 
     Route::group(['middleware' => 'admin'], function(){
 

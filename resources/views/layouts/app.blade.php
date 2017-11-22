@@ -20,12 +20,13 @@
         #app {
             margin-bottom: 50px;
         }
+        @yield('style')
     </style>
     @yield('css')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0px">
             <div class="container">
                 <div class="navbar-header">
 
@@ -103,7 +104,11 @@
                 </div>
             </div>
         </nav>
-
+        @if (session('flash_message')=='Great!')
+            <div class="flash_message" style="text-align: center;padding: 5px;color: green;background: #CCFFCC; " onclick="this.classList.add('hidden')">{{ session('flash_message') }}</div>
+        @elseif(session('flash_message')=='Fuck!')
+            <div class="flash_message" style="text-align: center;padding: 5px;color: green;background: #FFCCCC; " onclick="this.classList.add('hidden')">{{ session('flash_message') }}</div>
+        @endif
         <div class="container">
             @yield('content')
         </div>
@@ -112,5 +117,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('script')
 </body>
 </html>
