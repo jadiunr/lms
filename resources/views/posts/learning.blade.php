@@ -4,6 +4,14 @@
     <link rel="stylesheet" href="/css/learning.css">
 @endsection
 
+@section('flash')
+    @if (session('flash_message')=='Great!')
+        <div class="flash_message" style="text-align: center;padding: 5px;color: green;background: #CCFFCC; " onclick="this.classList.add('hidden')">{{ session('flash_message') }}</div>
+    @elseif(session('flash_message')=='Fuck!')
+        <div class="flash_message" style="text-align: center;padding: 5px;color: green;background: #FFCCCC; " onclick="this.classList.add('hidden')">{{ session('flash_message') }}</div>
+    @endif
+@endsection
+
 @section('content')
 
 
