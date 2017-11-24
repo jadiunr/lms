@@ -72,47 +72,54 @@ Route::group(['middleware' => 'auth'], function() {
     //正誤判定
     Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}',ExamController::class."@answer");
 
+    //管理者用Route
     Route::group(['middleware' => 'admin'], function(){
 
-        //管理者::ユーザ管理ページ表示
+        // ユーザ管理ページ
         Route::get('/admin/users', [
             'uses' => 'AdminController@getUsers',
             'as' => 'admin.users'
         ]);
-        //管理者::ユーザ編集ページ表示
+        // ユーザ編集ページ
         Route::get('/admin/users/edit/{id}', [
             'uses' => 'AdminController@editUser',
             'as' => 'admin.editUser'
         ]);
-        //管理者::ユーザ更新処理
+        
+        // ユーザ更新処理
         Route::post('/admin/users/update/{id}', [
             'uses' => 'AdminController@updateUser',
             'as' => 'admin.updateUser'
         ]);
 
+        // 試験管理ページ
         Route::get('/admin/exams', [
            'uses' => 'AdminController@getExams',
             'as' => 'admin.exams'
         ]);
 
-        Route::get('/admin/exams/{id}', [
-            'uses' => 'AdminController@editExam',
-            'as' => 'admin.editExam'
-        ]);
-
-        Route::post('/admin/exams/update/{id}', [
-            'uses' => 'AdminController@updateExam',
-            'as' => 'admin.updateExam'
-        ]);
-
+        // 試験作成ページ
         Route::get('/admin/exams/create', [
             'uses' => 'AdminController@getCreateExam',
             'as' => 'admin.getCreateExam'
         ]);
 
+        // 試験作成処理
         Route::post('/admin/exams/create', [
             'uses' => 'AdminController@postCreateExam',
             'as' => 'admin.postCreateExam'
+        ]);
+
+        // 試験詳細ページ
+        Route::get('/admin/exams/{id}', [
+            'uses' => 'AdminController@editExam',
+            'as' => 'admin.editExam'
+        ]);
+
+        // 試験更新処理
+        Route::post('/admin/exams/update/{id}', [
+            'uses' => 'AdminController@updateExam',
+            'as' => 'admin.updateExam'
         ]);
     });
 });
