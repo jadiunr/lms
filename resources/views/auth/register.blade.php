@@ -44,11 +44,6 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email_confirmation">
-                                @if($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
 
