@@ -85,7 +85,7 @@ Route::group(['middleware' => 'auth'], function() {
             'uses' => 'AdminController@editUser',
             'as' => 'admin.editUser'
         ]);
-        
+
         // ユーザ更新処理
         Route::post('/admin/users/update/{id}', [
             'uses' => 'AdminController@updateUser',

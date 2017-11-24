@@ -48,8 +48,8 @@ class AdminController extends Controller
 
     public function editExam($id){
         $exam = Exam::findOrFail($id);
-        $old_exam = Exam::findOrFail($id);
-        return view('admin.edit_exam', compact('exam', 'old_exam'));
+        $blocks = Block::findOrFail();
+        return view('admin.edit_exam', compact('exam', 'blocks'));
     }
 
     public function updateExam($id, Request $request){

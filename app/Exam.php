@@ -8,7 +8,7 @@ class Exam extends Model
 {
     // 主キーの型をstringに変更する(デフォルトはint)(要検証)
     // 書かなくても動いた
-    // protected $keyType = 'string';
+    protected $keyType = 'string';
 
     /**
      * モデルの主キーを自動増分させるか否か
