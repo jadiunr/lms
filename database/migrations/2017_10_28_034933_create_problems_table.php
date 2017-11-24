@@ -15,14 +15,19 @@ class CreateProblemsTable extends Migration
     {
         Schema::create('problems', function (Blueprint $table) {
             $table->increments('id');  //問題ID
-            $table->string('class'); //試験区分
+            $table->string('exam_id'); //試験区分
+            $table->string('block_id');//試験ブロックID
+            $table->integer('category_id');//カテゴリー
+            $table->integer('problem_number');//問題番号
             $table->string('question');  //問題
             $table->string('answer1');
             $table->string('answer2');
             $table->string('answer3');
             $table->string('answer4');
-            $table->string('explain'); //正解
-            $table->string('correct'); //解説
+            $table->string('pic_que');//問題画像
+            $table->string('pic_ans');//解説画像
+            $table->string('correct'); //正解
+            $table->string('explain'); //解説
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@
         #app {
             margin-bottom: 50px;
         }
+        @yield('style')
     </style>
     @yield('css')
 </head>
@@ -50,7 +51,7 @@
                         @else
                             @if(Auth::user()->admin == True)
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                    <a href="#admin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                         管理者メニュー <span class="caret"></span>
                                     </a>
 
@@ -78,7 +79,7 @@
                             <li><a href="/bbs">質問掲示板</a></li>
                             <li><a href="#">新着情報</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                <a href="#me" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -103,7 +104,7 @@
                 </div>
             </div>
         </nav>
-
+        @yield('flash')
         <div class="container">
             @yield('content')
         </div>
@@ -112,5 +113,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('script')
 </body>
 </html>

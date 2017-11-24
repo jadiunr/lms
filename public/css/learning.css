@@ -1,4 +1,6 @@
 /*　　四択css   */
+
+
 ul.select-list button {font-size:12px;
     width:50px;
     height:28px;
@@ -58,5 +60,7 @@ ul.select-list2 {
 .scrollbox a:hover{
     background-color: #dddddd;
 }
+
+#app > nav{ margin-bottom: 0;}
 
 
