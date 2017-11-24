@@ -59,6 +59,6 @@ class AdminController extends Controller
         $exam->save();
 
         \Session::flash('flash_message', 'Exam successfully edited!');
-        return redirect()->route('admin.editExam');
+        return redirect()->route('admin.editExam', $exam->id);
     }
 }
