@@ -175,7 +175,7 @@ class PostsTableSeeder extends Seeder
 
         $post = new Post();
         $post->thread_id = 8;
-        $post->user_id = 1;
+        $post->user_id = 2;
         $post->comment = '
         「CPUの性能」と「実行できる命令数」と「時間」の関係は、「速度」と「距離」と「時間」の関係に似ています。
         距離＝速度×時間

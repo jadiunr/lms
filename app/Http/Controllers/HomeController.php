@@ -26,6 +26,7 @@ class HomeController extends Controller
     {
         //最新のスレッド4件を取得
         $threads = Thread::latest('updated_at')
+            ->orderBy('id','desc')
             ->take(4)
             ->get();
 
