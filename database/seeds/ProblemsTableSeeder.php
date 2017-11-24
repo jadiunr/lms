@@ -16,10 +16,10 @@ class ProblemsTableSeeder extends Seeder
         //
         for ($i = 1; $i < 81; $i++) {
             switch ($i%4){
-                case 0:$correct="ア";break;
-                case 1:$correct="イ";break;
-                case 2:$correct="ウ";break;
-                case 3:$correct="エ";break;
+                case 0:$correct="エ";break;
+                case 1:$correct="ア";break;
+                case 2:$correct="イ";break;
+                case 3:$correct="ウ";break;
             }
             Problem::create([
                 'exam_id'=>'FE',
@@ -33,7 +33,7 @@ class ProblemsTableSeeder extends Seeder
                 'answer4'=> '4',
                 'pic_que'=> '',
                 'pic_ans'=> '',
-                'explain' => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                'explain' => 'aaa',
                 'correct' => $correct
             ]);
         }
