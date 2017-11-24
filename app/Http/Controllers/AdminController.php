@@ -61,4 +61,18 @@ class AdminController extends Controller
         \Session::flash('flash_message', 'Exam successfully edited!');
         return redirect()->route('admin.editExam', $exam->id);
     }
+
+    public function getCreateExam(){
+        return view('admin.create_exam');
+    }
+
+    public function postCreateExam(Request $request){
+        $exam = new Exam();
+        $exam->id = $request->id;
+        $exam->name = $request->name;
+        $exam->save();
+
+        \Session::flash('flash_message', 'Exam successfully created!');
+        return redirect()->route('admin.editExam', $exam->id);
+    }
 }

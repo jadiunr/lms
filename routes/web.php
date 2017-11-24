@@ -104,5 +104,15 @@ Route::group(['middleware' => 'auth'], function() {
             'uses' => 'AdminController@updateExam',
             'as' => 'admin.updateExam'
         ]);
+
+        Route::get('/admin/exams/create', [
+            'uses' => 'AdminController@getCreateExam',
+            'as' => 'admin.getCreateExam'
+        ]);
+
+        Route::post('/admin/exams/create', [
+            'uses' => 'AdminController@postCreateExam',
+            'as' => 'admin.postCreateExam'
+        ]);
     });
 });

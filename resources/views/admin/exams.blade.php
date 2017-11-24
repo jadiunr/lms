@@ -38,7 +38,7 @@
                     </table>
                 </div>
             </div>
-                <a href="#"><button type="button" class="btn btn-success">新規試験追加</button></a>
+                <a href="{{ route('admin.getCreateExam') }}"><button type="button" class="btn btn-success">新規試験追加</button></a>
         </div>
     </div>
 @endsection
