@@ -91,5 +91,15 @@ Route::group(['middleware' => 'auth'], function() {
            'uses' => 'AdminController@getExams',
             'as' => 'admin.exams'
         ]);
+
+        Route::get('/admin/exams/{id}', [
+            'uses' => 'AdminController@editExam',
+            'as' => 'admin.editExam'
+        ]);
+
+        Route::post('/admin/exams/update/{id}', [
+            'uses' => 'AdminController@updateExam',
+            'as' => 'admin.updateExam'
+        ]);
     });
 });

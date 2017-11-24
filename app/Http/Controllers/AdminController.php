@@ -45,4 +45,20 @@ class AdminController extends Controller
         $exams = Exam::all();
         return view('admin.exams', ['exams' => $exams]);
     }
+
+    public function editExam($id){
+        $exam = Exam::findOrFail($id);
+        $old_exam = Exam::findOrFail($id);
+        return view('admin.edit_exam', compact('exam', 'old_exam'));
+    }
+
+    public function updateExam($id, Request $request){
+        $exam = Exam::findOrFail($id);
+        $exam->id = $request->id;
+        $exam->name = $request->name;
+        $exam->save();
+
+        \Session::flash('flash_message', 'Exam successfully edited!');
+        return redirect()->route('admin.editExam');
+    }
 }
