@@ -32,6 +32,7 @@
                 <div class="panel-body">
                     <table class="table table-striped">
                         <tr>
+                            <th class="center">ブロックID</th>
                             <th class="center">ブロック名</th>
                             <th class="center">作成日</th>
                             <th class="center">更新日</th>
@@ -40,14 +41,17 @@
                             <th class="center">削除</th>
                         </tr>
                         @foreach($blocks as $block)
+                            @if($block->exam_id == $exam->id)
                             <tr>
-                                <td class="center">{{ $exam->id }}</td>
-                                <td class="center">{{ $exam->name }}</td>
-                                <td class="center">{{ $exam->created_at }}</td>
-                                <td class="center">{{ $exam->updated_at }}</td>
-                                <td class="center"><a href="{{ route('admin.editExam', ['id' => $exam->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
+                                <td class="center">{{ $block->id }}</td>
+                                <td class="center">{{ $block->name }}</td>
+                                <td class="center">{{ $block->created_at }}</td>
+                                <td class="center">{{ $block->updated_at }}</td>
+                                <td class="center">{{ $block->count }}</td>
+                                <td class="center"><a href="{{ route('admin.editBlock', ['exam_id' => $block->exam_id, 'block_id' => $block->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
                                 <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
                             </tr>
+                            @endif
                         @endforeach
                     </table>
                 </div>

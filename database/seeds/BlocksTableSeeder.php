@@ -12,9 +12,9 @@ class BlocksTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<10;$i++){
+        for($i=20;$i<30;$i++){
             $block = new Block();
-            $block->id = 'block'. $i;
+            $block->id = 'h'.$i.'_s';
             $block->name = 'blockname'. $i;
             $block->save();
         }

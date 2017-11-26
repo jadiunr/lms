@@ -73,53 +73,59 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}',ExamController::class."@answer");
 
     //管理者用Route
-    Route::group(['middleware' => 'admin'], function(){
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
 
         // ユーザ管理ページ
-        Route::get('/admin/users', [
+        Route::get('/users', [
             'uses' => 'AdminController@getUsers',
             'as' => 'admin.users'
         ]);
         // ユーザ編集ページ
-        Route::get('/admin/users/edit/{id}', [
+        Route::get('/users/edit/{id}', [
             'uses' => 'AdminController@editUser',
             'as' => 'admin.editUser'
         ]);
 
         // ユーザ更新処理
-        Route::post('/admin/users/update/{id}', [
+        Route::post('/users/update/{id}', [
             'uses' => 'AdminController@updateUser',
             'as' => 'admin.updateUser'
         ]);
 
         // 試験管理ページ
-        Route::get('/admin/exams', [
+        Route::get('/exams', [
            'uses' => 'AdminController@getExams',
             'as' => 'admin.exams'
         ]);
 
         // 試験作成ページ
-        Route::get('/admin/exams/create', [
+        Route::get('/exams/create', [
             'uses' => 'AdminController@getCreateExam',
             'as' => 'admin.getCreateExam'
         ]);
 
         // 試験作成処理
-        Route::post('/admin/exams/create', [
+        Route::post('/exams/create', [
             'uses' => 'AdminController@postCreateExam',
             'as' => 'admin.postCreateExam'
         ]);
 
         // 試験詳細ページ
-        Route::get('/admin/exams/{id}', [
+        Route::get('/exams/{id}', [
             'uses' => 'AdminController@editExam',
             'as' => 'admin.editExam'
         ]);
 
         // 試験更新処理
-        Route::post('/admin/exams/update/{id}', [
+        Route::post('/exams/update/{id}', [
             'uses' => 'AdminController@updateExam',
             'as' => 'admin.updateExam'
+        ]);
+
+        //試験ブロック編集ページ
+        Route::get('/exams/{exam_id}/{block_id}', [
+            'uses' => 'AdminController@editBlock',
+            'as' => 'admin.editBlock'
         ]);
     });
 });
