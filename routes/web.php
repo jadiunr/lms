@@ -95,5 +95,11 @@ Route::group(['middleware' => 'auth'], function() {
            'uses' => 'AdminController@getExams',
             'as' => 'admin.exams'
         ]);
+
+        //スレッド管理
+        Route::get('/admin/bbs', 'BbsAdminController@index');
+
+        //コメント管理
+        Route::get('/admin/bbs/show', 'BbsAdminController@show');
     });
 });
