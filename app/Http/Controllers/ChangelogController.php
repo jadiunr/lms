@@ -9,7 +9,7 @@ class ChangelogController extends Controller
 {
     public function show()
     {
-        $changelog = Changelog::all();
+        $changelog = Changelog::orderBy('id','desc')->get();
 
         return view('changelog')->with(compact('changelog'));
     }
