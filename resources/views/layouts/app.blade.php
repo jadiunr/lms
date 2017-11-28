@@ -60,6 +60,7 @@
                                             <a href="{{ route('admin.exams') }}">試験管理</a>
                                             <a href="{{ route('admin.users') }}">ユーザ管理</a>
                                             <a href="#">成績一覧</a>
+                                            <a href="/admin/bbs">掲示板管理</a>
                                         </li>
                                     </ul>
                                 </li>
