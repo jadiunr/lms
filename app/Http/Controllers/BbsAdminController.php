@@ -27,4 +27,20 @@ class BbsAdminController extends Controller
             "posts" => $posts
         ]);
     }
+
+    public function delete_thread(Request $request) {
+        Thread::where('id', $request->thread_id)
+            ->delete();
+
+        $request->session()->flash('message','削除しました');
+        return redirect()->back();
+    }
+
+    public function delete_post(Request $request) {
+        Post::where('id', $request->post_id)
+            ->delete();
+
+        $request->session()->flash('message','削除しました');
+        return redirect()->back();
+    }
 }

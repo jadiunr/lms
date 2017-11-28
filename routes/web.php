@@ -101,5 +101,11 @@ Route::group(['middleware' => 'auth'], function() {
 
         //コメント管理
         Route::get('/admin/bbs/show', 'BbsAdminController@show');
+
+        //スレッド削除
+        Route::post('/admin/bbs/delete_thread', 'BbsAdminController@delete_thread');
+
+        //コメント削除
+        Route::post('/admin/bbs/delete_post', 'BbsAdminController@delete_post');
     });
 });
