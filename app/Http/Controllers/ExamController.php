@@ -66,6 +66,14 @@ class ExamController extends Controller
 
 
 
+           $answers=session()->get('answers',[]);
+
+            $answers[$problem_id-1] = $answer;
+
+            session()->put('answers',$answers);
+
+
+
             $problem_answer = DB::table('problems')->where('exam_id',$exam_id)->where('problem_number',$problem_id)->first();
 
 
@@ -74,6 +82,26 @@ class ExamController extends Controller
             }
 
             return redirect('/exam/'.$exam_id.'/'.$block_id.'/'.$mode_id.'/'.$problem_id)->with('flash_message', 'Fuck!');
+
+    }
+
+    function answer_list($exam_id,$block_id,$mode_id){
+
+        $post=DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->orderBy('problem_number')->get();
+
+        $session_item=session()->get('answers',[]);
+
+
+         return view('posts.answer_list',["exam_id"=>$block_id,"correct"=>$post,"session_item"=>$session_item,
+             "judgment"=>function($index,$correct){
+                  if($index == $correct){
+                      return "○";
+                  }
+                  return "×";
+
+
+             }]);
+
 
     }
 
