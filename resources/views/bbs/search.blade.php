@@ -5,8 +5,8 @@
         {!! Form::open(['method' => 'get', 'action' => 'BbsController@search']) !!}
         <div class="col-sm-4">
             <div class="form-group">
-                {!! Form::select('solved', [false => '未解決', true => '解決済み']) !!}&nbsp;
-                {!! Form::select('category', [1 => 'その他', 2 => 'テクノロジー', 3 => 'マネジメント', 4 => 'ストラテジー']) !!}<br>
+                {!! Form::select('solved', ['all' => 'ALL' ,false => '未解決', true => '解決済み']) !!}&nbsp;
+                {!! Form::select('category_id', ['all' => 'ALL', 1 => 'その他', 2 => 'テクノロジー', 3 => 'マネジメント', 4 => 'ストラテジー']) !!}<br>
             </div>
         </div>
         <div class="col-sm-8">
