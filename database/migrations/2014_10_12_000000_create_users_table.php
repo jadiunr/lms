@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             //$table->string('user',16)-
             $table->increments('id',12)->unique();//主キー
             $table->string('name',12)->unique();//ユーザー名
-            $table->string('realname',12)->unique();//本名
+            $table->string('handlename',12)->unique();//ハンドルネーム
             $table->string('password',512);//パスワードハッシュ化されたもの
             $table->string('email',32)->unique();//メールアドレス
             $table->string('icon',80)->nullable();//icon null許可
