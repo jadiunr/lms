@@ -51,13 +51,12 @@ class AdminController extends Controller
 
     public function editExam($id){
         $exam = Exam::findOrFail($id);
-        $blocks = DB::select('select p.exam_id, b.id, b.name, count(*) as count, b.created_at, b.updated_at from blocks b join problems p on b.id = p.block_id group by b.id, p.exam_id');
+        $blocks = DB::select('select p.exam_id, b.id, b.name, count(*) as count, b.created_at, b.updated_at from blocks b join problems p on b.id = p.block_id and \''. $id .'\'= p.exam_id group by b.id, p.exam_id');
         return view('admin.edit_exam', compact('exam', 'blocks'));
     }
 
     public function updateExam($id, Request $request){
         $exam = Exam::findOrFail($id);
-        $exam->id = $request->id;
         $exam->name = $request->name;
         $exam->save();
 

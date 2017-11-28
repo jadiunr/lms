@@ -11,10 +11,6 @@
 
             {!! Form::open(['route' => ['admin.updateExam', $exam->id]]) !!}
             <div class="form-group">
-                {!! Form::label('id', 'Exam ID:') !!}
-                {!! Form::text('id', $exam->id, ['class' => 'form-control']) !!}
-            </div>
-            <div class="form-group">
                 {!! Form::label('name', 'Name:') !!}
                 {!! Form::text('name', $exam->name, ['class' => 'form-control']) !!}
             </div>
@@ -41,7 +37,6 @@
                             <th class="center">削除</th>
                         </tr>
                         @foreach($blocks as $block)
-                            @if($block->exam_id == $exam->id)
                             <tr>
                                 <td class="center">{{ $block->id }}</td>
                                 <td class="center">{{ $block->name }}</td>
@@ -51,7 +46,6 @@
                                 <td class="center"><a href="{{ route('admin.editBlock', ['exam_id' => $block->exam_id, 'block_id' => $block->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
                                 <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
                             </tr>
-                            @endif
                         @endforeach
                     </table>
                 </div>
