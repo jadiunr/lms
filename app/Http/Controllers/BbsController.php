@@ -163,7 +163,9 @@ class BbsController extends Controller
             $query->where('category_id',$request->category_id);
         }
 
-        $threads = $query->get();
+        $threads = $query
+            ->latest('updated_at')
+            ->get();
 
         return view('bbs.search', [
             "key_w" => $request->key_w,
