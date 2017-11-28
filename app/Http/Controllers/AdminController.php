@@ -85,19 +85,19 @@ class AdminController extends Controller
         return view('admin.edit_block',compact('exam_id','block', 'problems'));
     }
 
-    public function editProblem($problem_id){
+    public function editProblem($exam_id, $block_id, $problem_id){
         $problem = Problem::findOrFail($problem_id);
         $categories = Category::all();
-        return view('admin.edit_problem', compact('problem', 'categories'));
+        return view('admin.edit_problem', compact('exam_id', 'block_id', 'problem', 'categories'));
     }
 
-    public function updateProblem($problem_id, Request $request){
+    public function updateProblem($exam_id, $block_id, $problem_id, Request $request){
         $problem = Problem::findOrFail($problem_id);
         $problem->problem_number = $request->problem_number;
         $problem->category_id = $request->category_id;
         $problem->question = $request->question;
         $problem->save();
         \Session::flash('flash_message', 'Problem successfully edited!');
-        return redirect()->route('admin.editProblem', $problem->id);
+        return redirect()->route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $block_id]);
     }
 }

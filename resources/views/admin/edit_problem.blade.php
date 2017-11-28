@@ -9,7 +9,7 @@
                 </div>
             @endif
 
-            {!! Form::open(['route' => ['admin.updateProblem', $problem->id]]) !!}
+            {!! Form::open(['route' => ['admin.updateProblem', $exam_id, $block_id, $problem->id]]) !!}
             <div class="form-group">
                 {!! Form::label('problem_number', '問題番号:') !!}
                 {!! Form::text('problem_number', $problem->problem_number, ['class' => 'form-control']) !!}

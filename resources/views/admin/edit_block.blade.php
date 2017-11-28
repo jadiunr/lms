@@ -43,7 +43,7 @@
                                 <td class="center">{{ $problem->name }}</td>
                                 <td class="center">{{ $problem->created_at }}</td>
                                 <td class="center">{{ $problem->updated_at }}</td>
-                                <td class="center"><a href="{{ route('admin.editProblem', ['problem_id' => $problem->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
+                                <td class="center"><a href="{{ route('admin.editProblem', ['exam_id' => $exam_id, 'block_id' => $block->id, 'problem_id' => $problem->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
                                 <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
                             </tr>
                         @endforeach

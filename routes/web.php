@@ -111,18 +111,6 @@ Route::group(['middleware' => 'auth'], function() {
             'as' => 'admin.postCreateExam'
         ]);
 
-        //問題編集ページ
-        Route::get('/exams/problems/{problem_id}', [
-            'uses' => 'AdminController@editProblem',
-            'as' => 'admin.editProblem'
-        ]);
-
-        //問題更新
-        Route::post('/exams/problems/{problem_id}',[
-            'uses' => 'AdminController@updateProblem',
-            'as' => 'admin.updateProblem'
-        ]);
-
         // 試験更新処理
         Route::post('/exams/update/{exam_id}', [
             'uses' => 'AdminController@updateExam',
@@ -139,6 +127,18 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/exams/{exam_id}/{block_id}', [
             'uses' => 'AdminController@editBlock',
             'as' => 'admin.editBlock'
+        ]);
+
+        //問題編集ページ
+        Route::get('/exams/{exam_id}/{block_id}/{problem_id}', [
+            'uses' => 'AdminController@editProblem',
+            'as' => 'admin.editProblem'
+        ]);
+
+        //問題更新
+        Route::post('/exams/{exam_id}/{block_id}/{problem_id}',[
+            'uses' => 'AdminController@updateProblem',
+            'as' => 'admin.updateProblem'
         ]);
     });
 });
