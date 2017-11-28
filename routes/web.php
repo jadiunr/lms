@@ -53,8 +53,7 @@ Route::group(['middleware' => 'auth'], function() {
         'uses' => 'EditController@edit',
         'as' => 'user.edit'
     ]);
-
-//    /exam/{試験区分}/{試験ブロック}/{モード(ラーニング)}
+    
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
 
@@ -71,6 +70,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     //正誤判定
     Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}',ExamController::class."@answer");
+
+    Route::post('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@answer_list");
 
     Route::group(['middleware' => 'admin'], function(){
 
