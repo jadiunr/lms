@@ -27,14 +27,14 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">HandleName</label>
+                            <label for="realname" class="col-md-4 control-label">RealName</label>
 
                             <div class="col-md-6">
-                                <input id="handlename" type="text" class="form-control" name="handlename" value="{{ old('handlename') }}" required autofocus>
+                                <input id="realname" type="text" class="form-control" name="realname" value="{{ old('realname') }}" required autofocus>
 
-                                @if ($errors->has('handlename'))
+                                @if ($errors->has('realname'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('handlename') }}</strong>
+                                        <strong>{{ $errors->first('realname') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -80,7 +80,7 @@
                             <li><a href="#">新着情報</a></li>
                             <li class="dropdown">
                                 <a href="#me" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->handlename }} <span class="caret"></span>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
