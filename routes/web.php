@@ -73,6 +73,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::post('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@answer_list");
 
+    //changelog
+    Route::get('/changelog', 'ChangelogController@show');
 
     Route::group(['middleware' => 'admin'], function(){
 
