@@ -112,13 +112,13 @@ Route::group(['middleware' => 'auth'], function() {
         ]);
 
         //問題編集ページ
-        Route::get('/exams/problem/{problem_id}', [
+        Route::get('/exams/problems/{problem_id}', [
             'uses' => 'AdminController@editProblem',
             'as' => 'admin.editProblem'
         ]);
 
         //問題更新
-        Route::post('/exams/problem/{problem_id}',[
+        Route::post('/exams/problems/{problem_id}',[
             'uses' => 'AdminController@updateProblem',
             'as' => 'admin.updateProblem'
         ]);

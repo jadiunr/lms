@@ -37,8 +37,7 @@
                             <th class="center">削除</th>
                         </tr>
                         @foreach($problems as $problem)
-                            <td>
-                            <td>{{ $problem->id }}</td>
+                            <tr>
                                 <td class="center">{{ $problem->problem_number }}</td>
                                 <td class="center">{{ str_limit($problem->question, 30, $end = '...') }}</td>
                                 <td class="center">{{ $problem->name }}</td>

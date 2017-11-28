@@ -16,7 +16,11 @@
             </div>
             <div class="form-group">
                 {!! Form::label('category', 'カテゴリ:') !!}
-                {!! Form::select('category', array_pluck($categories, 'name', 'id'), $problem->category_id) !!}
+                {!! Form::select('category_id', array_pluck($categories, 'name', 'id'), $problem->category_id) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('question', '問題:') !!}
+                {!! Form::text('question', $problem->question, ['class' => 'form-control']) !!}
             </div>
             <div class="form-group">
                 {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}

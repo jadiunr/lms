@@ -7,6 +7,7 @@ use App\User;
 use App\Exam;
 use App\Block;
 use App\Problem;
+use App\Category;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
 
@@ -80,20 +81,21 @@ class AdminController extends Controller
 
     public function editBlock($exam_id, $block_id){
         $block = Block::findOrFail($block_id);
-        $problems = Problem::where('exam_id', $exam_id)->where('block_id', $block_id)->join('categories','categories.id', '=', 'problems.category_id')->orderBy('problem_number')->get();
-        return view('admin.edit_block',compact('block', 'problems'));
+        $problems = DB::select('select p.id, p.problem_number, p.question, c.name, p.created_at, p.updated_at from problems p join categories c on c.id = p.category_id where p.exam_id = \''.$exam_id.'\' and p.block_id = \''.$block_id.'\' order by p.problem_number');
+        return view('admin.edit_block',compact('exam_id','block', 'problems'));
     }
 
     public function editProblem($problem_id){
         $problem = Problem::findOrFail($problem_id);
         $categories = Category::all();
-        return view('admin.edit_problem', compact('problem','categories'));
+        return view('admin.edit_problem', compact('problem', 'categories'));
     }
 
     public function updateProblem($problem_id, Request $request){
         $problem = Problem::findOrFail($problem_id);
         $problem->problem_number = $request->problem_number;
         $problem->category_id = $request->category_id;
+        $problem->question = $request->question;
         $problem->save();
         \Session::flash('flash_message', 'Problem successfully edited!');
         return redirect()->route('admin.editProblem', $problem->id);
