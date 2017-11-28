@@ -82,13 +82,13 @@ Route::group(['middleware' => 'auth'], function() {
             'as' => 'admin.users'
         ]);
         // ユーザ編集ページ
-        Route::get('/users/edit/{id}', [
+        Route::get('/users/edit/{user_id}', [
             'uses' => 'AdminController@editUser',
             'as' => 'admin.editUser'
         ]);
 
         // ユーザ更新処理
-        Route::post('/users/update/{id}', [
+        Route::post('/users/update/{user_id}', [
             'uses' => 'AdminController@updateUser',
             'as' => 'admin.updateUser'
         ]);
@@ -111,16 +111,28 @@ Route::group(['middleware' => 'auth'], function() {
             'as' => 'admin.postCreateExam'
         ]);
 
-        // 試験詳細ページ
-        Route::get('/exams/{id}', [
-            'uses' => 'AdminController@editExam',
-            'as' => 'admin.editExam'
+        //問題編集ページ
+        Route::get('/exams/problem/{problem_id}', [
+            'uses' => 'AdminController@editProblem',
+            'as' => 'admin.editProblem'
+        ]);
+
+        //問題更新
+        Route::post('/exams/problem/{problem_id}',[
+            'uses' => 'AdminController@updateProblem',
+            'as' => 'admin.updateProblem'
         ]);
 
         // 試験更新処理
-        Route::post('/exams/update/{id}', [
+        Route::post('/exams/update/{exam_id}', [
             'uses' => 'AdminController@updateExam',
             'as' => 'admin.updateExam'
+        ]);
+
+        // 試験詳細ページ
+        Route::get('/exams/{exam_id}', [
+            'uses' => 'AdminController@editExam',
+            'as' => 'admin.editExam'
         ]);
 
         //試験ブロック編集ページ

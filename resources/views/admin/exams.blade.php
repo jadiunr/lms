@@ -31,7 +31,7 @@
                                 <td class="center">{{ $exam->name }}</td>
                                 <td class="center">{{ $exam->created_at }}</td>
                                 <td class="center">{{ $exam->updated_at }}</td>
-                                <td class="center"><a href="{{ route('admin.editExam', ['id' => $exam->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
+                                <td class="center"><a href="{{ route('admin.editExam', ['exam_id' => $exam->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
                                 <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
                             </tr>
                         @endforeach

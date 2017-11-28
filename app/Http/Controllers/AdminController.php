@@ -19,13 +19,13 @@ class AdminController extends Controller
         return view('admin.users', ['users' => $users]);
     }
 
-    public function editUser($id){
-        $user = User::findOrFail($id);
+    public function editUser($user_id){
+        $user = User::findOrFail($user_id);
         return view('admin.edit_user', compact('user'));
     }
 
-    public function updateUser($id, Request $request){
-        $user = User::findOrFail($id);
+    public function updateUser($user_id, Request $request){
+        $user = User::findOrFail($user_id);
 
         $user->name = $request->name;
         $user->email = $request->email;
@@ -49,14 +49,14 @@ class AdminController extends Controller
         return view('admin.exams', ['exams' => $exams]);
     }
 
-    public function editExam($id){
-        $exam = Exam::findOrFail($id);
-        $blocks = DB::select('select p.exam_id, b.id, b.name, count(*) as count, b.created_at, b.updated_at from blocks b join problems p on b.id = p.block_id and \''. $id .'\'= p.exam_id group by b.id, p.exam_id');
+    public function editExam($exam_id){
+        $exam = Exam::findOrFail($exam_id);
+        $blocks = DB::select('select p.exam_id, b.id, b.name, count(*) as count, b.created_at, b.updated_at from blocks b join problems p on b.id = p.block_id and \''. $exam_id .'\'= p.exam_id group by b.id, p.exam_id');
         return view('admin.edit_exam', compact('exam', 'blocks'));
     }
 
-    public function updateExam($id, Request $request){
-        $exam = Exam::findOrFail($id);
+    public function updateExam($exam_id, Request $request){
+        $exam = Exam::findOrFail($exam_id);
         $exam->name = $request->name;
         $exam->save();
 
@@ -76,5 +76,26 @@ class AdminController extends Controller
 
         \Session::flash('flash_message', 'Exam successfully created!');
         return redirect()->route('admin.editExam', $exam->id);
+    }
+
+    public function editBlock($exam_id, $block_id){
+        $block = Block::findOrFail($block_id);
+        $problems = Problem::where('exam_id', $exam_id)->where('block_id', $block_id)->join('categories','categories.id', '=', 'problems.category_id')->orderBy('problem_number')->get();
+        return view('admin.edit_block',compact('block', 'problems'));
+    }
+
+    public function editProblem($problem_id){
+        $problem = Problem::findOrFail($problem_id);
+        $categories = Category::all();
+        return view('admin.edit_problem', compact('problem','categories'));
+    }
+
+    public function updateProblem($problem_id, Request $request){
+        $problem = Problem::findOrFail($problem_id);
+        $problem->problem_number = $request->problem_number;
+        $problem->category_id = $request->category_id;
+        $problem->save();
+        \Session::flash('flash_message', 'Problem successfully edited!');
+        return redirect()->route('admin.editProblem', $problem->id);
     }
 }

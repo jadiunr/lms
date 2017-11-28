@@ -56,7 +56,7 @@
                                         ユーザ
                                     @endif
                                 </td>
-                                <td class="center"><a href="{{ route('admin.editUser', ['id' => $user->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
+                                <td class="center"><a href="{{ route('admin.editUser', ['user_id' => $user->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
                                 <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
                             </tr>
                         @endforeach
