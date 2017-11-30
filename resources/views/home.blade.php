@@ -39,14 +39,6 @@
                             <li><a href="/exam/FE"><h4>基本情報技術者試験</h4></a></li>
                             <li><h4>情報セキュリティマネジメント</h4></li>
                         </ul>
-
-                        <h3>民間試験</h3>
-                        <ul>
-                            <li><h4>C言語能力検定 3級</h4></li>
-                            <li><h4>C言語能力検定 2級</h4></li>
-                            <li><h4>MOS検定　Word</h4></li>
-                            <li><h4>MOS検定　Excel</h4></li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -62,8 +54,6 @@
                 <li class="list-group-item">1位　学籍番号　0.00%</li>
                 <li class="list-group-item">2位　学籍番号　0.00%</li>
                 <li class="list-group-item">3位　学籍番号　0.00%</li>
-                <li class="list-group-item">4位　学籍番号　0.00%</li>
-                <li class="list-group-item">5位　学籍番号　0.00%</li>
             </ul>
 
             <a href="/bbs"><img src="qa.png" width="165px" height="auto"></a>
