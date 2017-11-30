@@ -13,6 +13,12 @@
             <p>正答数　<span style="font-size: 90px;color: @if($correct_count<80 and $correct_count>=64)#CEF6CE @elseif($correct_count<64 and $correct_count>=48)#FFCA00 @elseif($correct_count<40)#F6CECE @else red @endif">{{$correct_count}}</span>/80</p>
             <p>正答率　<span style="font-size: 90px;color: @if($correct_count<80 and $correct_count>=64)#CEF6CE @elseif($correct_count<64 and $correct_count>=48)#FFCA00 @elseif($correct_count<40)#F6CECE @else red @endif">{{$result}}</span>%</p>
             <a class="btn btn-default" href="/" role="button" style="font-size: 30px; position: absolute; top:600px ;left:300px">試験終了</a>
+            <div class="result_image" style="margin-left:150px;font-size:100px;color:green;display: none">
+                合格
+            </div>
+            <div class="result_image2" style="margin-left:50px;display: none";>
+                <img src="/810.jpg">
+            </div>
         </div>
         <div class="col-lg-6">
             <div class="row">
@@ -63,4 +69,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script src="/js/learning.js" type="text/javascript"></script>
 @endsection
