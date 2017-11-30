@@ -1,33 +1,66 @@
 @extends('layouts.app')
-
+@section('style')
+    #app > nav{ margin-bottom: 60px;}
+    .result > th,td {
+    border-bottom:solid 1px black ;
+    }
+    .col-lg-6 > p { font-size:40px;
+                    margin:50px}
+@endsection
 @section('content')
     <div class="row">
-        <div class="col-lg-6">
-            <p>正答数　{{$correct_count}}/80</p>
-            <p>正答率　{{$result}}%</p>
-            <a href="/"><button>試験終了</button></a>
+        <div class="col-lg-6" style="position: relative">
+            <p>正答数　<span style="font-size: 90px;color: @if($correct_count<80 and $correct_count>=60)#FFCA00 @elseif($correct_count<60 and $correct_count>=40)#F6CECE @elseif($correct_count<40)red @else #CEF6CE @endif">{{$correct_count}}</span>/80</p>
+            <p>正答率　<span style="font-size: 90px;color: @if($correct_count<80 and $correct_count>=60)#FFCA00 @elseif($correct_count<60 and $correct_count>=40)#F6CECE @elseif($correct_count<40)red @else #CEF6CE @endif">{{$result}}</span>%</p>
+            <a class="btn btn-default" href="/" role="button" style="font-size: 30px; position: absolute; top:600px ;left:300px">試験終了</a>
         </div>
-    <div class="col-lg-6">
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>解答</th>
-                    <th>答案</th>
-                    <th>正誤</th>
-                </tr>
-            </thead>
-                <?php $i=0 ?>
-                @foreach($problem_id as $item)
-                    <tr>
-                        <td>{{$item->problem_number}}</td>
-                        <td>{{$session_item[$i]}}</td>
-                        <td>{{$item->correct}}</td>
-                        <td style="font-size: 20px;padding:0;">{{$judgment($session_item[$i],$item->correct)}}</td>
-                    </tr>
-                <?php $i++?>
-                @endforeach
-        </table>
-    </div>
+        <div class="col-lg-6">
+            <div class="row">
+                @for($j=0;$j<4;$j++)
+                    <div class="col-lg-3" style="padding: 0">
+                        <table>
+                            <thead>
+                                <tr class="result">
+                                    @if($j==0)
+                                        <th></th>
+                                        <th>解答</th>
+                                        <th>答案</th>
+                                        <th>正誤</th>
+                                    @else
+                                        <th></th>
+                                        <th style="color: white">解答</th>
+                                        <th style="color: white">答案</th>
+                                        <th style="color: white">正誤</th>
+                                    @endif
+                                </tr>
+                            </thead>
+                                    @if($j==0)
+                                        <?php $i=0 ?>
+                                    @elseif($j==1)
+                                        <?php $i=20 ?>
+                                    @elseif($j==2)
+                                        <?php $i=40 ?>
+                                    @elseif($j==3)
+                                        <?php $i=60 ?>
+                                    @endif
+                                @foreach($problem_id as $item)
+                                    <tr class="result"@if($judgment($session_item[$i],$item->correct)=="○") style="background:#CEF6CE"
+                                        @else style="background:#F6CECE"@endif>
+                                        <td style="padding-left: 10px;">{{$i+1}}　</td>
+                                        <td>{{$session_item[$i]}}</td>
+                                        <td>{{$item->correct}}</td>
+                                        <td style="font-size: 20px;">{{$judgment($session_item[$i],$item->correct)}}</td>
+                                    </tr>
+                                    @if($i==19 or $i==39 or $i==59 or $i==79)
+                                        @break
+                                    @endif
+                                <?php $i++?>
+                                @endforeach
+
+                        </table>
+                    </div>
+                @endfor
+            </div>
+        </div>
     </div>
 @endsection

@@ -71,6 +71,7 @@ Route::group(['middleware' => 'auth'], function() {
     //正誤判定
     Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}',ExamController::class."@answer");
 
+    //解答リスト
     Route::post('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@answer_list");
 
     //changelog

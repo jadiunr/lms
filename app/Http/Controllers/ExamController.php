@@ -46,6 +46,7 @@ class ExamController extends Controller
 
         //次,前 問題のボタン処理
 
+
         if(is_null($problem_Previous) or $id==1){
             $Previous_btn=$id;
         }else{
@@ -62,8 +63,8 @@ class ExamController extends Controller
             return view('posts.learning')->with(['error'=>$error,'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id]);
         }
         if($mode_id=="test"){
-            $session_item=session()->get('answers_test',[]);
 
+            $session_item=session()->get('answers_test',[]);
 
             return view('posts.test')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'session_item'=>$session_item]);
 
@@ -93,6 +94,8 @@ class ExamController extends Controller
 
                 $problem_answer = DB::table('problems')->where('exam_id',$exam_id)->where('problem_number',$problem_id)->first();
 
+                $problem_id++;
+
                 if ($problem_answer->correct == $answer) {
                     return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', 'Great!');
                 }
@@ -111,6 +114,8 @@ class ExamController extends Controller
             $answers_test[$problem_id-1]=$answer;
 
             session()->put('answers_test',$answers_test);
+
+            $problem_id++;
 
 
             return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id);

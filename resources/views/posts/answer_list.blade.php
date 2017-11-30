@@ -4,7 +4,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>1~20</th>
+                <th>#</th>
                 <th>解答</th>
                 <th>答案</th>
                 <th>正誤</th>
