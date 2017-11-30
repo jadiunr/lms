@@ -154,12 +154,18 @@ class BbsController extends Controller
         $query->where('title','LIKE',"%$request->key_w%");
 
         //質問の状態で絞る
-        $query->where('solved',$request->solved);
+        if($request->solved != 'all'){
+            $query->where('solved',$request->solved);
+        }
 
         //質問のカテゴリで絞る
-        $query->where('category_id',$request->category);
+        if($request->category_id != 'all'){
+            $query->where('category_id',$request->category_id);
+        }
 
-        $threads = $query->get();
+        $threads = $query
+            ->latest('updated_at')
+            ->get();
 
         return view('bbs.search', [
             "key_w" => $request->key_w,
