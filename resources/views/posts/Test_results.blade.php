@@ -10,8 +10,8 @@
 @section('content')
     <div class="row">
         <div class="col-lg-6" style="position: relative">
-            <p>正答数　<span style="font-size: 90px;color: @if($correct_count<80 and $correct_count>=60)#FFCA00 @elseif($correct_count<60 and $correct_count>=40)#F6CECE @elseif($correct_count<40)red @else #CEF6CE @endif">{{$correct_count}}</span>/80</p>
-            <p>正答率　<span style="font-size: 90px;color: @if($correct_count<80 and $correct_count>=60)#FFCA00 @elseif($correct_count<60 and $correct_count>=40)#F6CECE @elseif($correct_count<40)red @else #CEF6CE @endif">{{$result}}</span>%</p>
+            <p>正答数　<span style="font-size: 90px;color: @if($correct_count<80 and $correct_count>=64)#CEF6CE @elseif($correct_count<64 and $correct_count>=48)#FFCA00 @elseif($correct_count<40)#F6CECE @else red @endif">{{$correct_count}}</span>/80</p>
+            <p>正答率　<span style="font-size: 90px;color: @if($correct_count<80 and $correct_count>=64)#CEF6CE @elseif($correct_count<64 and $correct_count>=48)#FFCA00 @elseif($correct_count<40)#F6CECE @else red @endif">{{$result}}</span>%</p>
             <a class="btn btn-default" href="/" role="button" style="font-size: 30px; position: absolute; top:600px ;left:300px">試験終了</a>
         </div>
         <div class="col-lg-6">
