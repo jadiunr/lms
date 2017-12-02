@@ -16,9 +16,6 @@
             <div class="result_image" style="margin-left:150px;font-size:100px;color:green;display: none">
                 合格
             </div>
-            <div class="result_image2" style="margin-left:50px;display: none";>
-                <img src="/810.jpg">
-            </div>
         </div>
         <div class="col-lg-6">
             <div class="row">

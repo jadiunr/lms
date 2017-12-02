@@ -18,12 +18,5 @@ $(function(){
         return false;
     });
     $('.result_image').fadeIn(1800);
-    $(document).ready(function(){
-        setTimeout(function() {
-            $(".result_image2").css("display","block");
-            $(".result_image").fadeOut(2500);
-        }, 2500);
-    });
-
 
 });
