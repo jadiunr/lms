@@ -11,6 +11,7 @@
 |
 */
 
+use \App\Http\Middleware\Session_set;
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function() {
@@ -59,20 +60,21 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/exam/{exam_id}',ExamController::class."@block");
 
-    //試験メニュー画面のtop画面
-    Route::get('/exam/{exam_id}/{block_id}',ExamController::class."@index")->name('top');
+    Route::group(['middleware' => 'session_set'], function(){
 
-    //ラーニングモードの画面
-    Route::get('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@learn");
+        //試験メニュー画面のtop画面
+        Route::get('/exam/{exam_id}/{block_id}',ExamController::class."@index");
 
-    //ラーニングモード各問題画面
-    Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}',ExamController::class."@learn_id")->name('problem_id');
+        //ラーニングモード各問題画面
+        Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}',ExamController::class."@learn_id")->name('problem_id');
 
-    //正誤判定
-    Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}',ExamController::class."@answer");
+        //正誤判定
+        Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}',ExamController::class."@answer");
 
-    //解答リスト
-    Route::post('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@answer_list");
+        //解答リスト
+        Route::post('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@answer_list");
+
+    });
 
     //changelog
     Route::get('/changelog', 'ChangelogController@show');
