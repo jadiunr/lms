@@ -58,21 +58,22 @@ Route::group(['middleware' => 'auth'], function() {
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
 
-    Route::get('/exam/{exam_id}',ExamController::class."@block");
+    //試験年度選択
+    Route::get('/exam/{exam_id}','ExamController@block');
 
     Route::group(['middleware' => 'session_set'], function(){
 
-        //試験メニュー画面のtop画面
-        Route::get('/exam/{exam_id}/{block_id}',ExamController::class."@index");
+        //モード選択
+        Route::get('/exam/{exam_id}/{block_id}','ExamController@index');
 
         //ラーニングモード各問題画面
-        Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}',ExamController::class."@learn_id")->name('problem_id');
+        Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}','ExamController@learn_id')->name('problem_id');
 
         //正誤判定
-        Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}',ExamController::class."@answer");
+        Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}','ExamController@answer');
 
         //解答リスト
-        Route::post('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@answer_list");
+        Route::post('/exam/{exam_id}/{block_id}/{mode_id}','ExamController@answer_list');
 
     });
 

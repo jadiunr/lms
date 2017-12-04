@@ -26,13 +26,13 @@
                                 <tr class="result">
                                     @if($j==0)
                                         <th></th>
-                                        <th>解答</th>
                                         <th>答案</th>
+                                        <th>解答</th>
                                         <th>正誤</th>
                                     @else
                                         <th></th>
-                                        <th style="color: white">解答</th>
                                         <th style="color: white">答案</th>
+                                        <th style="color: white">解答</th>
                                         <th style="color: white">正誤</th>
                                     @endif
                                 </tr>

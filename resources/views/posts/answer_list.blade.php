@@ -5,8 +5,8 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>解答</th>
                 <th>答案</th>
+                <th>解答</th>
                 <th>正誤</th>
             </tr>
         </thead>
