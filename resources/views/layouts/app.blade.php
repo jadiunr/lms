@@ -78,7 +78,7 @@
                             <li><a href="/exam">試験選択</a></li>
                             <li><a href="#">ランキング</a></li>
                             <li><a href="/bbs">質問掲示板</a></li>
-                            <li><a href="#">新着情報</a></li>
+                            <li><a href="/changelog">新着情報</a></li>
                             <li class="dropdown">
                                 <a href="#me" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->name }} <span class="caret"></span>
