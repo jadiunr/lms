@@ -28,6 +28,7 @@ font-size: 20px;
 
 
 
+<!--
 
 　　　<div class="button" style="clear:both;margin-top: 150px;margin-left: 130px;">
 
@@ -38,13 +39,18 @@ font-size: 20px;
         <div style="float:left;">
             <a href="/exam/{{$exam_id}}/{{$block_id}}/test/1" class="b-t-n1" style=" margin-left: 100px"><span class="b-t-n2">　テストモード　</span></a>
 
-            <!--　テストモードの両端の全角空白はaタグボタンの横サイズを調整するために入れています。　-->
+            　テストモードの両端の全角空白はaタグボタンの横サイズを調整するために入れています。　
 
         </div>
 
     </div>
 
-
+-->
+    ラーニングモード<br>
+    <a href="/exam/{{$exam_id}}/{{$block_id}}/learning/start">最初から始める</a>
+    <hr>
+    テストモード<br>
+    <a href="/exam/{{$exam_id}}/{{$block_id}}/test/start">最初から始める</a>
 
 
 

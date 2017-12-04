@@ -13,6 +13,24 @@ class ExamController extends Controller
         return view('posts.exam_list');
     }
 
+    //最初から始める
+    function start(Request $request, $exam_id, $block_id, $mode_id) {
+        /*
+         * ラーニングモードとテストモード開始時にセッションを破棄する
+         */
+        if($mode_id == 'learning'){
+            $request->session()->forget('answers');
+
+            return redirect()->to("/exam/{$exam_id}/{$block_id}/{$mode_id}/1");
+        }else if($mode_id == 'test'){
+            $request->session()->forget('answers_test');
+
+            return redirect()->to("/exam/{$exam_id}/{$block_id}/{$mode_id}/1");
+        }else{
+            return 'そんなモードないです';
+        }
+    }
+
     function block($exam_id){
 
      return view('posts.block_list',['exam_id'=>$exam_id]);
