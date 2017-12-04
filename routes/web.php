@@ -58,6 +58,9 @@ Route::group(['middleware' => 'auth'], function() {
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
 
+    //試験選択
+    Route::get('/exam', 'ExamController@getExams');
+
     //試験年度選択
     Route::get('/exam/{exam_id}','ExamController@block');
 

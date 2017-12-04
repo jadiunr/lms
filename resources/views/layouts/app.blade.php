@@ -75,7 +75,7 @@
                             <li><a href="{{ route('login') }}">ログイン</a></li>
                             <li><a href="{{ route('register') }}">新規登録</a></li>
                         @else
-                            <li><a href="/">試験選択</a></li>
+                            <li><a href="/exam">試験選択</a></li>
                             <li><a href="#">ランキング</a></li>
                             <li><a href="/bbs">質問掲示板</a></li>
                             <li><a href="#">新着情報</a></li>

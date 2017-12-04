@@ -8,7 +8,10 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 class ExamController extends Controller
 {
-
+    //試験選択
+    function getExams() {
+        return view('posts.exam_list');
+    }
 
     function block($exam_id){
 
