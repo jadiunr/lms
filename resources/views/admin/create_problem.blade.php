@@ -2,6 +2,9 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 col-md-offset-0">
+
+            <a href="{{ route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $block_id]) }}"><button type="button" class="btn btn-default">Back</button></a><hr/>
+
             {!! Form::open(['route' => ['admin.postCreateProblem', $exam_id, $block_id]]) !!}
             <div class="form-group">
                 {!! Form::label('category_id', 'Category:') !!}

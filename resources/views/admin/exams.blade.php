@@ -17,11 +17,6 @@
                 </div>
             @endif
 
-            <a href="{{ route('admin.getCreateExam') }}"><button type="button" class="btn btn-success">新規試験追加</button></a>
-            <a href="{{ route('admin.getCategories') }}"><button type="button" class="btn btn-default"> カテゴリ編集 </button></a>
-            <a href="{{ route('admin.getBlocksGlobal') }}"><button type="button" class="btn btn-default"> ブロック編集 </button></a>
-            <hr/>
-
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">試験一覧</h3>
@@ -49,6 +44,9 @@
                     </table>
                 </div>
             </div>
+            <a href="{{ route('admin.getCreateExam') }}"><button type="button" class="btn btn-success">新規試験追加</button></a>
+            <a href="{{ route('admin.getCategories') }}"><button type="button" class="btn btn-default"> カテゴリ編集 </button></a>
+            <a href="{{ route('admin.getBlocksGlobal') }}"><button type="button" class="btn btn-default"> ブロック編集 </button></a>
         </div>
     </div>
 @endsection

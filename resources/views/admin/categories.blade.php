@@ -11,6 +11,8 @@
     <div class="row">
         <div class="col-md-12 col-md-offset-0">
 
+            <a href="{{ route('admin.exams') }}"><button type="button" class="btn btn-default">Back</button></a><hr/>
+
             @if(Session::has('flash_message'))
                 <div class="alert alert-success">
                     {{ Session::get('flash_message') }}

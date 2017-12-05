@@ -3,6 +3,8 @@
     <div class="row">
         <div class="col-md-12 col-md-offset-0">
 
+            <a href="{{ route('admin.getBlocksGlobal') }}"><button type="button" class="btn btn-default">Back</button></a><hr/>
+
             {!! Form::open(['route' => 'admin.postCreateBlockGlobal']) !!}
             <div class="form-group">
                 {!! Form::label('id', 'Block ID:') !!}
