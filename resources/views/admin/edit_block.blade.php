@@ -50,6 +50,7 @@
                     </table>
                 </div>
             </div>
+            <a href="{{ route('admin.getCreateProblem', ['exam_id' => $exam_id, 'block_id' => $block->id]) }}"><button type="button" class="btn btn-success">問題追加</button></a>
         </div>
     </div>
 @endsection

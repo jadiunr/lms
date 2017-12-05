@@ -50,6 +50,7 @@
                     </table>
                 </div>
             </div>
+            <a href="{{ route('admin.getCreateBlock', $exam->id) }}"><button type="button" class="btn btn-success">ブロック追加</button></a>
         </div>
     </div>
 @endsection

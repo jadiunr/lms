@@ -79,10 +79,61 @@ class AdminController extends Controller
         return redirect()->route('admin.exams');
     }
 
+    public function getCreateBlock($exam_id){
+        $category = Category::all();
+        $block = Block::all();
+        return view('admin.create_block', compact('exam_id', 'category', 'block'));
+    }
+
+    public function postCreateBlock($exam_id, Request $request){
+        $problem = new Problem();
+        $problem->exam_id = $exam_id;
+        $problem->block_id = $request->block_id;
+        $problem->category_id = $request->category_id;
+        $problem->problem_number = 1;
+        $problem->question = $request->question;
+        $problem->answer1 = $request->answer1;
+        $problem->answer2 = $request->answer2;
+        $problem->answer3 = $request->answer3;
+        $problem->answer4 = $request->answer4;
+        $problem->pic_que = "";
+        $problem->pic_ans = "";
+        $problem->correct = $request->correct;
+        $problem->explain = $request->explain;
+        $problem->save();
+        \Session::flash('flash_message', 'Block & Problem successfully created!');
+        return redirect()->route('admin.editExam', $exam_id);
+    }
+
     public function editBlock($exam_id, $block_id){
         $block = Block::findOrFail($block_id);
         $problems = DB::select('select p.id, p.problem_number, p.question, c.name, p.created_at, p.updated_at from problems p join categories c on c.id = p.category_id where p.exam_id = \''.$exam_id.'\' and p.block_id = \''.$block_id.'\' order by p.problem_number');
         return view('admin.edit_block',compact('exam_id','block', 'problems'));
+    }
+
+    public function getCreateProblem($exam_id, $block_id){
+        $category = Category::all();
+        return view('admin.create_problem', compact('exam_id', 'block_id', 'category'));
+    }
+
+    public function postCreateProblem($exam_id, $block_id, Request $request){
+        $problem = new Problem();
+        $problem->exam_id = $exam_id;
+        $problem->block_id = $block_id;
+        $problem->category_id = $request->category_id;
+        $problem->problem_number = $request->problem_number;
+        $problem->question = $request->question;
+        $problem->answer1 = $request->answer1;
+        $problem->answer2 = $request->answer2;
+        $problem->answer3 = $request->answer3;
+        $problem->answer4 = $request->answer4;
+        $problem->pic_que = $request->pic_que;
+        $problem->pic_ans = $request->pic_ans;
+        $problem->correct = $request->correct;
+        $problem->explain = $request->explain;
+        $problem->save();
+        \Session::flash('flash_message', 'Problem successfully created!');
+        return redirect()->route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $block_id]);
     }
 
     public function editProblem($exam_id, $block_id, $problem_id){
@@ -93,9 +144,17 @@ class AdminController extends Controller
 
     public function updateProblem($exam_id, $block_id, $problem_id, Request $request){
         $problem = Problem::findOrFail($problem_id);
-        $problem->problem_number = $request->problem_number;
         $problem->category_id = $request->category_id;
+        $problem->problem_number = $request->problem_number;
         $problem->question = $request->question;
+        $problem->answer1 = $request->answer1;
+        $problem->answer2 = $request->answer2;
+        $problem->answer3 = $request->answer3;
+        $problem->answer4 = $request->answer4;
+        $problem->pic_que = $request->pic_que;
+        $problem->pic_ans = $request->pic_ans;
+        $problem->correct = $request->correct;
+        $problem->explain = $request->explain;
         $problem->save();
         \Session::flash('flash_message', 'Problem successfully edited!');
         return redirect()->route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $block_id]);
