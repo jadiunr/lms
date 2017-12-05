@@ -44,7 +44,12 @@
                                 <td class="center">{{ $problem->created_at }}</td>
                                 <td class="center">{{ $problem->updated_at }}</td>
                                 <td class="center"><a href="{{ route('admin.editProblem', ['exam_id' => $exam_id, 'block_id' => $block->id, 'problem_id' => $problem->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
-                                <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
+                                <td class="center">
+                                    {!! Form::open(['route' => 'admin.deleteProblem']) !!}
+                                    {!! Form::hidden('problem_id', $problem->id) !!}
+                                    {!! Form::submit('削除', ['class' => 'center-block btn btn-danger btn-sm']) !!}
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
                         @endforeach
                     </table>

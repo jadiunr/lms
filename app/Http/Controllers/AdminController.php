@@ -53,7 +53,8 @@ class AdminController extends Controller
     public function editExam($exam_id){
         $exam = Exam::findOrFail($exam_id);
         $blocks = DB::select('select p.exam_id, b.id, b.name, count(*) as count, b.created_at, b.updated_at from blocks b join problems p on b.id = p.block_id and \''. $exam_id .'\'= p.exam_id group by b.id, p.exam_id');
-        return view('admin.edit_exam', compact('exam', 'blocks'));
+        $full_blocks = Block::all();
+        return view('admin.edit_exam', compact('exam', 'blocks', 'full_blocks'));
     }
 
     public function updateExam($exam_id, Request $request){
@@ -79,30 +80,8 @@ class AdminController extends Controller
         return redirect()->route('admin.exams');
     }
 
-    public function getCreateBlock($exam_id){
-        $category = Category::all();
-        $block = Block::all();
-        return view('admin.create_block', compact('exam_id', 'category', 'block'));
-    }
-
-    public function postCreateBlock($exam_id, Request $request){
-        $problem = new Problem();
-        $problem->exam_id = $exam_id;
-        $problem->block_id = $request->block_id;
-        $problem->category_id = $request->category_id;
-        $problem->problem_number = 1;
-        $problem->question = $request->question;
-        $problem->answer1 = $request->answer1;
-        $problem->answer2 = $request->answer2;
-        $problem->answer3 = $request->answer3;
-        $problem->answer4 = $request->answer4;
-        $problem->pic_que = "";
-        $problem->pic_ans = "";
-        $problem->correct = $request->correct;
-        $problem->explain = $request->explain;
-        $problem->save();
-        \Session::flash('flash_message', 'Block & Problem successfully created!');
-        return redirect()->route('admin.editExam', $exam_id);
+    public function createBlock($exam_id, Request $request){
+        return redirect()->route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $request->block_id]);
     }
 
     public function editBlock($exam_id, $block_id){
@@ -220,5 +199,12 @@ class AdminController extends Controller
         $block->save();
         \Session::flash('flash_message', 'Block successfully edited!');
         return redirect()->route('admin.getBlocksGlobal');
+    }
+
+    //削除系
+    public function deleteProblem(Request $request){
+        Problem::where('id', $request->problem_id)->delete();
+        \Session::flash('flash_message', 'Problem successfully deleted!');
+        return redirect()->back();
     }
 }

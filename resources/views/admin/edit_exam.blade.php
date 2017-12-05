@@ -50,7 +50,10 @@
                     </table>
                 </div>
             </div>
-            <a href="{{ route('admin.getCreateBlock', $exam->id) }}"><button type="button" class="btn btn-success">ブロック追加</button></a>
+            {!! Form::open(['route' => ['admin.createBlock', $exam->id], 'method' => 'get']) !!}
+                {!! Form::select('block_id', array_pluck($full_blocks, 'name', 'id')) !!}
+                {!! Form::submit('ブロック追加', ['class' => 'btn btn-success']) !!}
+            {!! Form::close() !!}
         </div>
     </div>
 @endsection

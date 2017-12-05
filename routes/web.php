@@ -184,6 +184,12 @@ Route::group(['middleware' => 'auth'], function() {
             'as' => 'admin.updateBlockGlobal'
         ]);
 
+        // 問題削除
+        Route::post('/exams/delete_problem', [
+            'uses' => 'AdminController@deleteProblem',
+            'as' => 'admin.deleteProblem'
+        ]);
+
         // 試験詳細ページ
         Route::get('/exams/{exam_id}', [
             'uses' => 'AdminController@editExam',
@@ -196,16 +202,10 @@ Route::group(['middleware' => 'auth'], function() {
             'as' => 'admin.updateExam'
         ]);
 
-        // 試験ブロック作成ページ
+        //試験ブロック作成
         Route::get('/exams/{exam_id}/create-block', [
-            'uses' => 'AdminController@getCreateBlock',
-            'as' => 'admin.getCreateBlock'
-        ]);
-
-        // 試験ブロック作成処理
-        Route::post('/exams/{exam_id}/create-block', [
-            'uses' => 'AdminController@postCreateBlock',
-            'as' => 'admin.postCreateBlock'
+            'uses' => 'AdminController@createBlock',
+            'as' => 'admin.createBlock'
         ]);
 
         //試験ブロック編集ページ
@@ -239,15 +239,15 @@ Route::group(['middleware' => 'auth'], function() {
         ]);
 
         //スレッド管理
-        Route::get('/admin/bbs', 'BbsAdminController@index');
+        Route::get('/bbs', 'BbsAdminController@index');
 
         //コメント管理
-        Route::get('/admin/bbs/show', 'BbsAdminController@show');
+        Route::get('/bbs/show', 'BbsAdminController@show');
 
         //スレッド削除
-        Route::post('/admin/bbs/delete_thread', 'BbsAdminController@delete_thread');
+        Route::post('/bbs/delete_thread', 'BbsAdminController@delete_thread');
 
         //コメント削除
-        Route::post('/admin/bbs/delete_post', 'BbsAdminController@delete_post');
+        Route::post('/bbs/delete_post', 'BbsAdminController@delete_post');
     });
 });
