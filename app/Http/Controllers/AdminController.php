@@ -76,7 +76,7 @@ class AdminController extends Controller
         $exam->save();
 
         \Session::flash('flash_message', 'Exam successfully created!');
-        return redirect()->route('admin.editExam', $exam->id);
+        return redirect()->route('admin.exams');
     }
 
     public function editBlock($exam_id, $block_id){
@@ -100,4 +100,35 @@ class AdminController extends Controller
         \Session::flash('flash_message', 'Problem successfully edited!');
         return redirect()->route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $block_id]);
     }
+
+    public function getCategories(){
+        $categories = Category::all();
+        return view('admin.categories', ['categories' => $categories]);
+    }
+
+    public function getCreateCategory(){
+        return view('admin.create_category');
+    }
+
+    public function postCreateCategory(Request $request){
+        $category = new Category();
+        $category->name = $request->name;
+        $category->save();
+        \Session::flash('flash_message', 'Category successfully created!');
+        return redirect()->route('admin.getCategories');
+    }
+
+    public function editCategory($category_id){
+        $category = Category::findOrFail($category_id);
+        return view('admin.edit_category', compact('category'));
+    }
+
+    public function updateCategory($category_id, Request $request){
+        $category = Category::findOrFail($category_id);
+        $category->name = $request->name;
+        $category->save();
+        \Session::flash('flash_message', 'Category successfully edited!');
+        return redirect()->route('admin.getCategories');
+    }
+
 }

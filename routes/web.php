@@ -111,7 +111,7 @@ Route::group(['middleware' => 'auth'], function() {
            'uses' => 'AdminController@getExams',
             'as' => 'admin.exams'
         ]);
-        
+
         // 試験作成ページ
         Route::get('/exams/create', [
             'uses' => 'AdminController@getCreateExam',
@@ -124,16 +124,46 @@ Route::group(['middleware' => 'auth'], function() {
             'as' => 'admin.postCreateExam'
         ]);
 
-        // 試験更新処理
-        Route::post('/exams/update/{exam_id}', [
-            'uses' => 'AdminController@updateExam',
-            'as' => 'admin.updateExam'
+        // カテゴリ編集ページ
+        Route::get('/exams/categories', [
+            'uses' => 'AdminController@getCategories',
+            'as' => 'admin.getCategories'
+        ]);
+
+        // カテゴリ作成ページ
+        Route::get('/exams/categories/create', [
+            'uses' => 'AdminController@getCreateCategory',
+            'as' => 'admin.getCreateCategory'
+        ]);
+
+        // カテゴリ作成処理
+        Route::post('/exams/categories/create', [
+            'uses' => 'AdminController@postCreateCategory',
+            'as' => 'admin.postCreateCategory'
+        ]);
+
+        //カテゴリ編集ページ
+        Route::get('/exams/categories/{category_id}', [
+            'uses' => 'AdminController@editCategory',
+            'as' => 'admin.editCategory'
+        ]);
+
+        //カテゴリ編集処理
+        Route::post('/exams/categories/{category_id}', [
+            'uses' => 'AdminController@updateCategory',
+            'as' => 'admin.updateCategory'
         ]);
 
         // 試験詳細ページ
         Route::get('/exams/{exam_id}', [
             'uses' => 'AdminController@editExam',
             'as' => 'admin.editExam'
+        ]);
+
+        // 試験更新処理
+        Route::post('/exams/{exam_id}', [
+            'uses' => 'AdminController@updateExam',
+            'as' => 'admin.updateExam'
         ]);
 
         //試験ブロック編集ページ
