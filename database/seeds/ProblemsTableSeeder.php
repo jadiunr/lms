@@ -32,7 +32,7 @@ class ProblemsTableSeeder extends Seeder
             Problem::create([
                 'exam_id'=> $exam_id,
                 'block_id'=>'h25_s',
-                'category_id'=> 0,
+                'category_id'=> 1,
                 'problem_number'=> $i,
                 'question'=> 'dummyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'.$i,
                 'answer1'=> '1',
@@ -64,7 +64,7 @@ class ProblemsTableSeeder extends Seeder
             Problem::create([
                 'exam_id'=> 'fe',
                 'block_id'=>'h26_s',
-                'category_id'=> 0,
+                'category_id'=> 1,
                 'problem_number'=> $i,
                 'question'=> 'dummyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'.$i,
                 'answer1'=> '1',

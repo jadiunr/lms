@@ -148,10 +148,40 @@ Route::group(['middleware' => 'auth'], function() {
             'as' => 'admin.editCategory'
         ]);
 
-        //カテゴリ編集処理
+        //カテゴリ更新処理
         Route::post('/exams/categories/{category_id}', [
             'uses' => 'AdminController@updateCategory',
             'as' => 'admin.updateCategory'
+        ]);
+
+        // グローバルブロック一覧
+        Route::get('/exams/blocks', [
+            'uses' => 'AdminController@getBlocksGlobal',
+            'as' => 'admin.getBlocksGlobal'
+        ]);
+
+        // グローバルブロック作成ページ
+        Route::get('/exams/blocks/create', [
+            'uses' => 'AdminController@getCreateBlockGlobal',
+            'as' => 'admin.getCreateBlockGlobal'
+        ]);
+
+        // グローバルブロック作成処理
+        Route::post('/exams/blocks/create', [
+            'uses' => 'AdminController@postCreateBlockGlobal',
+            'as' => 'admin.postCreateBlockGlobal'
+        ]);
+
+        // グローバルブロック編集ページ
+        Route::get('/exams/blocks/{block_id}', [
+            'uses' => 'AdminController@editBlockGlobal',
+            'as' => 'admin.editBlockGlobal'
+        ]);
+
+        // グローバルブロック更新処理
+        Route::post('/exams/blocks/{block_id}', [
+            'uses' => 'AdminController@updateBlockGlobal',
+            'as' => 'admin.updateBlockGlobal'
         ]);
 
         // 試験詳細ページ

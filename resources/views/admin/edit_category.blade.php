@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12 col-md-offset-0">
 
-            {!! Form::open(['route' => 'admin.updateCategory', $category->id]) !!}
+            {!! Form::open(['route' => ['admin.updateCategory', $category->id]]) !!}
             <div class="form-group">
                 {!! Form::label('name', 'Category Name:') !!}
                 {!! Form::text('name', $category->name, ['class' => 'form-control']) !!}

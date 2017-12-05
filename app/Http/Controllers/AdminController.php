@@ -131,4 +131,35 @@ class AdminController extends Controller
         return redirect()->route('admin.getCategories');
     }
 
+    public function getBlocksGlobal(){
+        $blocks = Block::all();
+        return view('admin.blocks', ['blocks' => $blocks]);
+    }
+
+    public function getCreateBlockGlobal(){
+        return view('admin.create_block_global');
+    }
+
+    public function postCreateBlockGlobal(Request $request){
+        $block = new Block();
+        $block->id = $request->id;
+        $block->name = $request->name;
+        $block->save();
+        \Session::flash('flash_message', 'Block successfully created!');
+        return redirect()->route('admin.getBlocksGlobal');
+    }
+
+    public function editBlockGlobal($block_id){
+        $block = Block::findOrFail($block_id);
+        return view('admin.edit_block_global', compact('block'));
+    }
+
+    public function updateBlockGlobal($block_id, Request $request){
+        $block = Block::findOrFail($block_id);
+        $block->id = $request->id;
+        $block->name = $request->name;
+        $block->save();
+        \Session::flash('flash_message', 'Block successfully edited!');
+        return redirect()->route('admin.getBlocksGlobal');
+    }
 }
