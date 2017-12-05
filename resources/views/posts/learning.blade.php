@@ -20,14 +20,12 @@
                 <div class="col-lg-1"></div>
 
                 <div class="col-lg-8" style="margin-top:60px ">
-                    <h2 style="margin-bottom: 30px">問{{$problem_number->id}}</h2>
+                    <h2 style="margin-bottom: 30px">問{{$problem_id->problem_number}}</h2>
                     <p style="margin-bottom: 50px">
                         @if(isset($error))
                             {!! $error !!}
                         @elseif(isset($problem_id))
                             {!! $problem_id->question !!}
-                        @else
-                            最新問題が表じされます。
                         @endif
                     </p>　　
 
@@ -54,9 +52,9 @@
                 <div class="col-lg-3" style="margin-top: 100px">
                     <div>
                         <div class="scrollbox" style="height:350px;overflow:auto;border:1px solid #aaa;padding:10px;">
-                                 @for($i = 1; $i < 81; $i++)
-                                        <p><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$i}}' style="text-decoration: none ;color:black;">問{{$i}} コンテンツ<input type="checkbox"  name="check[]" style="margin-left:10px ;"></a></p>
-                                @endfor
+                            @for($i = 1; $i < 81; $i++)
+                                <p><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$i}}' style="text-decoration: none ;color:black;">問{{$i}} コンテンツ</a></p>
+                            @endfor
                         </div>
                     </div>
                     <div class="problem-btm" style="margin-top: 30px">
@@ -82,4 +80,3 @@
 @section('script')
     <script src="/js/learning.js" type="text/javascript"></script>
 @endsection
-

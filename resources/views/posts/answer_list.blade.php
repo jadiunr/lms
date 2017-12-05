@@ -5,12 +5,16 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>解答</th>
                 <th>答案</th>
+                <th>解答</th>
                 <th>正誤</th>
             </tr>
         </thead>
         <?php $i=0?>
+
+
+
+
         @foreach($correct as $item)
         <tr @if($judgment($session_item[$i],$item->correct)=="○") style="background:#CEF6CE"
         @else style="background:#F6CECE"@endif>

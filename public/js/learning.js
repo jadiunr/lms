@@ -17,5 +17,6 @@ $(function(){
         $('body,html').animate({scrollTop:position}, speed, 'swing');
         return false;
     });
+    $('.result_image').fadeIn(1800);
 
 });

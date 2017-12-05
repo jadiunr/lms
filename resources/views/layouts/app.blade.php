@@ -60,6 +60,7 @@
                                             <a href="{{ route('admin.exams') }}">試験管理</a>
                                             <a href="{{ route('admin.users') }}">ユーザ管理</a>
                                             <a href="#">成績一覧</a>
+                                            <a href="/admin/bbs">掲示板管理</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -74,10 +75,10 @@
                             <li><a href="{{ route('login') }}">ログイン</a></li>
                             <li><a href="{{ route('register') }}">新規登録</a></li>
                         @else
-                            <li><a href="#">試験選択</a></li>
+                            <li><a href="/exam">試験選択</a></li>
                             <li><a href="#">ランキング</a></li>
                             <li><a href="/bbs">質問掲示板</a></li>
-                            <li><a href="#">新着情報</a></li>
+                            <li><a href="/changelog">新着情報</a></li>
                             <li class="dropdown">
                                 <a href="#me" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->name }} <span class="caret"></span>

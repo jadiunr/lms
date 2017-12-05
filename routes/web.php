@@ -11,6 +11,7 @@
 |
 */
 
+use \App\Http\Middleware\Session_set;
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function() {
@@ -57,21 +58,33 @@ Route::group(['middleware' => 'auth'], function() {
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
 
-    Route::get('/exam/{exam_id}',ExamController::class."@block");
+    //試験選択
+    Route::get('/exam', 'ExamController@getExams');
 
-    //試験メニュー画面のtop画面
-    Route::get('/exam/{exam_id}/{block_id}',ExamController::class."@index")->name('top');
+    //試験年度選択
+    Route::get('/exam/{exam_id}','ExamController@block');
 
-    //ラーニングモードの画面
-    Route::get('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@learn");
+    //ラーニングモード or テストモード スタート
+    Route::get('/exam/{exam_id}/{block_id}/{mode_id}/start', 'ExamController@start');
 
-    //ラーニングモード各問題画面
-    Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}',ExamController::class."@learn_id")->name('problem_id');
+    Route::group(['middleware' => 'session_set'], function(){
 
-    //正誤判定
-    Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}',ExamController::class."@answer");
+        //モード選択
+        Route::get('/exam/{exam_id}/{block_id}','ExamController@index');
 
-    Route::post('/exam/{exam_id}/{block_id}/{mode_id}',ExamController::class."@answer_list");
+        //ラーニングモード各問題画面
+        Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}','ExamController@learn_id')->name('problem_id');
+
+        //正誤判定
+        Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}','ExamController@answer');
+
+        //解答リスト
+        Route::post('/exam/{exam_id}/{block_id}/{mode_id}','ExamController@answer_list');
+
+    });
+
+    //changelog
+    Route::get('/changelog', 'ChangelogController@show');
 
     //管理者用Route
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
@@ -98,7 +111,7 @@ Route::group(['middleware' => 'auth'], function() {
            'uses' => 'AdminController@getExams',
             'as' => 'admin.exams'
         ]);
-
+        
         // 試験作成ページ
         Route::get('/exams/create', [
             'uses' => 'AdminController@getCreateExam',
@@ -140,5 +153,17 @@ Route::group(['middleware' => 'auth'], function() {
             'uses' => 'AdminController@updateProblem',
             'as' => 'admin.updateProblem'
         ]);
+
+        //スレッド管理
+        Route::get('/admin/bbs', 'BbsAdminController@index');
+
+        //コメント管理
+        Route::get('/admin/bbs/show', 'BbsAdminController@show');
+
+        //スレッド削除
+        Route::post('/admin/bbs/delete_thread', 'BbsAdminController@delete_thread');
+
+        //コメント削除
+        Route::post('/admin/bbs/delete_post', 'BbsAdminController@delete_post');
     });
 });

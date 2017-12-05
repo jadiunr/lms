@@ -35,7 +35,7 @@ class EditController extends Controller
                 // アップロードされたファイルであること
                 'file',
                 //画像(jpg、png、bmp、gif、svg)
-                'image',
+                'image'
             ]
         ],$messages);
 
