@@ -51,7 +51,7 @@
                         @else
                             @if(Auth::user()->admin == True)
                                 <li class="dropdown">
-                                    <a href="#admin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                    <a href="#admin_pd_menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                         管理者メニュー <span class="caret"></span>
                                     </a>
 
