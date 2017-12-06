@@ -214,6 +214,12 @@ Route::group(['middleware' => 'auth'], function() {
             'as' => 'admin.editBlock'
         ]);
 
+        //試験ブロック名更新処理
+        Route::post('/exams/{exam_id}/{block_id}', [
+            'uses' => 'AdminController@updateBlock',
+            'as' => 'admin.updateBlock'
+        ]);
+
         // 問題作成ページ
         Route::get('/exams/{exam_id}/{block_id}/create-problem', [
             'uses' => 'AdminController@getCreateProblem',

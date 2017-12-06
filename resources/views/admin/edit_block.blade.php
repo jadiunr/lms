@@ -11,7 +11,7 @@
                 </div>
             @endif
 
-            {!! Form::open(['route' => ['admin.updateExam', $block->id]]) !!}
+            {!! Form::open(['route' => ['admin.updateBlock', $exam_id, $block->id]]) !!}
             <div class="form-group">
                 {!! Form::label('name', 'Name:') !!}
                 {!! Form::text('name', $block->name, ['class' => 'form-control']) !!}
