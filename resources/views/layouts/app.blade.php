@@ -58,7 +58,7 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="{{ route('admin.exams') }}">試験管理</a>
-                                            <a href="{{ route('admin.users') }}">ユーザ管理</a>
+                                            <a href="{{ route('admin.users') }}">利用者管理</a>
                                             <a href="#">成績一覧</a>
                                             <a href="/admin/bbs">掲示板管理</a>
                                         </li>
@@ -85,7 +85,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a href="/record">個人成績</a></li>
+                                    <li><a href="#">個人成績</a></li>
                                     <li><a href="{{ route('user.edit') }}">設定</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
