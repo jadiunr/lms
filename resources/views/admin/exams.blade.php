@@ -38,14 +38,18 @@
                                 <td class="center">{{ $exam->created_at }}</td>
                                 <td class="center">{{ $exam->updated_at }}</td>
                                 <td class="center"><a href="{{ route('admin.editExam', ['exam_id' => $exam->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
-                                <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
+                                <td class="center">
+                                    {!! Form::open(['route' => ['admin.deleteExam']]) !!}
+                                    {!! Form::hidden('exam_id', $exam->id) !!}
+                                    {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
                         @endforeach
                     </table>
                 </div>
             </div>
             <a href="{{ route('admin.getCreateExam') }}"><button type="button" class="btn btn-success">新規試験追加</button></a>
-            <a href="{{ route('admin.getCategories') }}"><button type="button" class="btn btn-default"> カテゴリ編集 </button></a>
             <a href="{{ route('admin.getBlocksGlobal') }}"><button type="button" class="btn btn-default"> ブロック編集 </button></a>
         </div>
     </div>

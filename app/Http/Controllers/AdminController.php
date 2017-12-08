@@ -167,41 +167,6 @@ class AdminController extends Controller
         return redirect()->route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $block_id]);
     }
 
-    //カテゴリ一覧ページ
-    public function getCategories(){
-        $categories = Category::all();
-        return view('admin.categories', ['categories' => $categories]);
-    }
-
-    //カテゴリ作成ページ
-    public function getCreateCategory(){
-        return view('admin.create_category');
-    }
-
-    //カテゴリ作成処理
-    public function postCreateCategory(Request $request){
-        $category = new Category();
-        $category->name = $request->name;
-        $category->save();
-        \Session::flash('flash_message', 'Category successfully created!');
-        return redirect()->route('admin.getCategories');
-    }
-
-    //カテゴリ編集ページ
-    public function editCategory($category_id){
-        $category = Category::findOrFail($category_id);
-        return view('admin.edit_category', compact('category'));
-    }
-
-    //カテゴリ更新処理
-    public function updateCategory($category_id, Request $request){
-        $category = Category::findOrFail($category_id);
-        $category->name = $request->name;
-        $category->save();
-        \Session::flash('flash_message', 'Category successfully edited!');
-        return redirect()->route('admin.getCategories');
-    }
-
     //ブロック一覧ページ
     //試験ブロックは全試験で共有するため、新たにブロックを作成する場合はこのページで行う
     public function getBlocksGlobal(){
@@ -241,9 +206,40 @@ class AdminController extends Controller
     }
 
     //問題削除処理
+
+    // 問題削除
     public function deleteProblem(Request $request){
-        Problem::where('id', $request->problem_id)->delete();
+        Problem::where('id', $request->problem_id)
+            ->delete();
         \Session::flash('flash_message', 'Problem successfully deleted!');
+        return redirect()->back();
+    }
+
+    // ブロック削除
+    public function deleteBlock(Request $request){
+        Problem::where('exam_id', $request->exam_id)
+            ->where('block_id', $request->block_id)
+            ->delete();
+        \Session::flash('flash_message', 'Block successfully deleted!');
+        return redirect()->back();
+    }
+
+    // 試験削除
+    public function deleteExam(Request $request){
+        Problem::where('exam_id', $request->exam_id)
+            ->delete();
+        Exam::where('id', $request->exam_id)
+            ->delete();
+        \Session::flash('flash_message', 'Exam successfully deleted!');
+        return redirect()->back();
+    }
+
+    public function deleteBlockGlobal(Request $request){
+        Problem::where('block_id', $request->block_id)
+            ->delete();
+        Block::where('id', $request->block_id)
+            ->delete();
+        \Session::flash('flash_message', 'Block successfully deleted globally.');
         return redirect()->back();
     }
 }

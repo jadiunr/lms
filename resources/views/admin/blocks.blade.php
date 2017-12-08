@@ -17,6 +17,10 @@
                 <div class="alert alert-success">
                     {{ Session::get('flash_message') }}
                 </div>
+            @else
+                <div class="alert alert-danger">
+                    試験ブロックをグローバルに削除すると、そのブロックに紐付いている全ての問題が削除されます。
+                </div>
             @endif
 
             <div class="panel panel-default">
@@ -40,7 +44,12 @@
                                 <td class="center">{{ $block->created_at }}</td>
                                 <td class="center">{{ $block->updated_at }}</td>
                                 <td class="center"><a href="{{ route('admin.editBlockGlobal', $block->id) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
-                                <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
+                                <td class="center">
+                                    {!! Form::open(['route' => ['admin.deleteBlockGlobal']]) !!}
+                                    {!! Form::hidden('block_id', $block->id) !!}
+                                    {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
                         @endforeach
                     </table>

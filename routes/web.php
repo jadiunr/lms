@@ -104,20 +104,8 @@ Route::group(['middleware' => 'auth'], function() {
         // 試験作成処理
         Route::post('/exams/create-exam', 'AdminController@postCreateExam')->name('admin.postCreateExam');
 
-        // カテゴリ編集ページ
-        Route::get('/exams/categories', 'AdminController@getCategories')->name('admin.getCategories');
-
-        // カテゴリ作成ページ
-        Route::get('/exams/categories/create-category', 'AdminController@getCreateCategory')->name('admin.getCreateCategory');
-
-        // カテゴリ作成処理
-        Route::post('/exams/categories/create-category', 'AdminController@postCreateCategory')->name('admin.postCreateCategory');
-
-        //カテゴリ編集ページ
-        Route::get('/exams/categories/{category_id}', 'AdminController@editCategory')->name('admin.editCategory');
-
-        //カテゴリ更新処理
-        Route::post('/exams/categories/{category_id}', 'AdminController@updateCategory')->name('admin.updateCategory');
+        // 試験削除
+        Route::post('/exams/delete', 'AdminController@deleteExam')->name('admin.deleteExam');
 
         // グローバルブロック一覧
         Route::get('/exams/blocks', 'AdminController@getBlocksGlobal')->name('admin.getBlocksGlobal');
@@ -128,14 +116,14 @@ Route::group(['middleware' => 'auth'], function() {
         // グローバルブロック作成処理
         Route::post('/exams/blocks/create-block-g', 'AdminController@postCreateBlockGlobal')->name('admin.postCreateBlockGlobal');
 
+        // グローバルブロック削除
+        Route::post('/exams/blocks/delete', 'AdminController@deleteBlockGlobal')->name('admin.deleteBlockGlobal');
+
         // グローバルブロック編集ページ
         Route::get('/exams/blocks/{block_id}', 'AdminController@editBlockGlobal')->name('admin.editBlockGlobal');
 
         // グローバルブロック更新処理
         Route::post('/exams/blocks/{block_id}', 'AdminController@updateBlockGlobal')->name('admin.updateBlockGlobal');
-
-        // 問題削除
-        Route::post('/exams/delete_problem', 'AdminController@deleteProblem')->name('admin.deleteProblem');
 
         // 試験詳細ページ
         Route::get('/exams/{exam_id}', 'AdminController@editExam')->name('admin.editExam');
@@ -152,6 +140,9 @@ Route::group(['middleware' => 'auth'], function() {
         //試験ブロック名更新処理
         Route::post('/exams/{exam_id}/{block_id}', 'AdminController@updateBlock')->name('admin.updateBlock');
 
+        //試験ブロック削除
+        Route::post('/exams/{exam_id}/{block_id}/delete', 'AdminController@deleteBlock')->name('admin.deleteBlock');
+
         // 問題作成ページ
         Route::get('/exams/{exam_id}/{block_id}/create-problem', 'AdminController@getCreateProblem')->name('admin.getCreateProblem');
 
@@ -163,6 +154,9 @@ Route::group(['middleware' => 'auth'], function() {
 
         //問題更新
         Route::post('/exams/{exam_id}/{block_id}/{problem_id}', 'AdminController@updateProblem')->name('admin.updateProblem');
+
+        // 問題削除
+        Route::post('/exams/{exam_id}/{block_id}/{problem_id}/delete', 'AdminController@deleteProblem')->name('admin.deleteProblem');
 
         //スレッド管理
         Route::get('/bbs', 'BbsAdminController@index');

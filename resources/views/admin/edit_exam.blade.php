@@ -46,7 +46,13 @@
                                 <td class="center">{{ $block->updated_at }}</td>
                                 <td class="center">{{ $block->count }}</td>
                                 <td class="center"><a href="{{ route('admin.editBlock', ['exam_id' => $block->exam_id, 'block_id' => $block->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
-                                <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
+                                <td class="center">
+                                    {!! Form::open(['route' => ['admin.deleteBlock', $block->exam_id, $block->id]]) !!}
+                                    {!! Form::hidden('exam_id', $block->exam_id) !!}
+                                    {!! Form::hidden('block_id', $block->id) !!}
+                                    {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
                         @endforeach
                     </table>

@@ -47,9 +47,9 @@
                                 <td class="center">{{ $problem->updated_at }}</td>
                                 <td class="center"><a href="{{ route('admin.editProblem', ['exam_id' => $exam_id, 'block_id' => $block->id, 'problem_id' => $problem->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
                                 <td class="center">
-                                    {!! Form::open(['route' => 'admin.deleteProblem']) !!}
+                                    {!! Form::open(['route' => ['admin.deleteProblem', $exam_id, $block->id, $problem->id]]) !!}
                                     {!! Form::hidden('problem_id', $problem->id) !!}
-                                    {!! Form::submit('削除', ['class' => 'center-block btn btn-danger btn-sm']) !!}
+                                    {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
