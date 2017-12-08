@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Thread;
+use App\Changelog;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,11 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-        return view('home', compact('threads'));
+        //新着情報
+        $changelog = Changelog::orderBy('id','desc')
+            ->take(5)
+            ->get();
+
+        return view('home',compact('changelog'),compact('threads'));
     }
 }
