@@ -74,6 +74,7 @@ Route::group(['middleware' => 'auth'], function() {
 
         //ラーニングモード各問題画面
         Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}','ExamController@learn_id')->name('problem_id');
+
         //正誤判定
         Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}/{problem_answer}','ExamController@answer');
 
@@ -81,7 +82,6 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/exam/{exam_id}/{block_id}/{mode_id}','ExamController@answer_list');
 
     });
-    Route::get('/record','RecordController@view');
 
     //changelog
     Route::get('/changelog', 'ChangelogController@show');

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Problem;
-use App\Record;
 use Illuminate\Http\Request;
 use Validator;
-use App\Answer;
 use Illuminate\Support\Facades\DB;
 class ExamController extends Controller
 {
@@ -32,18 +30,18 @@ class ExamController extends Controller
             return 'そんなモードないです';
         }
     }
-    //各年度試験選択画面
+
     function block($exam_id){
 
      return view('posts.block_list',['exam_id'=>$exam_id]);
     }
-    //ラーニングorテストモード選択画面
+
     function index($exam_id,$block_id){
 
         return view('posts.top',['exam_id'=>$exam_id,'block_id'=>$block_id]);
     }
 
-    //ラーニングモードかつテストモード画面
+
     function learn_id($exam_id,$block_id,$mode_id,$id){
 
         $post=DB::table('problems')->where('exam_id',$exam_id)->get();
@@ -79,7 +77,7 @@ class ExamController extends Controller
 
 
 
-    //解答時の処理
+
     function answer($exam_id,$block_id,$mode_id,$problem_id,$answer){
 
             if($mode_id=="learning") {
@@ -109,67 +107,42 @@ class ExamController extends Controller
             return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id);
 
     }
-    //ラーニングor試験終了時の解答結果の表示(1=テクノロジ　2=マネジメント 3=ストラテジ　4=その他)
+
     function answer_list($exam_id,$block_id,$mode_id){
 
-        //試験各年度問題の抽出
         $post=DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->orderBy('problem_number')->get();
 
         $session_item=session()->get('answers',[]);
 
-        $judgment= function ($index, $correct) {
-            if ($index == $correct) {
-                return "○";
-            }
-            return "×";
+        if($mode_id=="test"){
+            $answers_test=session()->get('answers_test',[]);
 
-
-        };
-
-
-        //解答を解答テーブルに記録
-        if($mode_id=="test") {
-            $answers_test = session()->get('answers_test', []);
-            foreach ($answers_test as $index => $answer) {
-                $answer_table = new Answer();
-                $answer_table->user_id = \Auth::user()->id;
-                $answer_table->problem_id = $post[$index]->id;
-                $answer_table->answer = $answer;
-                $answer_table->save();
-            }
-            $b = 0;
-            $technology=0; $management=0; $strategy=0; $etc=0;
-            foreach ($answers_test as $index => $item) {
-                if ($post[$index]->correct == $item) {
+            $b=0;
+            foreach ($answers_test as $index => $item){
+                if($post[$index]->correct==$item){
                     $b++;
-                    switch ($post[$index]->category_id){
-                        case 1: $technology++; break;
-                        case 2: $management++; break;
-                        case 3: $strategy++;   break;
-                        case 4: $etc++;
-
-                    }
                 }
             }
+            $result=$b/80*100;
+            return view('posts.Test_results',['correct_count'=>$b,'result'=>$result,'problem_id'=>$post,'session_item'=>$answers_test,
+                "judgment"=>function($index,$correct){
+                    if($index == $correct){
+                        return "○";
+                    }
+                    return "×";
 
-            $records = new Record();
-            $records->user_id=\Auth::user()->id;
-            $records->year = $block_id;
-            $records->exam_id = $exam_id;
-            $records->category1 = $technology;
-            $records->category2 = $management;
-            $records->category3 = $strategy;
-            $records->category4 = $etc;
-            $records->total= $b;
-            $records->save();
 
-            $result = $b / 80 * 100;
-            return view('posts.Test_results', ['correct_count' => $b, 'result' => $result, 'problem_id' => $post, 'session_item' => $answers_test,
-                "judgment" =>$judgment]);
+                }]);
         }
-
          return view('posts.answer_list',["exam_id"=>$exam_id,"correct"=>$post,"session_item"=>$session_item,
-             "judgment"=>$judgment]);
+             "judgment"=>function($index,$correct){
+                  if($index == $correct){
+                      return "○";
+                  }
+                  return "×";
+
+
+             }]);
 
 
     }
