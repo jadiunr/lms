@@ -2,21 +2,11 @@
 
 @section('style')
 
-.b-t-n1 {
+.submit {
 display: inline-block;
 padding: 100px 110px;
-text-decoration: none;
 color: #67c5ff;
-border: solid 2px #67c5ff;
-border-radius: 3px;
-transition: .4s;
 }
-
-.b-t-n1:hover {
-background: #67c5ff;
-color: white;
-}
-
 .b-t-n2{
 font-size: 20px;
 }
@@ -25,30 +15,34 @@ font-size: 20px;
 
 
 @section('content')
-
-
-
-
+<form id="form" name="form"  action="#" method="post">
 　　　<div class="button" style="clear:both;margin-top: 150px;margin-left: 130px;">
-
         <div style="float:left;">
-            <a href="/exam/{{$exam_id}}/{{$block_id}}/learning/start" class="b-t-n1"><span class="b-t-n2">ラーニングモード</span></a>
-
+            <button class="submit" value="A" onclick="actionA()";>
+                <span class="b-t-n2">ラーニングモード</span>
+            </button>
         </div>
-        <div style="float:left;">
-            <a href="/exam/{{$exam_id}}/{{$block_id}}/test/start" class="b-t-n1" style=" margin-left: 100px"><span class="b-t-n2">　テストモード　</span></a>
-
+        <div style="float:left; margin-left: 60px" >
+            <button class="submit" value="B" onclick="actionB()";>
+                <span class="b-t-n2">　テストモード　</span>
+            </button>
             　<!--テストモードの両端の全角空白はaタグボタンの横サイズを調整するために入れています。-->
-
         </div>
-
     </div>
+</form>
 
 
 
 
+@endsection
 
 
-
-
+@section('script')
+    <script src="/js/learning.js" type="text/javascript"></script>
+    <script>function actionA(){
+            document.getElementById('form').action = '/exam/{{$exam_id}}/{{$block_id}}/learning/start';
+        }
+        function actionB(){
+            document.getElementById('form').action = '/exam/{{$exam_id}}/{{$block_id}}/test/start';
+        }</script>
 @endsection
