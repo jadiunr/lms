@@ -8,21 +8,18 @@
             <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">新着情報</h3>
+                        <h3 class="panel-title"><a href="/changelog">新着情報</a></h3>
                     </div>
                     <div class="panel-body">
                         <ul id="chengelog">
-                            <li><a href="#"><h4>2017/10/31<br>
-                                        H29年秋基本情報技術者試験午前問題を追加しました。</h4></a></li>
-                            <li><a href="#"><h4>2017/10/30<br>
-                                        H29年春基本情報技術者試験午前問題を追加しました。</h4></a></li>
-                            <li><a href="#"><h4>2017/10/29<br>
-                                        H28年秋基本情報技術者試験午前問題を追加しました。</h4></a></li>
-                            <li><a href="#"><h4>2017/10/28<br>
-                                        H28年春基本情報技術者試験午前問題を追加しました。</h4></a></li>
-                            <li><a href="#"><h4>2017/10/27<br>
-                                        H27年秋基本情報技術者試験午前問題を追加しました。</h4></a></li>
+                            @foreach($changelog as $log)
+                                <li><h4>{{$log->created_at}}</h4></li>
+                                <h4>{{$log->content}}</h4>
+                            @endforeach
                         </ul>
+                    </div>
+                    <div class="panel-heading" style="text-align: right">
+                        <a href="/changelog">続きはこちら</a>
                     </div>
                 </div>
             </div>
