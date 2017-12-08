@@ -23,9 +23,9 @@ class RecordController extends Controller
             $record =Record::where('user_id',$user)->get();
 
         $total_technology=0; $total_management=0; $total_strategy=0; $total_etc=0;
-        $categorys= Record::all();
+        $categories= Record::all();
         //現在までのカテゴリーごとの正答数の合計
-        foreach ($categorys as $category){
+        foreach ($categories as $category){
             $total_technology +=$category->category1;
             $total_management +=$category->category2;
             $total_strategy   +=$category->category3;
