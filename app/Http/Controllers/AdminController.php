@@ -8,8 +8,10 @@ use App\Exam;
 use App\Block;
 use App\Problem;
 use App\Category;
+use App\Changelog;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -66,8 +68,13 @@ class AdminController extends Controller
     //試験名変更処理
     public function updateExam($exam_id, Request $request){
         $exam = Exam::findOrFail($exam_id);
+        $exam_oldname = $exam->name;
         $exam->name = $request->name;
         $exam->save();
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験「'.$exam_oldname.'」を「'.$request->name.'」に変更しました。';
+        $log->save();
 
         \Session::flash('flash_message', 'Exam successfully edited!');
         return redirect()->route('admin.editExam', $exam->id);
@@ -84,6 +91,10 @@ class AdminController extends Controller
         $exam->id = $request->id;
         $exam->name = $request->name;
         $exam->save();
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験「'.$request->name.'」を作成しました。';
+        $log->save();
 
         \Session::flash('flash_message', 'Exam successfully created!');
         return redirect()->route('admin.exams');
@@ -108,8 +119,14 @@ class AdminController extends Controller
     //試験ブロック名更新処理
     public function updateBlock($exam_id, $block_id, Request $request){
         $block = Block::findOrFail($block_id);
+        $block_oldname = $block->name;
         $block->name = $request->name;
         $block->save();
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験ブロック「'.$block_oldname.'」を「'.$request->name.'」に変更しました。';
+        $log->save();
+
         \Session::flash('flash_message', 'Block successfully edited!');
         return redirect()->route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $block_id]);
     }
@@ -122,6 +139,7 @@ class AdminController extends Controller
 
     //問題作成処理
     public function postCreateProblem($exam_id, $block_id, Request $request){
+
         $problem = new Problem();
         $problem->exam_id = $exam_id;
         $problem->block_id = $block_id;
@@ -137,6 +155,14 @@ class AdminController extends Controller
         $problem->correct = $request->correct;
         $problem->explain = $request->explain;
         $problem->save();
+
+        $exam_name = Exam::findOrFail($exam_id)->name;
+        $block_name = Block::findOrFail($block_id)->name;
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験「'.$exam_name.'」の試験ブロック「'.$block_name.'」に問題を追加しました。';
+        $log->save();
+
         \Session::flash('flash_message', 'Problem successfully created!');
         return redirect()->route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $block_id]);
     }
@@ -163,6 +189,14 @@ class AdminController extends Controller
         $problem->correct = $request->correct;
         $problem->explain = $request->explain;
         $problem->save();
+
+        $exam_name = Exam::findOrFail($exam_id)->name;
+        $block_name = Block::findOrFail($block_id)->name;
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験「'.$exam_name.'」の試験ブロック「'.$block_name.'」の問題を更新しました。';
+        $log->save();
+
         \Session::flash('flash_message', 'Problem successfully edited!');
         return redirect()->route('admin.editBlock', ['exam_id' => $exam_id, 'block_id' => $block_id]);
     }
@@ -185,6 +219,11 @@ class AdminController extends Controller
         $block->id = $request->id;
         $block->name = $request->name;
         $block->save();
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験ブロック「'.$request->name.'」を追加しました。';
+        $log->save();
+
         \Session::flash('flash_message', 'Block successfully created!');
         return redirect()->route('admin.getBlocksGlobal');
     }
@@ -198,9 +237,15 @@ class AdminController extends Controller
     //ブロック更新ページ
     public function updateBlockGlobal($block_id, Request $request){
         $block = Block::findOrFail($block_id);
+        $block_oldname = $block->name;
         $block->id = $request->id;
         $block->name = $request->name;
         $block->save();
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験ブロック「'.$block_oldname.'」を「'.$request->name.'」変更しました。';
+        $log->save();
+
         \Session::flash('flash_message', 'Block successfully edited!');
         return redirect()->route('admin.getBlocksGlobal');
     }
@@ -209,36 +254,62 @@ class AdminController extends Controller
 
     // 問題削除
     public function deleteProblem(Request $request){
+        $exam_name = Exam::findOrFail(Problem::findOrFail($request->problem_id)->exam_id)->name;
+        $block_name = Block::findOrFail(Problem::findOrFail($request->problem_id)->block_id)->name;
         Problem::where('id', $request->problem_id)
             ->delete();
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験「'.$exam_name.'」の試験ブロック「'.$block_name.'」の問題を削除しました。';
+        $log->save();
+
         \Session::flash('flash_message', 'Problem successfully deleted!');
         return redirect()->back();
     }
 
     // ブロック削除
     public function deleteBlock(Request $request){
+        $exam_name = Exam::findOrFail($request->exam_id)->name;
+        $block_name = Block::findOrFail($request->block_id)->name;
         Problem::where('exam_id', $request->exam_id)
             ->where('block_id', $request->block_id)
             ->delete();
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験「'.$exam_name.'」の試験ブロック「'.$block_name.'」の全ての問題を削除しました。';
+        $log->save();
+
         \Session::flash('flash_message', 'Block successfully deleted!');
         return redirect()->back();
     }
 
     // 試験削除
     public function deleteExam(Request $request){
+        $exam_name = Exam::findOrFail($request->exam_id)->name;
         Problem::where('exam_id', $request->exam_id)
             ->delete();
         Exam::where('id', $request->exam_id)
             ->delete();
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験「'.$exam_name.'」を削除しました。';
+        $log->save();
+
         \Session::flash('flash_message', 'Exam successfully deleted!');
         return redirect()->back();
     }
 
     public function deleteBlockGlobal(Request $request){
+        $block_name = Block::findOrFail($request->block_id)->name;
         Problem::where('block_id', $request->block_id)
             ->delete();
         Block::where('id', $request->block_id)
             ->delete();
+
+        $log = new Changelog();
+        $log->content = Auth::user()->name.'が試験ブロック「'.$block_name.'」を削除しました。';
+        $log->save();
+
         \Session::flash('flash_message', 'Block successfully deleted globally.');
         return redirect()->back();
     }
