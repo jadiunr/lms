@@ -1,37 +1,25 @@
 @extends('layouts.app')
 
-@section('style')
-
-.submit {
-display: inline-block;
-padding: 100px 110px;
-color: #67c5ff;
-}
-.b-t-n2{
-font-size: 20px;
-}
+@section('css')
+    <link rel="stylesheet" href="/css/exam-top.css">
 
 @endsection
 
-
 @section('content')
-<form id="form" name="form"  action="#" method="post">
-　　　<div class="button" style="clear:both;margin-top: 150px;margin-left: 130px;">
-        <div style="float:left;">
-            <button class="submit" value="A" onclick="actionA()";>
-                <span class="b-t-n2">ラーニングモード</span>
-            </button>
-        </div>
-        <div style="float:left; margin-left: 60px" >
-            <button class="submit" value="B" onclick="actionB()";>
-                <span class="b-t-n2">　テストモード　</span>
-            </button>
-            　<!--テストモードの両端の全角空白はaタグボタンの横サイズを調整するために入れています。-->
-        </div>
-    </div>
-</form>
-
-
+<div class="row">
+    <form id="form" name="form"  action="#" method="post">
+        {{csrf_field()}}
+            <div class="button">
+                <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 ">
+                    <a href="javascript:form.submit()" class="b-t-n1" onclick="actionA()"; ><span class="b-t-n2">ラーニングモード</span></a>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <a href="javascript:form.submit()" id="b-t-n1-2" class="b-t-n1" onclick="actionB()";><span class="b-t-n2">　テストモード　</span></a>
+                    　<!--テストモードの両端の全角空白はaタグボタンの横サイズを調整するために入れています。-->
+                </div>
+            </div>
+    </form>
+</div>
 
 
 @endsection
