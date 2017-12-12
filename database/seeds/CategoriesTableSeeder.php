@@ -13,10 +13,6 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $category = new Category();
-        $category->name = 'その他';
-        $category->save();
-
-        $category = new Category();
         $category->name = 'テクノロジー';
         $category->save();
 
@@ -26,6 +22,10 @@ class CategoriesTableSeeder extends Seeder
 
         $category = new Category();
         $category->name = 'ストラテジー';
+        $category->save();
+
+        $category = new Category();
+        $category->name = 'その他';
         $category->save();
     }
 }
