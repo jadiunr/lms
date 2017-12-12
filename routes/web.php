@@ -65,7 +65,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/exam/{exam_id}','ExamController@block');
 
     //ラーニングモード or テストモード スタート
-    Route::get('/exam/{exam_id}/{block_id}/{mode_id}/start', 'ExamController@start');
+    Route::post('/exam/{exam_id}/{block_id}/{mode_id}/start', 'ExamController@start');
 
     Route::group(['middleware' => 'session_set'], function(){
 
