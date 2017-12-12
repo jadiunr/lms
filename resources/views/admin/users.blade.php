@@ -27,6 +27,7 @@
                         <tr>
                             <th class="center">ID</th>
                             <th class="center">名前</th>
+                            <th class="center">本名</th>
                             <th class="center">メールアドレス</th>
                             <th class="center">アイコン</th>
                             <th class="center">作成日</th>
@@ -39,6 +40,7 @@
                             <tr>
                                 <td class="center">{{ $user->id }}</td>
                                 <td class="center">{{ $user->name }}</td>
+                                <td class="center">{{ $user->realname }}</td>
                                 <td class="center">{{ $user->email }}</td>
                                 <td class="center">
                                     @if($user->icon)

@@ -9,6 +9,7 @@ use App\Block;
 use App\Problem;
 use App\Category;
 use App\Changelog;
+use App\Http\Requests\AdminsUserRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -30,10 +31,11 @@ class AdminController extends Controller
     }
 
     //ユーザ情報更新処理
-    public function updateUser($user_id, Request $request){
+    public function updateUser($user_id, AdminsUserRequest $request){
         $user = User::findOrFail($user_id);
 
         $user->name = $request->name;
+        $user->realname = $request->realname;
         $user->email = $request->email;
         if ($request->file('file')){
             \File::delete('storage/img/' . $user->icon);
