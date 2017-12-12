@@ -21,10 +21,11 @@ class ProblemsTableSeeder extends Seeder
                 case 2:$correct="イ";break;
                 case 3:$correct="ウ";break;
             }
+            $category=mt_rand(1,4);
             Problem::create([
                 'exam_id'=>'FE',
                 'block_id'=>'H25_s',
-                'category_id'=> 0,
+                'category_id'=> $category,
                 'problem_number'=> $i,
                 'question'=> 'dummyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'.$i,
                 'answer1'=> '1',
