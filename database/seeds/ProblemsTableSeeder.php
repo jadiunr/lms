@@ -21,7 +21,7 @@ class ProblemsTableSeeder extends Seeder
                 case 2:$correct="イ";break;
                 case 3:$correct="ウ";break;
             }
-            $category=mt_rand(1,4);
+            $category=mt_rand(1,3);
             Problem::create([
                 'exam_id'=>'FE',
                 'block_id'=>'H25_s',
