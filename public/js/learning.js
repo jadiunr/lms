@@ -19,4 +19,5 @@ $(function(){
     });
     $('.result_image').fadeIn(1800);
 
+
 });

@@ -44,6 +44,7 @@ class ExamController extends Controller
 
     function learn_id($exam_id,$block_id,$mode_id,$id){
 
+
         $post=DB::table('problems')->where('exam_id',$exam_id)->get();
         $problem_Previous = DB::table('problems')->where('id', $id)->first();
         $problem_Next = DB::table('problems')->where('id', $id+1)->first();
