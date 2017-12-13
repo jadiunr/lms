@@ -51,27 +51,4 @@ class RankingController extends Controller
         return view('/ranking')
             ->with(compact('block_id','records','users','flag','block'));
     }
-
-    public function category(Request $request)
-    {
-        $flag = 2;
-
-        $block = $request->block_id;
-        $block_id = DB::table('problems')
-            ->select(DB::raw('block_id'))
-            ->distinct()
-            ->get();
-
-        $users = User::all();
-
-        $records = DB::table('records')
-            ->select(DB::raw('user_id , total , category1 , category2 , category3'))
-            ->where('year',$block)
-            ->groupBy('')
-            ->orderBy('total','desc')
-            ->get();
-
-        return view('/ranking')
-            ->with(compact('block_id','records','users','flag','block'));
-    }
 }
