@@ -93,9 +93,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/ranking','RankingController@total');
     //試験別正答率
     Route::get('/ranking/percentage','RankingController@percentage');
-    //試験別カテゴリ正答率
-    Route::get('/ranking/category','RankingController@category');
-
 
     Route::group(['middleware' => 'admin'], function(){
 
