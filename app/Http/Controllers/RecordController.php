@@ -24,6 +24,7 @@ class RecordController extends Controller
 
         $record =Record::where('user_id',$user)->where('exam_id',$exam_id)->get();
         $null_set=Record::where('user_id',$user)->where('exam_id',$exam_id)->first();
+
         if(is_null($null_set)){
 
             $null='テスト受験履歴がありません。';
@@ -46,17 +47,19 @@ class RecordController extends Controller
         foreach ($answers as $index => $answer) {
             $problem_id = $answer->problem_id;
             $problem = Problem::where('id',$problem_id)->where('exam_id',$exam_id)->get();
-            if(isset($problem)){
-            $category_id = $problem[0]->category_id;
-            //カテゴリをカウント
-            switch ($category_id) {
-                case 1:$q++;break;//テクノロジー
-                case 2:$w++;break;//マネジメント
-                case 3:$e++;break;//ストラテジー
-                case 4:$r++;break;//その他
-            }
-            }else{
+            $problem_null = Problem::where('id',$problem_id)->where('exam_id',$exam_id)->first();
+            if(is_null($problem_null)){
                 continue;
+
+            }else{
+                $category_id = $problem[0]->category_id;
+                //カテゴリをカウント
+                switch ($category_id) {
+                    case 1:$q++;break;//テクノロジー
+                    case 2:$w++;break;//マネジメント
+                    case 3:$e++;break;//ストラテジー
+                    case 4:$r++;break;//その他
+                }
             }
         }
 
