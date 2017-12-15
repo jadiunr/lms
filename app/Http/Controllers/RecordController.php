@@ -72,7 +72,7 @@ class RecordController extends Controller
 
         return view('posts.result',['records'=>$record,'answer_rate'=>$answer_rate]);
     }
-    public function history($time){
+    public function history($exam_id,$time){
         $history = Record::where('created_at',$time)->where('user_id',\Auth::user()->id)->get();
 
         $answer_history=Answer::where('record_id',$history[0]->id)->get();

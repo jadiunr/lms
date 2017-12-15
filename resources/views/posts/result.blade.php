@@ -70,7 +70,7 @@
                                     @else<span style="color:red">不合格</span>@endif
                                 </td>
                                 <td>{{$record->created_at}}</td>
-                                <td><a href="/record/history/{{$record->created_at}}" style="text-decoration: none; color:black;">解答履歴</a></td>
+                                <td><a href="/record/{{$record->exam_id}}/history/{{$record->created_at}}" style="text-decoration: none; color:black;">解答履歴</a></td>
                             </tr>
                         @endforeach
                         </tbody>
