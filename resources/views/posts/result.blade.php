@@ -62,7 +62,7 @@
                         <tbody>
                         @foreach($records as $record)
                             <tr>
-                                <td>平成{{substr($record->year,1,2)}}年</td>
+                                <td>平成{{substr($record->year,1,2)}}年@if(substr($record->year,4,1)=='s')春@else秋@endif</td>
                                 <td>{{$record->total/80*100}}%</td>
                                 <td>@if($record->total >=60)<span style="color:greenyellow">合格</span>
                                     @else<span style="color:red">不合格</span>@endif
