@@ -165,7 +165,9 @@ class ExamController extends Controller
                 $answer_table->save();
             }
 
-            $result = $b / 80 * 100;
+            $problem_count=DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->count();
+
+            $result = $b / $problem_count * 100;
 
             return view('posts.Test_results',['correct_count'=>$b,'result'=>$result,'problem_id'=>$post,'session_item'=>$answers_test,
                 "judgment"=>$judgment]);
