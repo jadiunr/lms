@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+    <div class="row">
+        <div class="col-lg-6"></div>
     {{Form::open(['method' => 'get'])}}
         <div class="form-group">
             <select class="form-control" name="block_id">
@@ -12,6 +14,7 @@
             <button class="btn btn-default" type="submit" formaction="/ranking/percentage">試験別正答率</button>
         </div>
     {{Form::close()}}
+    </div>
     <br>
     {{Form::open(['method' => 'get','action' => 'RankingController@total'])}}
         <div class="submit-group">
@@ -20,7 +23,6 @@
     {{Form::close()}}<br>
 
     @if($flag == 0)
-        <div class="container">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -49,10 +51,9 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
+
     @endif
     @if($flag == 1)
-        <div class="container">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -85,6 +86,5 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
     @endif
 @endsection

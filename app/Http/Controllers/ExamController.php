@@ -48,21 +48,22 @@ class ExamController extends Controller
     function learn_id($exam_id,$block_id,$mode_id,$id){
 
 
-        $post=DB::table('problems')->where('exam_id',$exam_id)->get();
-        $problem_Previous = DB::table('problems')->where('id', $id)->first();
-        $problem_Next = DB::table('problems')->where('id', $id+1)->first();
 
+        $post=DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->get();
+        $problem_Previous = DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->where('problem_number', $id)->first();
+        $problem_Next = DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->where('problem_number', $id+1)->first();
+        $problem_count=DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->count();
 
         //次,前 問題のボタン処理
         if(is_null($problem_Previous) or $id==1){
             $Previous_btn=$id;
         }else{
-            $Previous_btn=$post[$id-2]->id;
+            $Previous_btn=$post[$id-2]->problem_number;
         }
-        if(is_null($problem_Next) or $id==80) {
+        if(is_null($problem_Next) or $id==$problem_count) {
             $Next_btn = $id;
         }else{
-            $Next_btn = $post[$id]->id;
+            $Next_btn = $post[$id]->problem_number;
         }
 
         if(is_null($problem_Previous)){
@@ -73,11 +74,11 @@ class ExamController extends Controller
 
             $session_item=session()->get('answers_test',[]);
 
-            return view('posts.test')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'session_item'=>$session_item,'id'=>$id]);
+            return view('posts.test')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'session_item'=>$session_item,'id'=>$id,'problem_count'=>$problem_count]);
 
         }
 
-        return view('posts.learning')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'id'=>$id]);
+        return view('posts.learning')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'id'=>$id,'problem_count'=>$problem_count]);
     }
 
 

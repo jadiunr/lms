@@ -12,7 +12,7 @@ class ProblemsTableSeeder extends Seeder
     public function run()
     {
         //
-        for ($i = 1; $i < 81; $i++) {
+        for ($i = 1; $i < 161; $i++) {
             switch ($i%4){
                 case 0:$correct="エ";break;
                 case 1:$correct="ア";break;
@@ -20,11 +20,13 @@ class ProblemsTableSeeder extends Seeder
                 case 3:$correct="ウ";break;
             }
             $category = $i%4==0 ? 4 : $i%4;
+            $block_id = $i<81 ? 'H25_s': 'H25_a';
+            $problem_number = $i>=81 ? $i-80:$i;
             Problem::create([
                 'exam_id'=>'FE',
-                'block_id'=>'H25_s',
+                'block_id'=>$block_id,
                 'category_id'=> $category,
-                'problem_number'=> $i,
+                'problem_number'=> $problem_number,
                 'question'=> 'dummyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'.$i,
                 'answer1'=> '1',
                 'answer2'=> '2',
@@ -36,7 +38,7 @@ class ProblemsTableSeeder extends Seeder
                 'correct' => $correct
             ]);
         }
-        for ($i = 1; $i < 81; $i++) {
+        for ($i = 1; $i < 81; $i++){
             switch ($i%4){
                 case 0:$correct="エ";break;
                 case 1:$correct="ア";break;

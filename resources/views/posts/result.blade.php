@@ -20,8 +20,6 @@
     </div>
 
     <br>
-
-
         <div class="row">
             @if(isset($null))
                 {{$null}}
@@ -79,8 +77,6 @@
             </div>
             @endif
         </div>
-
-
 @endsection
 @section('script')
     <script src="/js/learning.js" type="text/javascript"></script>
