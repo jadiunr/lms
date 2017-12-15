@@ -91,6 +91,11 @@ Route::group(['middleware' => 'auth'], function() {
     //changelog
     Route::get('/changelog', 'ChangelogController@show');
 
+    //ranking
+    Route::get('/ranking','RankingController@total');
+    //試験別正答率
+    Route::get('/ranking/percentage','RankingController@percentage');
+
     Route::group(['middleware' => 'admin'], function(){
 
         //管理者::ユーザ管理ページ表示

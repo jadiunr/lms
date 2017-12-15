@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Problem;
-
 class ProblemsTableSeeder extends Seeder
 {
     /**
@@ -21,7 +19,6 @@ class ProblemsTableSeeder extends Seeder
                 case 2:$correct="イ";break;
                 case 3:$correct="ウ";break;
             }
-            $category=mt_rand(1,4);
             $category = $i%4==0 ? 4 : $i%4;
             Problem::create([
                 'exam_id'=>'FE',
@@ -46,7 +43,6 @@ class ProblemsTableSeeder extends Seeder
                 case 2:$correct="イ";break;
                 case 3:$correct="ウ";break;
             }
-            $category=mt_rand(1,4);
             $category = $i%4==0 ? 4 : $i%4;
             Problem::create([
                 'exam_id'=>'AP',
@@ -64,6 +60,5 @@ class ProblemsTableSeeder extends Seeder
                 'correct' => $correct
             ]);
         }
-
     }
 }
