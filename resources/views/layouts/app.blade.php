@@ -85,7 +85,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a href="/record">個人成績</a></li>
+                                    <li><a href="/record/FE">個人成績</a></li>
                                     <li><a href="{{ route('user.edit') }}">設定</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"

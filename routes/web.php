@@ -81,7 +81,9 @@ Route::group(['middleware' => 'auth'], function() {
         //解答リスト
         Route::post('/exam/{exam_id}/{block_id}/{mode_id}','ExamController@answer_list');
 
-        Route::get('/record','RecordController@view');
+        Route::get('/record/{exam_id}','RecordController@view');
+
+        Route::get('/record/{exam_id}/history/{time}','RecordController@history');
 
 
     });

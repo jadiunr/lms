@@ -14,6 +14,8 @@
                 <div class="col-lg-1"></div>
 
                 <div class="col-lg-8" style="margin-top:60px ">
+
+
                     <h2 style="margin-bottom: 30px">問{{$problem_id->problem_number}}</h2>
                     <p style="margin-bottom: 50px">
                         @if(isset($error))

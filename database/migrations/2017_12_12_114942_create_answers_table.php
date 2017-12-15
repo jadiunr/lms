@@ -15,6 +15,7 @@ class CreateAnswersTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->increments('id')->unique();//解答ID
+            $table->integer('record_id');//レコードID
             $table->integer('user_id');//ユーザーID
             $table->integer('problem_id');//問題ID
             $table->String('answer')->nullable();//解答

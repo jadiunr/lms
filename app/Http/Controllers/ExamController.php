@@ -52,6 +52,7 @@ class ExamController extends Controller
         $problem_Previous = DB::table('problems')->where('id', $id)->first();
         $problem_Next = DB::table('problems')->where('id', $id+1)->first();
 
+
         //次,前 問題のボタン処理
         if(is_null($problem_Previous) or $id==1){
             $Previous_btn=$id;
@@ -129,13 +130,7 @@ class ExamController extends Controller
 
         if($mode_id=="test"){
             $answers_test = session()->get('answers_test', []);
-            foreach ($answers_test as $index => $answer) {
-                $answer_table = new Answer();
-                $answer_table->user_id = \Auth::user()->id;
-                $answer_table->problem_id = $post[$index]->id;
-                $answer_table->answer = $answer;
-                $answer_table->save();
-            }
+
             $b = 0;
             $technology=0; $management=0; $strategy=0; $etc=0;
             foreach ($answers_test as $index => $item) {
@@ -159,6 +154,15 @@ class ExamController extends Controller
             $records->category4 = $etc;
             $records->total= $b;
             $records->save();
+
+            foreach ($answers_test as $index => $answer) {
+                $answer_table = new Answer();
+                $answer_table->user_id = \Auth::user()->id;
+                $answer_table->problem_id = $post[$index]->id;
+                $answer_table->answer = $answer;
+                $answer_table->record_id = $records->id;
+                $answer_table->save();
+            }
 
             $result = $b / 80 * 100;
 

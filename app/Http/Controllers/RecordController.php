@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Answer;
 use App\Problem;
-use App\record;
+use App\Record;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -15,17 +15,27 @@ use Illuminate\Http\Request;
 class RecordController extends Controller
 {
     //
-    public  function view()
+    public  function view($exam_id)
     {
+
+
         $user = Auth::id();
         $answers = Answer::where('user_id', $user)->get();
 
-        $record =Record::where('user_id',$user)->get();
+        $record =Record::where('user_id',$user)->where('exam_id',$exam_id)->get();
+        $null_set=Record::where('user_id',$user)->where('exam_id',$exam_id)->first();
+        if(is_null($null_set)){
+
+            $null='テスト受験履歴がありません。';
+
+
+            return view('posts.result',['null'=>$null]);
+        }
 
         $total_technology=0; $total_management=0; $total_strategy=0; $total_etc=0;
-        $categories= Record::all();
         //現在までのカテゴリーごとの正答数の合計
-        foreach ($categories as $category){
+
+        foreach ($record as $category){
             $total_technology +=$category->category1;
             $total_management +=$category->category2;
             $total_strategy   +=$category->category3;
@@ -35,9 +45,9 @@ class RecordController extends Controller
 //        問題の中のカテゴリカウント
         foreach ($answers as $index => $answer) {
             $problem_id = $answer->problem_id;
-            $problem = Problem::find($problem_id);
-            $category_id = $problem->category_id;
-
+            $problem = Problem::where('id',$problem_id)->where('exam_id',$exam_id)->get();
+            if(isset($problem)){
+            $category_id = $problem[0]->category_id;
             //カテゴリをカウント
             switch ($category_id) {
                 case 1:$q++;break;//テクノロジー
@@ -45,8 +55,13 @@ class RecordController extends Controller
                 case 3:$e++;break;//ストラテジー
                 case 4:$r++;break;//その他
             }
+            }else{
+                continue;
+            }
         }
+
         //問題の中のカテゴリ中の正答率を計算
+
         $a=$total_technology/$q*100;
         $b=$total_management/$w*100;
         $c=$total_strategy/$e*100;
@@ -57,6 +72,27 @@ class RecordController extends Controller
 
         return view('posts.result',['records'=>$record,'answer_rate'=>$answer_rate]);
     }
+    public function history($time){
+        $history = Record::where('created_at',$time)->where('user_id',\Auth::user()->id)->get();
+
+        $answer_history=Answer::where('record_id',$history[0]->id)->get();
+
+        $problem= Problem::where('block_id',$history[0]->year)->where('exam_id',$history[0]->exam_id)->orderBy('problem_number')->get();
+
+
+
+        return view('posts.result_history',['answer_history'=>$answer_history,'problems'=>$problem,
+            'judgement'=> function($a,$b){
+                if($a==$b){
+                    return "○";
+                }
+                return "×";
+
+            }]);
+
+
+    }
+
 
 
 
