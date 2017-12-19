@@ -112,6 +112,9 @@ Route::group(['middleware' => 'auth'], function() {
         // ユーザ更新処理
         Route::post('/users/update/{user_id}', 'AdminController@updateUser')->name('admin.updateUser');
 
+        //ユーザ削除処理
+        Route::post('/users/delete', 'AdminController@deleteUser')->name('admin.deleteUser');
+
         // 試験管理ページ
         Route::get('/exams', 'AdminController@getExams')->name('admin.exams');
 

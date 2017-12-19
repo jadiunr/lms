@@ -50,7 +50,7 @@
                                     {!! Form::open(['route' => ['admin.deleteBlock', $block->exam_id, $block->id]]) !!}
                                     {!! Form::hidden('exam_id', $block->exam_id) !!}
                                     {!! Form::hidden('block_id', $block->id) !!}
-                                    {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
+                                    {!! Form::submit('削除', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("本当によろしいですか？")']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>

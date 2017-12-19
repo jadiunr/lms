@@ -50,6 +50,15 @@ class AdminController extends Controller
         return redirect()->route('admin.users');
     }
 
+    public function deleteUser(Request $request){
+        User::where('id', $request->user_id)
+            ->delete();
+
+        \Session::flash('flash_message', 'User successfully deleted!');
+        return redirect()->back();
+
+    }
+
     // 試験管理
 
     //試験一覧ページ

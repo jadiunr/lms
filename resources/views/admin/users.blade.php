@@ -59,7 +59,12 @@
                                     @endif
                                 </td>
                                 <td class="center"><a href="{{ route('admin.editUser', ['user_id' => $user->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
-                                <td class="center"><a href="#"><button type="button" class="btn btn-danger">削除</button></a></td>
+                                <td class="center">
+                                    {!! Form::open(['route' => ['admin.deleteUser']]) !!}
+                                    {!! Form::hidden('user_id', $user->id) !!}
+                                    {!! Form::submit('削除', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("本当によろしいですか？")']) !!}
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
                         @endforeach
                     </table>

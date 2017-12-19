@@ -33,7 +33,7 @@
                                 <td class="center">
                                     {!! Form::open(['route' => ['admin.deleteExam']]) !!}
                                     {!! Form::hidden('exam_id', $exam->id) !!}
-                                    {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
+                                    {!! Form::submit('削除', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("本当によろしいですか？")']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
