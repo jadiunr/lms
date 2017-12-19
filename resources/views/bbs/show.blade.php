@@ -23,11 +23,11 @@
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">{{ $first_comment->user->name }}</h4>
+                    <p>{!! nl2br(e($first_comment->comment)) !!}</p><br>
+                    <em>{{ $first_comment->updated_at }}</em>&nbsp;&nbsp;
                     @if($first_comment->user->admin)
                         <span class="label label-danger">管理者</span>
                     @endif
-                    <p>{!! nl2br(e($first_comment->comment)) !!}</p><br>
-                    <em>{{ $first_comment->updated_at }}</em>&nbsp;&nbsp;
                     <span class="label label-info">{{ $first_comment->thread->category->name }}</span>
                 </div>
             </div>
@@ -97,11 +97,11 @@
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading">{{ $post->user->name }}</h4>
+                        <p>{!! nl2br(e($post->comment)) !!}</p><br>
+                        <em>{{ $post->updated_at }}</em>&nbsp;&nbsp;
                         @if($post->user->admin)
                             <span class="label label-danger">管理者</span>
                         @endif
-                        <p>{!! nl2br(e($post->comment)) !!}</p><br>
-                        <em>{{ $post->updated_at }}</em>
                     </div>
                 </div>
                 <hr>
