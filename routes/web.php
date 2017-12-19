@@ -50,10 +50,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/name','EditController@name');
 
     //情報変更ページ(アイコン, パスワード)
-    Route::get('/edit', [
-        'uses' => 'EditController@edit',
-        'as' => 'user.edit'
-    ]);
+    Route::get('/edit', 'EditController@edit')->name('user.edit');
     
     //アイコンアップロード
     Route::post('/upload', 'EditController@upload');
@@ -86,39 +83,91 @@ Route::group(['middleware' => 'auth'], function() {
     //changelog
     Route::get('/changelog', 'ChangelogController@show');
 
-    Route::group(['middleware' => 'admin'], function(){
+    //管理者用Route
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
 
-        //管理者::ユーザ管理ページ表示
-        Route::get('/admin/users', [
-            'uses' => 'AdminController@getUsers',
-            'as' => 'admin.users'
-        ]);
-        //管理者::ユーザ編集ページ表示
-        Route::get('/admin/users/edit/{id}', [
-            'uses' => 'AdminController@editUser',
-            'as' => 'admin.editUser'
-        ]);
-        //管理者::ユーザ更新処理
-        Route::post('/admin/users/update/{id}', [
-            'uses' => 'AdminController@updateUser',
-            'as' => 'admin.updateUser'
-        ]);
+        // ユーザ管理ページ
+        Route::get('/users', 'AdminController@getUsers')->name('admin.users');
 
-        Route::get('/admin/exams', [
-           'uses' => 'AdminController@getExams',
-            'as' => 'admin.exams'
-        ]);
+        // ユーザ編集ページ
+        Route::get('/users/edit/{user_id}', 'AdminController@editUser')->name('admin.editUser');
+
+        // ユーザ更新処理
+        Route::post('/users/update/{user_id}', 'AdminController@updateUser')->name('admin.updateUser');
+
+        // 試験管理ページ
+        Route::get('/exams', 'AdminController@getExams')->name('admin.exams');
+
+        // 試験作成ページ
+        Route::get('/exams/create-exam', 'AdminController@getCreateExam')->name('admin.getCreateExam');
+
+        // 試験作成処理
+        Route::post('/exams/create-exam', 'AdminController@postCreateExam')->name('admin.postCreateExam');
+
+        // 試験削除
+        Route::post('/exams/delete', 'AdminController@deleteExam')->name('admin.deleteExam');
+
+        // グローバルブロック一覧
+        Route::get('/exams/blocks', 'AdminController@getBlocksGlobal')->name('admin.getBlocksGlobal');
+
+        // グローバルブロック作成ページ
+        Route::get('/exams/blocks/create-block-g', 'AdminController@getCreateBlockGlobal')->name('admin.getCreateBlockGlobal');
+
+        // グローバルブロック作成処理
+        Route::post('/exams/blocks/create-block-g', 'AdminController@postCreateBlockGlobal')->name('admin.postCreateBlockGlobal');
+
+        // グローバルブロック削除
+        Route::post('/exams/blocks/delete', 'AdminController@deleteBlockGlobal')->name('admin.deleteBlockGlobal');
+
+        // グローバルブロック編集ページ
+        Route::get('/exams/blocks/{block_id}', 'AdminController@editBlockGlobal')->name('admin.editBlockGlobal');
+
+        // グローバルブロック更新処理
+        Route::post('/exams/blocks/{block_id}', 'AdminController@updateBlockGlobal')->name('admin.updateBlockGlobal');
+
+        // 試験詳細ページ
+        Route::get('/exams/{exam_id}', 'AdminController@editExam')->name('admin.editExam');
+
+        // 試験更新処理
+        Route::post('/exams/{exam_id}', 'AdminController@updateExam')->name('admin.updateExam');
+
+        //試験ブロック作成
+        Route::get('/exams/{exam_id}/create-block', 'AdminController@createBlock')->name('admin.createBlock');
+
+        //試験ブロック編集ページ
+        Route::get('/exams/{exam_id}/{block_id}', 'AdminController@editBlock')->name('admin.editBlock');
+
+        //試験ブロック名更新処理
+        Route::post('/exams/{exam_id}/{block_id}', 'AdminController@updateBlock')->name('admin.updateBlock');
+
+        //試験ブロック削除
+        Route::post('/exams/{exam_id}/{block_id}/delete', 'AdminController@deleteBlock')->name('admin.deleteBlock');
+
+        // 問題作成ページ
+        Route::get('/exams/{exam_id}/{block_id}/create-problem', 'AdminController@getCreateProblem')->name('admin.getCreateProblem');
+
+        // 問題作成処理
+        Route::post('/exams/{exam_id}/{block_id}/create-problem', 'AdminController@postCreateProblem')->name('admin.postCreateProblem');
+
+        //問題編集ページ
+        Route::get('/exams/{exam_id}/{block_id}/{problem_id}', 'AdminController@editProblem')->name('admin.editProblem');
+
+        //問題更新
+        Route::post('/exams/{exam_id}/{block_id}/{problem_id}', 'AdminController@updateProblem')->name('admin.updateProblem');
+
+        // 問題削除
+        Route::post('/exams/{exam_id}/{block_id}/{problem_id}/delete', 'AdminController@deleteProblem')->name('admin.deleteProblem');
 
         //スレッド管理
-        Route::get('/admin/bbs', 'BbsAdminController@index');
+        Route::get('/bbs', 'BbsAdminController@index');
 
         //コメント管理
-        Route::get('/admin/bbs/show', 'BbsAdminController@show');
+        Route::get('/bbs/show', 'BbsAdminController@show');
 
         //スレッド削除
-        Route::post('/admin/bbs/delete_thread', 'BbsAdminController@delete_thread');
+        Route::post('/bbs/delete_thread', 'BbsAdminController@delete_thread');
 
         //コメント削除
-        Route::post('/admin/bbs/delete_post', 'BbsAdminController@delete_post');
+        Route::post('/bbs/delete_post', 'BbsAdminController@delete_post');
     });
 });
