@@ -20,7 +20,7 @@
                 <div class="col-lg-1"></div>
 
                 <div class="col-lg-8" style="margin-top:60px ">
-                    <h2 style="margin-bottom: 30px">問{{$problem_id->problem_number}}</h2>
+                    <h2 style="margin-bottom: 30px">問{{$id}}</h2>
                     <p style="margin-bottom: 50px">
                         @if(isset($error))
                             {!! $error !!}
@@ -32,10 +32,10 @@
                     <div class="row">
                             @if(isset($problem_id))
                                 <ul class="select-list">
-                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->id}}/ア' class="select-btn"><button>ア</button></a><span>{{$problem_id->answer1}}</span></li>
-                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->id}}/イ' class="select-btn"><button>イ</button></a><span>{{$problem_id->answer2}}</span></li>
-                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->id}}/ウ' class="select-btn"><button>ウ</button></a><span>{{$problem_id->answer3}}</span></li>
-                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->id}}/エ' class="select-btn"><button>エ</button></a><span>{{$problem_id->answer4}}</span></li>
+                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/ア' class="select-btn"><button>ア</button></a><span>{{$problem_id->answer1}}</span></li>
+                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/イ' class="select-btn"><button>イ</button></a><span>{{$problem_id->answer2}}</span></li>
+                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/ウ' class="select-btn"><button>ウ</button></a><span>{{$problem_id->answer3}}</span></li>
+                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/エ' class="select-btn"><button>エ</button></a><span>{{$problem_id->answer4}}</span></li>
                                 </ul>
                             @endif
 
@@ -52,7 +52,7 @@
                 <div class="col-lg-3" style="margin-top: 100px">
                     <div>
                         <div class="scrollbox" style="height:350px;overflow:auto;border:1px solid #aaa;padding:10px;">
-                            @for($i = 1; $i < 81; $i++)
+                            @for($i = 1; $i < $problem_count+1; $i++)
                                 <p><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$i}}' style="text-decoration: none ;color:black;">問{{$i}} コンテンツ</a></p>
                             @endfor
                         </div>

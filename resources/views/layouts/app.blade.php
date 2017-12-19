@@ -76,7 +76,7 @@
                             <li><a href="{{ route('register') }}">新規登録</a></li>
                         @else
                             <li><a href="/exam">試験選択</a></li>
-                            <li><a href="#">ランキング</a></li>
+                            <li><a href="/ranking">ランキング</a></li>
                             <li><a href="/bbs">質問掲示板</a></li>
                             <li><a href="/changelog">新着情報</a></li>
                             <li class="dropdown">
@@ -85,7 +85,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">個人成績</a></li>
+                                    <li><a href="/record/FE">個人成績</a></li>
                                     <li><a href="{{ route('user.edit') }}">設定</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
