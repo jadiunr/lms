@@ -34,10 +34,25 @@
                 {!! Form::label('answer4', 'Answer4:') !!}
                 {!! Form::text('answer4', null, ['class' => 'form-control']) !!}
             </div>
-            <div class="form-group">
-                {!! Form::label('pic_que', 'Question Pictures:') !!}
-                {!! Form::text('pic_que', null, ['class' => 'form-control']) !!}
+
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                        <i class="fa fa-picture-o"></i> 画像選択
+                    </a>
+                </span>
+                {{!! Form::text('pic_que', null, ['class' => 'form-control', 'id' => 'thumbnail']) !!}}
             </div>
+            <img id="holder" style="margin-top:15px;max-height:100px;">
+            <script>
+                (function($) {
+                    $(function () {
+                        var route_prefix = "{{ url(config('lfm.prefix')) }}";
+                        $('#lfm').filemanager('image', {prefix: route_prefix});
+                    });
+                })(jQuery);
+            </script>
+
             <div class="form-group">
                 {!! Form::label('pic_ans', 'Answer Pictures:') !!}
                 {!! Form::text('pic_ans', null, ['class' => 'form-control']) !!}

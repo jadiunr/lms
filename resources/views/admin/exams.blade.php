@@ -33,7 +33,7 @@
                                 <td class="center">
                                     {!! Form::open(['route' => ['admin.deleteExam']]) !!}
                                     {!! Form::hidden('exam_id', $exam->id) !!}
-                                    {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
+                                    {!! Form::submit('削除', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("本当によろしいですか？")']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
@@ -43,6 +43,7 @@
             </div>
             <a href="{{ route('admin.getCreateExam') }}"><button type="button" class="btn btn-success">新規試験追加</button></a>
             <a href="{{ route('admin.getBlocksGlobal') }}"><button type="button" class="btn btn-default"> ブロック編集 </button></a>
+            <a href="{{ route('admin.getLfm') }}"><button type="button" class="btn btn-primary"> 試験用画像管理 </button></a>
         </div>
     </div>
 @endsection

@@ -49,7 +49,7 @@
                                 <td class="center">
                                     {!! Form::open(['route' => ['admin.deleteProblem', $exam_id, $block->id, $problem->id]]) !!}
                                     {!! Form::hidden('problem_id', $problem->id) !!}
-                                    {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
+                                    {!! Form::submit('削除', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("本当によろしいですか？")']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>

@@ -35,7 +35,10 @@
             @endif
             <div class="form-group">
                 {!! Form::label('icon', 'Icon:') !!}
-                <br><img src="{{ asset('storage/img/' . $user->icon) }}" width="200">
+                <br>
+                @if($user->icon)
+                <img src="{{ asset('storage/img/' . $user->icon) }}" width="200">
+                @endif
                 {!! Form::file('file') !!}
             </div>
             @if($errors->has('file'))

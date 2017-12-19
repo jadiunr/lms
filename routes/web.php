@@ -97,6 +97,12 @@ Route::group(['middleware' => 'auth'], function() {
     //管理者用Route
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
 
+        //LaravelFileManager
+        Route::get('/laravel-filemanager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show')->name('admin.getLfm');
+
+        //LaravelFileManager
+        Route::post('/laravel-filemanager/upload', '\Unisharp\Laravelfilemanager\controllers\LfmController@upload')->name('admin.postLfm');
+
         // ユーザ管理ページ
         Route::get('/users', 'AdminController@getUsers')->name('admin.users');
 
@@ -105,6 +111,9 @@ Route::group(['middleware' => 'auth'], function() {
 
         // ユーザ更新処理
         Route::post('/users/update/{user_id}', 'AdminController@updateUser')->name('admin.updateUser');
+
+        //ユーザ削除処理
+        Route::post('/users/delete', 'AdminController@deleteUser')->name('admin.deleteUser');
 
         // 試験管理ページ
         Route::get('/exams', 'AdminController@getExams')->name('admin.exams');
@@ -180,5 +189,6 @@ Route::group(['middleware' => 'auth'], function() {
 
         //コメント削除
         Route::post('/bbs/delete_post', 'BbsAdminController@delete_post');
+
     });
 });
