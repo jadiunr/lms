@@ -12,9 +12,6 @@
         </thead>
         <?php $i=0?>
 
-
-
-
         @foreach($correct as $item)
         <tr @if($judgment($session_item[$i],$item->correct)=="○") style="background:#CEF6CE"
         @else style="background:#F6CECE"@endif>

@@ -78,10 +78,21 @@ Route::group(['middleware' => 'auth'], function() {
         //解答リスト
         Route::post('/exam/{exam_id}/{block_id}/{mode_id}','ExamController@answer_list');
 
+        Route::get('/record/{exam_id}','RecordController@view');
+
+        Route::get('/record/{exam_id}/history/{time}','RecordController@history');
+
+
     });
 
     //changelog
     Route::get('/changelog', 'ChangelogController@show');
+
+    //ranking
+    Route::get('/ranking','RankingController@total');
+
+    //試験別正答率
+    Route::get('/ranking/percentage','RankingController@percentage');
 
     //管理者用Route
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){

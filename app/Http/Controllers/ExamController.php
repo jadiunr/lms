@@ -6,6 +6,9 @@ use App\Problem;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\DB;
+use App\Record;
+use App\Answer;
+
 class ExamController extends Controller
 {
     //試験選択
@@ -45,20 +48,22 @@ class ExamController extends Controller
     function learn_id($exam_id,$block_id,$mode_id,$id){
 
 
-        $post=DB::table('problems')->where('exam_id',$exam_id)->get();
-        $problem_Previous = DB::table('problems')->where('id', $id)->first();
-        $problem_Next = DB::table('problems')->where('id', $id+1)->first();
+
+        $post=DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->get();
+        $problem_Previous = DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->where('problem_number', $id)->first();
+        $problem_Next = DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->where('problem_number', $id+1)->first();
+        $problem_count=DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->count();
 
         //次,前 問題のボタン処理
         if(is_null($problem_Previous) or $id==1){
             $Previous_btn=$id;
         }else{
-            $Previous_btn=$post[$id-2]->id;
+            $Previous_btn=$post[$id-2]->problem_number;
         }
-        if(is_null($problem_Next) or $id==80) {
+        if(is_null($problem_Next) or $id==$problem_count) {
             $Next_btn = $id;
         }else{
-            $Next_btn = $post[$id]->id;
+            $Next_btn = $post[$id]->problem_number;
         }
 
         if(is_null($problem_Previous)){
@@ -69,11 +74,11 @@ class ExamController extends Controller
 
             $session_item=session()->get('answers_test',[]);
 
-            return view('posts.test')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'session_item'=>$session_item]);
+            return view('posts.test')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'session_item'=>$session_item,'id'=>$id,'problem_count'=>$problem_count]);
 
         }
 
-        return view('posts.learning')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id]);
+        return view('posts.learning')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'id'=>$id,'problem_count'=>$problem_count]);
     }
 
 
@@ -115,35 +120,60 @@ class ExamController extends Controller
 
         $session_item=session()->get('answers',[]);
 
-        if($mode_id=="test"){
-            $answers_test=session()->get('answers_test',[]);
+        $judgment= function ($index, $correct) {
+            if ($index == $correct) {
+                return "○";
+            }
+            return "×";
 
-            $b=0;
-            foreach ($answers_test as $index => $item){
-                if($post[$index]->correct==$item){
+
+        };
+
+        if($mode_id=="test"){
+            $answers_test = session()->get('answers_test', []);
+
+            $b = 0;
+            $technology=0; $management=0; $strategy=0; $etc=0;
+            foreach ($answers_test as $index => $item) {
+                if ($post[$index]->correct == $item) {
                     $b++;
+                    switch ($post[$index]->category_id){
+                        case 1: $technology++; break;
+                        case 2: $management++; break;
+                        case 3: $strategy++;   break;
+                        case 4: $etc++;
+                    }
                 }
             }
-            $result=$b/80*100;
+            $records = new Record();
+            $records->user_id=\Auth::user()->id;
+            $records->year = $block_id;
+            $records->exam_id = $exam_id;
+            $records->category1 = $technology;
+            $records->category2 = $management;
+            $records->category3 = $strategy;
+            $records->category4 = $etc;
+            $records->total= $b;
+            $records->save();
+
+            foreach ($answers_test as $index => $answer) {
+                $answer_table = new Answer();
+                $answer_table->user_id = \Auth::user()->id;
+                $answer_table->problem_id = $post[$index]->id;
+                $answer_table->answer = $answer;
+                $answer_table->record_id = $records->id;
+                $answer_table->save();
+            }
+
+            $problem_count=DB::table('problems')->where('exam_id',$exam_id)->where('block_id',$block_id)->count();
+
+            $result = $b / $problem_count * 100;
+
             return view('posts.Test_results',['correct_count'=>$b,'result'=>$result,'problem_id'=>$post,'session_item'=>$answers_test,
-                "judgment"=>function($index,$correct){
-                    if($index == $correct){
-                        return "○";
-                    }
-                    return "×";
-
-
-                }]);
+                "judgment"=>$judgment]);
         }
          return view('posts.answer_list',["exam_id"=>$exam_id,"correct"=>$post,"session_item"=>$session_item,
-             "judgment"=>function($index,$correct){
-                  if($index == $correct){
-                      return "○";
-                  }
-                  return "×";
-
-
-             }]);
+             "judgment"=>$judgment]);
 
 
     }

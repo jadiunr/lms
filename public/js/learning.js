@@ -19,5 +19,13 @@ $(function(){
     });
     $('.result_image').fadeIn(1800);
 
+    $("select[name='sort_form'] option[value='<?php echo $type; ?>']").attr("selected",true);
+
+
+
 
 });
+function dropsort() {
+    var browser = document.sort_form.sort.value;
+    location.href = browser
+}
