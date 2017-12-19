@@ -8,7 +8,7 @@
             <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><a href="/changelog">新着情報</a></h3>
+                        <h4><a href="/changelog">新着情報</a></h4>
                     </div>
                     <div class="panel-body">
                         <ul id="chengelog">
@@ -26,10 +26,9 @@
             <div class="col-md-6">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">試験選択</h3>
+                        <h4>試験選択</h4>
                     </div>
                     <div class="panel-body">
-                        <h3>国家試験</h3>
                         <ul>
                             <li><h4>ITパスポート</h4></li>
                             <li><a href="/exam/AP"><h4>応用情報技術者試験</h4></a></li>
@@ -44,9 +43,9 @@
 
         <div class="col-md-2">
 
-            <img src="seseki.png" width="165px" height="auto">
+            <a href="/record/FE"><img src="seseki.png" width="165px" height="auto"></a>
 
-            <img src="rank.png" width="165px" height="auto">
+            <a href="ranking"><img src="rank.png" width="165px" height="auto"></a>
             <ul class="list-group">
                 <li class="list-group-item">1位　学籍番号　0.00%</li>
                 <li class="list-group-item">2位　学籍番号　0.00%</li>
