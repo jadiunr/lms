@@ -21,7 +21,7 @@
                     @if(!$loop->first)
                         {!! Form::open(['action' => 'BbsAdminController@delete_post']) !!}
                         {!! Form::hidden('post_id', $post->id) !!}
-                        {!! Form::submit('削除', ['class' => 'center-block btn btn-danger btn-sm']) !!}
+                        {!! Form::submit('削除', ['class' => 'center-block btn btn-danger btn-sm', 'onclick' => 'return confirm("削除ボタンがクリックされました。本当によろしいですか？\nOKを押すと実行されます")']) !!}
                         {!! Form::close() !!}
                     @endif
                 </td>
