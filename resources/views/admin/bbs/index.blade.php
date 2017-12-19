@@ -28,7 +28,7 @@
                 <td>
                     {!! Form::open(['action' => 'BbsAdminController@delete_thread']) !!}
                     {!! Form::hidden('thread_id', $thread->id) !!}
-                    {!! Form::submit('削除', ['class' => 'center-block btn btn-danger btn-sm']) !!}
+                    {!! Form::submit('削除', ['class' => 'center-block btn btn-danger btn-sm ','onclick'=>'return confirm("削除ボタンがクリックされました。本当によろしいですか？\nOKを押すと実行されます")'])!!}
                     {!! Form::close() !!}
                 </td>
             </tr>
