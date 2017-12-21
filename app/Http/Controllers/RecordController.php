@@ -10,15 +10,12 @@ use App\Record;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
-
 class RecordController extends Controller
 {
     //
-    public  function view($exam_id)
+    public  function view(Request $request,$exam_id)
     {
-
-
+        dd($request->month);
         $user = Auth::id();
         $answers = Answer::where('user_id', $user)->get();
 
@@ -30,8 +27,21 @@ class RecordController extends Controller
             $null='テスト受験履歴がありません。';
 
 
-            return view('posts.result',['null'=>$null]);
+            return view('posts.result',['null'=>$null,'exam_result'=>$exam_id]);
         }
+
+
+        //期間指定カテゴリー成績参照処理
+
+//            $firstDate = date('Y-m-d', strtotime('first day of ' . $result_year_month));
+//            $lastDate = date('Y-m-d', strtotime('last day of ' . $result_year_month));
+
+        $year=date("Y");
+        $month=array();
+        for($i=1; $i<13;$i++){
+            array_push($month,$year."年".$i."月");
+        }
+
 
         $total_technology=0; $total_management=0; $total_strategy=0; $total_etc=0;
         //現在までのカテゴリーごとの正答数の合計
@@ -72,8 +82,7 @@ class RecordController extends Controller
 
         $answer_rate = array($a,$b,$c,$d);
 
-
-        return view('posts.result',['records'=>$record,'answer_rate'=>$answer_rate]);
+        return view('posts.result',['records'=>$record,'answer_rate'=>$answer_rate,'exam_result'=>$exam_id,'months'=>$month]);
     }
     public function history($exam_id,$time){
         $history = Record::where('created_at',$time)->where('user_id',\Auth::user()->id)->get();

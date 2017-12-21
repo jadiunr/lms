@@ -3,7 +3,7 @@
 @section('content')
     <div class="row ">
         <div class="col-lg-6">
-            <h1>個人成績画面</h1>
+            <h1>個人成績画面({{$exam_result}})</h1>
         </div>
         <div class="col-lg-3 col-lg-offset-3" style="margin-top: 20px;">
 
@@ -24,8 +24,19 @@
             @if(isset($null))
                 {{$null}}
             @else
-            <div class="col-lg-4"style="height:400px;">
+            <div class="col-lg-4"style="height:400px;" >
                 <h1>分野別正答率</h1>
+                <form action="/record/{{$exam_result}}" method="get">
+                    {{csrf_field()}}
+                <select name="month" class="form-control" >
+                    @foreach($months as $month)
+                    <option value="{{substr($month,5,1)}}">{{$month}}</option>
+                    @endforeach
+                </select>
+                    <input type="submit">
+                </form>
+
+
                 <table border=1 height="400" width="330">
                     <tr>
                         <th style="width: 250px;height:40px">分野</th>
