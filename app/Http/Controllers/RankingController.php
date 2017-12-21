@@ -43,7 +43,7 @@ class RankingController extends Controller
 
         $records = DB::table('records')
             ->select(DB::raw('user_id , max(total/80*100) as total'))
-            ->where('year',$block)
+            ->where('block',$block)
             ->groupBy('user_id')
             ->orderBy('total','desc')
             ->get();

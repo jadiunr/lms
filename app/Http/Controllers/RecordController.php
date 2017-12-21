@@ -80,7 +80,7 @@ class RecordController extends Controller
 
         $answer_history=Answer::where('record_id',$history[0]->id)->get();
 
-        $problem= Problem::where('block_id',$history[0]->year)->where('exam_id',$history[0]->exam_id)->orderBy('problem_number')->get();
+        $problem= Problem::where('block_id',$history[0]->block)->where('exam_id',$history[0]->exam_id)->orderBy('problem_number')->get();
 
 
 
