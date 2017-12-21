@@ -9,6 +9,7 @@ use App\Block;
 use App\Problem;
 use App\Category;
 use App\Changelog;
+use App\Record;
 use App\Http\Requests\AdminsUserRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,8 @@ class AdminController extends Controller
 
     //ユーザ一覧ページ
     public function getUsers(){
-        $users = User::all();
+        $users = User::orderBy('id')
+            ->paginate(10);
         return view('admin.users', ['users' => $users]);
     }
 
@@ -57,6 +59,23 @@ class AdminController extends Controller
         \Session::flash('flash_message', 'User successfully deleted!');
         return redirect()->back();
 
+    }
+
+    //ユーザ詳細ページ
+    public function detailUser($user_id){
+        $user = User::findOrFail($user_id);
+        $record = Record::where('user_id', $user_id)->get();
+        return view('admin.detail_user', compact('user', 'record'));
+    }
+
+    //ユーザ検索処理
+    public function searchUser(Request $request){
+        $word = $request->key_w;
+        $users = User::where('name', 'LIKE', "%$word%")
+            ->orWhere('realname', 'LIKE', "%$word%")
+            ->orWhere('email', 'LIKE', "%$word%")
+            ->paginate(10);
+        return view('admin.users', ['users' => $users]);
     }
 
     // 試験管理
