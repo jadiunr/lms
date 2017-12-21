@@ -147,7 +147,7 @@ class ExamController extends Controller
             }
             $records = new Record();
             $records->user_id=\Auth::user()->id;
-            $records->year = $block_id;
+            $records->block = $block_id;
             $records->exam_id = $exam_id;
             $records->category1 = $technology;
             $records->category2 = $management;
