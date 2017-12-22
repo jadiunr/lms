@@ -19,6 +19,8 @@ class RecordController extends Controller
         $answers = Answer::where('user_id', $user)->get();
         $exam_list=Exam::all();
 
+        $current_exam_name = Exam::findOrFail($exam_id)->name;
+
         $record =Record::where('user_id',$user)->where('exam_id',$exam_id)->get();
         $null_set=Record::where('user_id',$user)->where('exam_id',$exam_id)->first();
 
@@ -27,7 +29,7 @@ class RecordController extends Controller
             $null='テスト受験履歴がありません。';
 
 
-            return view('posts.result',['null'=>$null,'exam_result'=>$exam_id,'exam_list'=>$exam_list]);
+            return view('posts.result',['null'=>$null,'current_exam_name'=>$current_exam_name,'exam_id'=>$exam_id,'exam_list'=>$exam_list]);
         }
 
 
@@ -88,7 +90,7 @@ class RecordController extends Controller
 
         $answer_rate = array($a,$b,$c,$d);
 
-        return view('posts.result',['records'=>$record,'answer_rate'=>$answer_rate,'exam_result'=>$exam_id,'months'=>$date,'exam_list'=>$exam_list]);
+        return view('posts.result',['records'=>$record,'answer_rate'=>$answer_rate,'current_exam_name'=>$current_exam_name,'exam_id'=>$exam_id,'months'=>$date,'exam_list'=>$exam_list]);
     }
     public function history($exam_id,$time){
         $history = Record::where('created_at',$time)->where('user_id',\Auth::user()->id)->get();

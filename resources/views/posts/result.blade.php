@@ -3,7 +3,7 @@
 @section('content')
     <div class="row ">
         <div class="col-lg-6">
-            <h1>個人成績画面({{$exam_result}})</h1>
+            <h1>個人成績画面({{$current_exam_name}})</h1>
         </div>
         <div class="col-lg-3 col-lg-offset-3" style="margin-top: 20px;">
 
@@ -25,7 +25,7 @@
             @else
             <div class="col-lg-4"style="height:400px;" >
                 <h1>分野別正答率</h1>
-                <form action="/record/{{$exam_result}}" method="get">
+                <form action="/record/{{$exam_id}}" method="get">
                 <select  id="month_select" name="month" class="form-control" onChange="clearSelectBox()" >
                     @foreach($months as $month)
                     <option value="{{$month}}">{{$month}}</option>
