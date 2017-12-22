@@ -14,6 +14,10 @@ class RankingController extends Controller
     {
         $flag = 0;
 
+        $exam = null;
+
+        $block = null;
+
         $exam_id = Exam::all();
 
         $block_id = Block::all();
@@ -27,7 +31,7 @@ class RankingController extends Controller
             ->get();
 
         return view('/ranking')
-            ->with(compact('exam_id','block_id','records','users','flag'));
+            ->with(compact('exam_id','block_id','records','users','flag','exam','block'));
     }
 
     public function percentage(Request $request)
@@ -53,6 +57,6 @@ class RankingController extends Controller
             ->get();
 
         return view('/ranking')
-            ->with(compact('exam_id','block_id','records','users','flag','block'));
+            ->with(compact('exam_id','block_id','records','users','flag','block','exam','block'));
     }
 }
