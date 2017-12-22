@@ -9,11 +9,10 @@
 
             <form name="sort_form" method="get" >
                 <select  name="sort" class="form-control col-lg-6" onchange="dropsort()" >
-                    <option value="" >試験一覧</option>
-                    <option value="FE">基本情報技術者試験</option>
-                    <option value="AP">応用情報技術者試験</option>
-                    <option value="SE">情報セキュリティマネジメント</option>
-                    <option value="IT">ITパスポート</option>
+                    <option value="">試験一覧</option>
+                    @foreach($exam_list as $exam)
+                        <option value="{{$exam->id}}">{{$exam->name}}</option>
+                    @endforeach
                 </select>
             </form>
         </div>
@@ -27,10 +26,9 @@
             <div class="col-lg-4"style="height:400px;" >
                 <h1>分野別正答率</h1>
                 <form action="/record/{{$exam_result}}" method="get">
-                    {{csrf_field()}}
-                <select name="month" class="form-control" >
+                <select  id="month_select" name="month" class="form-control" onChange="clearSelectBox()" >
                     @foreach($months as $month)
-                    <option value="{{substr($month,5,1)}}">{{$month}}</option>
+                    <option value="{{$month}}">{{$month}}</option>
                     @endforeach
                 </select>
                     <input type="submit">
