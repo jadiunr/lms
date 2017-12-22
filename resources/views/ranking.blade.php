@@ -4,9 +4,14 @@
         <div class="col-lg-6"></div>
     {{Form::open(['method' => 'get'])}}
         <div class="form-group">
+            <select class="form-control" name="exam_id">
+                @foreach($exam_id as $e_id)
+                    <option value={{$e_id->id}} @if($exam == $e_id->id) selected @endif>{{$e_id->id}}</option>
+                @endforeach
+            </select>
             <select class="form-control" name="block_id">
-                @foreach($block_id as $id)
-                    <option value={{$id->block_id}}>{{$id->block_id}}</option>
+                @foreach($block_id as $b_id)
+                    <option value={{$b_id->id}} @if($block == $b_id->id) selected @endif>{{$b_id->id}}</option>
                 @endforeach
             </select>
         </div>

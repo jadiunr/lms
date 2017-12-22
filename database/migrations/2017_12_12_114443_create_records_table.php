@@ -16,7 +16,7 @@ class CreateRecordsTable extends Migration
         Schema::create('records', function (Blueprint $table) {
             $table->increments('id',12);//成績ID
             $table->integer('user_id');//ユーザーID
-            $table->string('year',12);//年度
+            $table->string('block',12);//年度
             $table->string('exam_id',6);//試験区分
             $table->string('category1',12)->nullable();//カテゴリ
             $table->string('category2',12)->nullable();//カテゴリ
