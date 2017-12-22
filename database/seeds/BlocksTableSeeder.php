@@ -15,7 +15,14 @@ class BlocksTableSeeder extends Seeder
         for($i=20;$i<30;$i++){
             $block = new Block();
             $block->id = 'h'.$i.'_s';
-            $block->name = 'blockname'. $i;
+            $block->name = $i.'年春';
+            $block->save();
+        }
+
+        for($i=20;$i<30;$i++){
+            $block = new Block();
+            $block->id = 'h'.$i.'_a';
+            $block->name = $i.'年秋';
             $block->save();
         }
     }

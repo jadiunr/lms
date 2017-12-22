@@ -10,6 +10,7 @@ use App\Problem;
 use App\Category;
 use App\Changelog;
 use App\Record;
+use App\Answer;
 use App\Http\Requests\AdminsUserRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
@@ -341,6 +342,25 @@ class AdminController extends Controller
         $log->save();
 
         \Session::flash('flash_message', 'Block successfully deleted globally.');
+        return redirect()->back();
+    }
+
+    //　成績
+
+    // 一覧
+    public function getRecords(){
+        $records = new Record();
+        $records = $records->getRecords();
+        return view('admin.records', compact('records'));
+    }
+
+    // 削除
+    public function deleteRecord(Request $request){
+        Record::where('id', $request->record_id)
+            ->delete();
+        Answer::where('record_id', $request->record_id)
+            ->delete();
+        \Session::flash('flash_message', 'Record successfully deleted');
         return redirect()->back();
     }
 }

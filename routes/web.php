@@ -184,6 +184,12 @@ Route::group(['middleware' => 'auth'], function() {
         // 問題削除
         Route::post('/exams/{exam_id}/{block_id}/{problem_id}/delete', 'AdminController@deleteProblem')->name('admin.deleteProblem');
 
+        // 成績表示
+        Route::get('/records', 'AdminController@getRecords')->name('admin.getRecords');
+
+        // 成績削除
+        Route::post('/records/delete', 'AdminController@deleteRecord')->name('admin.deleteRecord');
+
         //スレッド管理
         Route::get('/bbs', 'BbsAdminController@index');
 
