@@ -27,7 +27,7 @@ class CreateProblemsTable extends Migration
             $table->string('pic_que')->nullable();//問題画像
             $table->string('pic_ans')->nullable();//解説画像
             $table->string('correct'); //正解
-            $table->string('explain'); //解説
+            $table->string('explain')->nullable(); //解説
             $table->timestamps();
         });
     }
