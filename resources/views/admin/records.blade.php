@@ -12,27 +12,27 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">ユーザ一覧</h3>
+                    <h3 class="panel-title">成績一覧</h3>
                 </div>
                 <div class="panel-body">
                     <div class="col-md-6">{{ $records->links() }}</div>
-                    {{--<div class="col-md-6">--}}
-                        {{--{!! Form::open(['method' => 'get', 'route' => 'admin.searchUser']) !!}--}}
-                        {{--<div class="input-group">--}}
-                            {{--<input type="text" class="form-control" name="key_w">--}}
-                            {{--<span class="input-group-btn">--}}
-                                {{--<button class="btn btn-default" type="submit">検索</button>--}}
-                            {{--</span>--}}
-                        {{--</div>--}}
-                        {{--{!! Form::close() !!}--}}
-                    {{--</div>--}}
+                    <div class="col-md-6">
+                        {!! Form::open(['method' => 'get', 'route' => 'admin.searchRecord']) !!}
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="key_w">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">検索</button>
+                            </span>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
                     <table class="table table-striped">
                         <tr>
                             <th>成績ID</th>
                             <th>試験名</th>
                             <th>ブロック名</th>
-                            <th>利用者名</th>
-                            <th>本名</th>
+                            <th>受験者名</th>
+                            <th>受験者本名</th>
                             <th>正答率</th>
                             <th>合否</th>
                             <th>受験日</th>
@@ -40,12 +40,12 @@
                         </tr>
                         @foreach($records as $record)
                             <tr>
-                                <td>{{ $record->record_id }}</td>
-                                <td>{{ $record->exam_name }}</td>
-                                <td>{{ $record->block_name }}</td>
-                                <td>{{ $record->user_name }}</td>
-                                <td>{{ $record->user_realname }}</td>
-                                <td>{{ $record->rate }}</td>
+                                <td>{{ $record->id }}</td>
+                                <td>{{ $record->exam->name }}</td>
+                                <td>{{ $record->block->name }}</td>
+                                <td>{{ $record->user->name }}</td>
+                                <td>{{ $record->user->realname }}</td>
+                                <td>{{ ($record->total / $record->answers->count()) * 100 }}%</td>
                                 <td>
                                     @if($record->rate >= 0.6)
                                         <span style="color:red;font-weight:bold">合格</span>
@@ -53,7 +53,7 @@
                                         <span style="color:blue">不合格</span>
                                     @endif
                                 </td>
-                                <td>{{ $record->exam_date }}</td>
+                                <td>{{ $record->created_at }}</td>
                                 <td>
                                     {!! Form::open(['route' => ['admin.deleteRecord']]) !!}
                                     {!! Form::hidden('record_id', $record->record_id) !!}

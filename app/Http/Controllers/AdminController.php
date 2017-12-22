@@ -353,6 +353,13 @@ class AdminController extends Controller
         return view('admin.records', compact('records'));
     }
 
+    // 検索
+    public function searchRecord(Request $request){
+
+        $records = Record::searchRecords($request->key_w);
+        return view('admin.records', compact('records'));
+    }
+
     // 削除
     public function deleteRecord(Request $request){
         Record::where('id', $request->record_id)

@@ -10,7 +10,9 @@ class Exam extends Model
     // 書かなくても動いた
     protected $keyType = 'string';
 
-    public function problems(){return $this->hasMany('App\Problem');}
+    public function problems(){
+        return $this->hasMany('App\Problem');
+    }
 
 
     /**

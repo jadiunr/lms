@@ -8,7 +8,13 @@ use Illuminate\Support\Facades\DB;
 class Block extends Model
 {
 
-    public function problems(){return $this->hasMany('App\Problem');}
+    public function problems(){
+        return $this->hasMany('App\Problem', 'block_id');
+    }
+
+    public function records(){
+        return $this->hasMany('App\Record', 'block');
+    }
 
 
 
