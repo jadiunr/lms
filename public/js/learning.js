@@ -29,3 +29,10 @@ function dropsort() {
     var browser = document.sort_form.sort.value;
     location.href = browser
 }
+
+// function clearSelectBox(){
+//     $('#month_select').each(function() {
+//         $(this).children('option').removeAttr('selected'); //optionのselected要素の削除
+//         this.selectedIndex= 0; //selectIndexを0に設定。
+//     });
+// }

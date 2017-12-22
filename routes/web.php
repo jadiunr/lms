@@ -80,6 +80,8 @@ Route::group(['middleware' => 'auth'], function() {
 
         Route::get('/record/{exam_id}','RecordController@view');
 
+
+
         Route::get('/record/{exam_id}/history/{time}','RecordController@history');
 
 
