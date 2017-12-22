@@ -9,6 +9,8 @@ use App\Block;
 use App\Problem;
 use App\Category;
 use App\Changelog;
+use App\Record;
+use App\Answer;
 use App\Http\Requests\AdminsUserRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +22,8 @@ class AdminController extends Controller
 
     //ユーザ一覧ページ
     public function getUsers(){
-        $users = User::all();
+        $users = User::orderBy('id')
+            ->paginate(10);
         return view('admin.users', ['users' => $users]);
     }
 
@@ -59,6 +62,23 @@ class AdminController extends Controller
 
     }
 
+    //ユーザ詳細ページ
+    public function detailUser($user_id){
+        $user = User::findOrFail($user_id);
+        $record = Record::where('user_id', $user_id)->get();
+        return view('admin.detail_user', compact('user', 'record'));
+    }
+
+    //ユーザ検索処理
+    public function searchUser(Request $request){
+        $word = $request->key_w;
+        $users = User::where('name', 'LIKE', "%$word%")
+            ->orWhere('realname', 'LIKE', "%$word%")
+            ->orWhere('email', 'LIKE', "%$word%")
+            ->paginate(10);
+        return view('admin.users', ['users' => $users]);
+    }
+
     // 試験管理
 
     //試験一覧ページ
@@ -71,7 +91,7 @@ class AdminController extends Controller
     //問題が登録されていないブロックは一覧に表示されない
     public function editExam($exam_id){
         $exam = Exam::findOrFail($exam_id);
-        $blocks = DB::select('select p.exam_id, b.id, b.name, count(*) as count, b.created_at, b.updated_at from blocks b join problems p on b.id = p.block_id and \''. $exam_id .'\'= p.exam_id group by b.id, p.exam_id');
+        $blocks = Block::getBindingBlocks($exam_id);
         $full_blocks = Block::all();
         return view('admin.edit_exam', compact('exam', 'blocks', 'full_blocks'));
     }
@@ -322,6 +342,24 @@ class AdminController extends Controller
         $log->save();
 
         \Session::flash('flash_message', 'Block successfully deleted globally.');
+        return redirect()->back();
+    }
+
+    //　成績
+
+    // 一覧
+    public function getRecords(){
+        $records = Record::getRecords();
+        return view('admin.records', compact('records'));
+    }
+
+    // 削除
+    public function deleteRecord(Request $request){
+        Record::where('id', $request->record_id)
+            ->delete();
+        Answer::where('record_id', $request->record_id)
+            ->delete();
+        \Session::flash('flash_message', 'Record successfully deleted');
         return redirect()->back();
     }
 }

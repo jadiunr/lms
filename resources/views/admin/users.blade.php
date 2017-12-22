@@ -15,7 +15,17 @@
                     <h3 class="panel-title">ユーザ一覧</h3>
                 </div>
                 <div class="panel-body">
-
+                    <div class="col-md-6">{{ $users->links() }}</div>
+                    <div class="col-md-6">
+                        {!! Form::open(['method' => 'get', 'route' => 'admin.searchUser']) !!}
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="key_w">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">検索</button>
+                            </span>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
                     <table class="table table-striped">
                         <tr>
                             <th>ID</th>
@@ -32,7 +42,7 @@
                         @foreach($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td><a href="{{ route('admin.detailUser', ['user_id' => $user->id]) }}">{{ $user->name }}</a></td>
                                 <td>{{ $user->realname }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
