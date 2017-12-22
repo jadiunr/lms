@@ -3,17 +3,16 @@
 @section('content')
     <div class="row ">
         <div class="col-lg-6">
-            <h1>個人成績画面</h1>
+            <h1>個人成績画面({{$current_exam_name}})</h1>
         </div>
         <div class="col-lg-3 col-lg-offset-3" style="margin-top: 20px;">
 
             <form name="sort_form" method="get" >
                 <select  name="sort" class="form-control col-lg-6" onchange="dropsort()" >
-                    <option value="" >試験一覧</option>
-                    <option value="FE">基本情報技術者試験</option>
-                    <option value="AP">応用情報技術者試験</option>
-                    <option value="SE">情報セキュリティマネジメント</option>
-                    <option value="IT">ITパスポート</option>
+                    <option value="">試験一覧</option>
+                    @foreach($exam_list as $exam)
+                        <option value="{{$exam->id}}">{{$exam->name}}</option>
+                    @endforeach
                 </select>
             </form>
         </div>
@@ -24,8 +23,18 @@
             @if(isset($null))
                 {{$null}}
             @else
-            <div class="col-lg-4"style="height:400px;">
+            <div class="col-lg-4"style="height:400px;" >
                 <h1>分野別正答率</h1>
+                <form action="/record/{{$exam_id}}" method="get">
+                <select  id="month_select" name="month" class="form-control" onChange="clearSelectBox()" >
+                    @foreach($months as $month)
+                    <option value="{{$month}}">{{$month}}</option>
+                    @endforeach
+                </select>
+                    <input type="submit">
+                </form>
+
+
                 <table border=1 height="400" width="330">
                     <tr>
                         <th style="width: 250px;height:40px">分野</th>
