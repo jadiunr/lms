@@ -26,10 +26,15 @@
                             {!! $error !!}
                         @elseif(isset($problem_id))
                             {!! $problem_id->question !!}
+                    </p>
+                        @if($problem_id->pic_que != 'NULL')
+                        <div style="text-align: center;margin-bottom: 70px"><img src="{{$problem_id->pic_que}}" ></div>
                         @endif
-                    </p>　　
+                        @endif
+                    　　
 
                     <div class="row">
+                        <div class="col-lg-6">
                             @if(isset($problem_id))
                                 <ul class="select-list">
                                     <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/ア' class="select-btn"><button>ア</button></a><span>{{$problem_id->answer1}}</span></li>
@@ -39,13 +44,17 @@
                                 </ul>
                             @endif
 
-                       <ul class="select-list2" >
-                            <li style="margin-bottom: 10px"><a href="#1"><button class="box">解答</button></a></li>
-                            <form method="post" name="answer_list" action="/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}">
-                                {{csrf_field()}}
-                                <li><a href="javascript:answer_list.submit()"><button>試験終了</button></a></li>
-                            </form>
-                       </ul>
+                           <ul class="select-list2" >
+                                <li style="margin-bottom: 10px"><a href="#1"><button class="box">解答</button></a></li>
+                                <form method="post" name="answer_list" action="/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}">
+                                    {{csrf_field()}}
+                                    <li><a href="javascript:answer_list.submit()"><button>試験終了</button></a></li>
+                                </form>
+                           </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            @if($problem_id->pic_ans != 'NULL')<img src="{{$problem_id->pic_ans}}" >@endif
+                        </div>
 
                     </div>
                 </div>
@@ -53,7 +62,13 @@
                     <div>
                         <div class="scrollbox" style="height:350px;overflow:auto;border:1px solid #aaa;padding:10px;">
                             @for($i = 1; $i < $problem_count+1; $i++)
-                                <p><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$i}}' style="text-decoration: none ;color:black;">問{{$i}} コンテンツ</a></p>
+                                <p><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$i}}' style="text-decoration: none ;color:black;">問{{$i}} コンテンツ
+                                        @if(isset($session_item))
+                                            @if($session_item[$i-1]!='-')
+                                                <span style="margin-left: 10px">{{$session_item[$i-1]}}</span>
+                                            @endif
+                                        @endif
+                                 </a></p>
                             @endfor
                         </div>
                     </div>

@@ -22,24 +22,33 @@
                             {!! $error !!}
                         @elseif(isset($problem_id))
                             {!! $problem_id->question !!}
-                        @endif
-                    </p>　　
+                    </p>
+                    @if($problem_id->pic_que != 'NULL')
+                        <div style="text-align: center;margin-bottom: 70px"><img src="{{$problem_id->pic_que}}" ></div>
+                    @endif
+                    @endif
+
 
                     <div class="row">
-                        @if(isset($problem_id))
-                            <ul class="select-list">
-                                <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/ア' class="select-btn"><button>ア</button></a><span>{{$problem_id->answer1}}</span></li>
-                                <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/イ' class="select-btn"><button>イ</button></a><span>{{$problem_id->answer2}}</span></li>
-                                <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/ウ' class="select-btn"><button>ウ</button></a><span>{{$problem_id->answer3}}</span></li>
-                                <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/エ' class="select-btn"><button>エ</button></a><span>{{$problem_id->answer4}}</span></li>
+                        <div class="col-lg-6">
+                            @if(isset($problem_id))
+                                <ul class="select-list">
+                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/ア' class="select-btn"><button>ア</button></a><span>{{$problem_id->answer1}}</span></li>
+                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/イ' class="select-btn"><button>イ</button></a><span>{{$problem_id->answer2}}</span></li>
+                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/ウ' class="select-btn"><button>ウ</button></a><span>{{$problem_id->answer3}}</span></li>
+                                    <li><a href='/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}/{{$problem_id->problem_number}}/エ' class="select-btn"><button>エ</button></a><span>{{$problem_id->answer4}}</span></li>
+                                </ul>
+                            @endif
+                            <ul class="select-list2">
+                                <form method="post" name="answer_list" action="/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}">
+                                    {{csrf_field()}}
+                                    <li><a href="javascript:answer_list.submit()"><button>試験終了</button></a></li>
+                                </form>
                             </ul>
-                        @endif
-                        <ul class="select-list2">
-                            <form method="post" name="answer_list" action="/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}">
-                                {{csrf_field()}}
-                                <li><a href="javascript:answer_list.submit()"><button>試験終了</button></a></li>
-                            </form>
-                        </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            @if($problem_id->pic_ans != 'NULL')<img src="{{$problem_id->pic_ans}}" >@endif
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-3" style="margin-top: 100px">
