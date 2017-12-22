@@ -80,6 +80,8 @@ Route::group(['middleware' => 'auth'], function() {
 
         Route::get('/record/{exam_id}','RecordController@view');
 
+
+
         Route::get('/record/{exam_id}/history/{time}','RecordController@history');
 
 
@@ -112,8 +114,14 @@ Route::group(['middleware' => 'auth'], function() {
         // ユーザ更新処理
         Route::post('/users/update/{user_id}', 'AdminController@updateUser')->name('admin.updateUser');
 
+        //ユーザ詳細ページ
+        Route::post('/users/detail/{user_id}', 'AdminController@detailUser')->name('admin.detailUser');
+
         //ユーザ削除処理
         Route::post('/users/delete', 'AdminController@deleteUser')->name('admin.deleteUser');
+
+        //ユーザ検索処理
+        Route::get('/users/search', 'AdminController@searchUser')->name('admin.searchUser');
 
         // 試験管理ページ
         Route::get('/exams', 'AdminController@getExams')->name('admin.exams');
@@ -177,6 +185,12 @@ Route::group(['middleware' => 'auth'], function() {
 
         // 問題削除
         Route::post('/exams/{exam_id}/{block_id}/{problem_id}/delete', 'AdminController@deleteProblem')->name('admin.deleteProblem');
+
+        // 成績表示
+        Route::get('/records', 'AdminController@getRecords')->name('admin.getRecords');
+
+        // 成績削除
+        Route::post('/records/delete', 'AdminController@deleteRecord')->name('admin.deleteRecord');
 
         //スレッド管理
         Route::get('/bbs', 'BbsAdminController@index');

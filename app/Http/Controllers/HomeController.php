@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Thread;
 use App\Changelog;
-
+use App\Exam;
 class HomeController extends Controller
 {
     /**
@@ -36,6 +36,9 @@ class HomeController extends Controller
             ->take(5)
             ->get();
 
-        return view('home',compact('changelog'),compact('threads'));
+        $exam_list= Exam::all();
+
+
+        return view('home',compact("changelog","threads","exam_list"));
     }
 }

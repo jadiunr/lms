@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Block;
 use App\Problem;
+use Beta\B;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Record;
 use App\Answer;
-
+use App\Exam;
 class ExamController extends Controller
 {
     //試験選択
     function getExams() {
-        return view('posts.exam_list');
+        $exam_list=Exam::all();
+        return view('posts.exam_list',['exam_list'=>$exam_list]);
     }
 
     //最初から始める
@@ -36,7 +39,9 @@ class ExamController extends Controller
 
     function block($exam_id){
 
-     return view('posts.block_list',['exam_id'=>$exam_id]);
+        $block_list = Block::getBindingBlocks($exam_id);
+
+     return view('posts.block_list',['exam_id'=>$exam_id,'block_list'=>$block_list]);
     }
 
     function index($exam_id,$block_id){
@@ -101,10 +106,10 @@ class ExamController extends Controller
 
 
                 if ($problem_answer->correct == $answer) {
-                    return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', 'Great!');
+                    return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', 'やりますねぇ。。!');
                 }
 
-                return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', 'Fuck!');
+                return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', '1145141919810!');
             }
 
             $answers_test=session()->get('answers_test',[]);
