@@ -189,6 +189,9 @@ Route::group(['middleware' => 'auth'], function() {
         // 成績表示
         Route::get('/records', 'AdminController@getRecords')->name('admin.getRecords');
 
+        // 成績検索
+        Route::get('/records/search', 'AdminController@searchRecord')->name('admin.searchRecord');
+
         // 成績削除
         Route::post('/records/delete', 'AdminController@deleteRecord')->name('admin.deleteRecord');
 
