@@ -70,20 +70,23 @@ class ExamController extends Controller
         }else{
             $Next_btn = $post[$id]->problem_number;
         }
+        $session_item=session()->get('answers_test',[]);
+
+        $session_item=session()->get('answers',[]);
 
         if(is_null($problem_Previous)){
             $error="問題が設定されていません。こちらのサービス提供に不手際がありました。申し訳ございませんでした。<br>全ての問題はこちらの会社のCEO<strong style=\"color: red\">MIZUKAMI</strong>の責任";
             return view('posts.learning')->with(['error'=>$error,'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id]);
         }
         if($mode_id=="test"){
-
             $session_item=session()->get('answers_test',[]);
+
 
             return view('posts.test')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'session_item'=>$session_item,'id'=>$id,'problem_count'=>$problem_count]);
 
         }
 
-        return view('posts.learning')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'id'=>$id,'problem_count'=>$problem_count]);
+        return view('posts.learning')->with(['problem_id'=>$post[$id-1],'Previous_btn'=>$Previous_btn,'Next_btn'=>$Next_btn,'exam_id'=>$exam_id,'block_id'=>$block_id,'mode_id'=>$mode_id,'id'=>$id,'session_item'=>$session_item,'problem_count'=>$problem_count]);
     }
 
 
