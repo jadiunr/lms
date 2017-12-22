@@ -91,7 +91,7 @@ class AdminController extends Controller
     //問題が登録されていないブロックは一覧に表示されない
     public function editExam($exam_id){
         $exam = Exam::findOrFail($exam_id);
-        $blocks = DB::select('select p.exam_id, b.id, b.name, count(*) as count, b.created_at, b.updated_at from blocks b join problems p on b.id = p.block_id and \''. $exam_id .'\'= p.exam_id group by b.id, p.exam_id');
+        $blocks = Block::getBindingBlocks($exam_id);
         $full_blocks = Block::all();
         return view('admin.edit_exam', compact('exam', 'blocks', 'full_blocks'));
     }
@@ -349,8 +349,7 @@ class AdminController extends Controller
 
     // 一覧
     public function getRecords(){
-        $records = new Record();
-        $records = $records->getRecords();
+        $records = Record::getRecords();
         return view('admin.records', compact('records'));
     }
 

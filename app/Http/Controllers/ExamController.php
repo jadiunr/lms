@@ -39,8 +39,7 @@ class ExamController extends Controller
 
     function block($exam_id){
 
-        $block_list=Block::all();
-
+        $block_list = Block::getBindingBlocks($exam_id);
 
      return view('posts.block_list',['exam_id'=>$exam_id,'block_list'=>$block_list]);
     }

@@ -15,7 +15,7 @@ class Record extends Model
         return $this->hasMany('App\Answer');
     }
 
-    public function getRecords(){
+    public static function getRecords(){
 //        return DB::select('select records.id as record_id,
 //            exams.name as exam_name,
 //            blocks.name as block_name,
