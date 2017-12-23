@@ -47,7 +47,7 @@
                                 <td>{{ $record->user->realname }}</td>
                                 <td>{{ ($record->total / $record->answers->count()) * 100 }}%</td>
                                 <td>
-                                    @if($record->rate >= 0.6)
+                                    @if(($record->total / $record->answers->count()) >= 0.6)
                                         <span style="color:red;font-weight:bold">合格</span>
                                     @else
                                         <span style="color:blue">不合格</span>
@@ -56,7 +56,7 @@
                                 <td>{{ $record->created_at }}</td>
                                 <td>
                                     {!! Form::open(['route' => ['admin.deleteRecord']]) !!}
-                                    {!! Form::hidden('record_id', $record->record_id) !!}
+                                    {!! Form::hidden('record_id', $record->id) !!}
                                     {!! Form::submit('削除', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("本当によろしいですか？")']) !!}
                                     {!! Form::close() !!}
                                 </td>

@@ -349,23 +349,22 @@ class AdminController extends Controller
 
     // 一覧
     public function getRecords(){
-        $records = Record::getRecords();
+        $records = Record::paginate(10);
+
         return view('admin.records', compact('records'));
     }
 
     // 検索
     public function searchRecord(Request $request){
-
         $records = Record::searchRecords($request->key_w);
+
         return view('admin.records', compact('records'));
     }
 
     // 削除
     public function deleteRecord(Request $request){
-        Record::where('id', $request->record_id)
-            ->delete();
-        Answer::where('record_id', $request->record_id)
-            ->delete();
+        Record::deleteRecord($request->record_id);
+
         \Session::flash('flash_message', 'Record successfully deleted');
         return redirect()->back();
     }
