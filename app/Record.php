@@ -31,16 +31,21 @@ class Record extends Model
         $query = Record::query();
         
         foreach($space_separated as $keyword) {
-            $query->whereHas('user', function ($query) use ($keyword) {
-                $query->where('name', 'LIKE', "%$keyword%")
-                    ->orWhere('realname', 'LIKE', "%$keyword%");
-            })->orWhereHas('block', function ($query) use ($keyword) {
-                $query->where('name', 'LIKE', "%$keyword%");
-            })->orWhereHas('exam', function ($query) use ($keyword) {
-                $query->where('name', 'LIKE', "%$keyword%");
-            });
+            if ($keyword == '合格') {
+                $query->where('rate', '>=', '60');
+            } else if ($keyword == '不合格') {
+                $query->where('rate', '<=', '60');
+            } else {
+                $query->whereHas('user', function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', "%$keyword%")
+                        ->orWhere('realname', 'LIKE', "%$keyword%");
+                })->orWhereHas('block', function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', "%$keyword%");
+                })->orWhereHas('exam', function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', "%$keyword%");
+                });
+            }
         }
-
         return $query->paginate(10);
     }
 

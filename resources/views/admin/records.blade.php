@@ -45,9 +45,9 @@
                                 <td>{{ $record->block->name }}</td>
                                 <td>{{ $record->user->name }}</td>
                                 <td>{{ $record->user->realname }}</td>
-                                <td>{{ ($record->total / $record->answers->count()) * 100 }}%</td>
+                                <td>{{ $record->rate}}%</td>
                                 <td>
-                                    @if(($record->total / $record->answers->count()) >= 0.6)
+                                    @if($record->rate >= 60)
                                         <span style="color:red;font-weight:bold">合格</span>
                                     @else
                                         <span style="color:blue">不合格</span>
