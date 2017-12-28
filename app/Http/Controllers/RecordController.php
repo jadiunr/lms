@@ -10,6 +10,7 @@ use App\Record;
 use App\Exam;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 class RecordController extends Controller
 {
     //
@@ -35,19 +36,25 @@ class RecordController extends Controller
 
 
         //期間指定カテゴリー成績参照処理
-        $year=date("Y");
-        $month=substr($request->month,5,2);
-        if(isset($month)) {
-            $record = Record::where('user_id',$user)->where('exam_id',$exam_id)->where('created_at', 'LIKE', "$year-$month%")->get();
-            $answers = Answer::where('user_id', $user)->where('created_at', 'LIKE', "$year-$month%")->get();
-            $record_null_set = Record::where('user_id',$user)->where('exam_id',$exam_id)->where('created_at', 'LIKE', "$year-$month%")->first();
+        $max_date=date("Y-m-d");
+        $start_period=$request->start_period;
+        $end_period=$request->end_period;
+        $dt1 = new Carbon($start_period);
+        $dt2 = new Carbon($end_period);
 
-
-
+        $period_error=false;
+        if($dt1->gt($dt2)==true){
+           $period_error=true;
         }
-        $date=array();
-        for($i=1; $i<13;$i++){
-            array_push($date,$year."-".sprintf('%02d',$i));
+
+
+        if(isset($start_period) and isset($end_period)) {
+            $record = Record::where('user_id',$user)->where('exam_id',$exam_id)->whereBetween('created_at', [$start_period.' 00:00:00', $end_period.' 23:59:59'])->get();
+            $answers = Answer::where('user_id', $user)->whereBetween('created_at', [$start_period.' 00:00:00', $end_period.' 23:59:59'])->get();
+
+            $record_null_set=Record::where('user_id',$user)->where('exam_id',$exam_id)->whereBetween('created_at', [$start_period.' 00:00:00', $end_period.' 23:59:59'])->first();
+
+
         }
 
         $total_technology=0; $total_management=0; $total_strategy=0; $total_etc=0;
@@ -90,7 +97,7 @@ class RecordController extends Controller
 
         $answer_rate = array($a,$b,$c,$d);
 
-        return view('posts.result',['records'=>$record,'answer_rate'=>$answer_rate,'current_exam_name'=>$current_exam_name,'exam_id'=>$exam_id,'months'=>$date,'exam_list'=>$exam_list]);
+        return view('posts.result',['records'=>$record,'answer_rate'=>$answer_rate,'current_exam_name'=>$current_exam_name,'exam_id'=>$exam_id,'max_date'=>$max_date,'exam_list'=>$exam_list,'period_error'=>$period_error]);
     }
     public function history($exam_id,$time){
         $history = Record::where('created_at',$time)->where('user_id',\Auth::user()->id)->get();

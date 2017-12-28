@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="/css/result.css">
+@endsection
+
 @section('content')
     <div class="row ">
         <div class="col-lg-6">
@@ -23,17 +27,21 @@
             @if(isset($null))
                 {{$null}}
             @else
-            <div class="col-lg-4"style="height:400px;" >
-                <h1>分野別正答率</h1>
-                <form action="/record/{{$exam_id}}" method="get">
-                <select  id="month_select" name="month" class="form-control" onChange="clearSelectBox()" >
-                    @foreach($months as $month)
-                    <option value="{{$month}}">{{$month}}</option>
-                    @endforeach
-                </select>
-                    <input type="submit">
-                </form>
+            <div class="col-lg-4" style="height:400px;" >
 
+                <form action="/record/{{$exam_id}}" method="GET">
+
+                    <h1 class="inline" style="margin-right: 40px">分野別正答率</h1>
+
+                    <input class="btn btn-default inline" type="submit" value="期間指定" style="margin-bottom: 5px">
+                    <div class="result_period" style="margin-bottom: 20px">
+                        <input type="date" name="start_period">　〜　<input type="date" name="end_period" max="{{$max_date}}">
+                        @if($period_error == true)
+                            <p style="color: red">※指定した期間を見直してください</p>
+                        @endif
+                    </div>
+
+                </form>
 
                 <table border=1 height="400" width="330">
                     <tr>
