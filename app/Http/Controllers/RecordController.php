@@ -16,6 +16,8 @@ class RecordController extends Controller
     //
     public  function view(Request $request,$exam_id)
     {
+        $request->flashOnly(['start_period', 'end_period']);
+
         $user = Auth::id();
         $answers = Answer::where('user_id', $user)->get();
         $exam_list=Exam::all();

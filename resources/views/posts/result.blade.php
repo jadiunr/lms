@@ -34,8 +34,8 @@
                     <h1 class="inline" style="margin-right: 40px">分野別正答率</h1>
 
                     <input class="btn btn-default inline" type="submit" value="期間指定" style="margin-bottom: 5px">
-                    <div class="result_period" style="margin-bottom: 20px">
-                        <input type="date" name="start_period">　〜　<input type="date" name="end_period" max="{{$max_date}}">
+                    <div class="result_period" style="margin: 20px 0">
+                        <input type="date" name="start_period" value="{{old('start_period')}}">　〜　<input type="date" name="end_period" max="{{$max_date}}" value="{{old('end_period')}}">
                         @if($period_error == true)
                             <p style="color: red">※指定した期間を見直してください</p>
                         @endif
