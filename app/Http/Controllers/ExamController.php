@@ -161,7 +161,10 @@ class ExamController extends Controller
             $records->category2 = $management;
             $records->category3 = $strategy;
             $records->category4 = $etc;
-            $records->total= $b;
+            $records->total = $b;
+            $records->rate = ($b / Problem::where('exam_id', '=', $exam_id)
+                    ->where('block_id', '=', $block_id)
+                    ->count()) * 100;
             $records->save();
 
             foreach ($answers_test as $index => $answer) {

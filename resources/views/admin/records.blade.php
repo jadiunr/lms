@@ -15,7 +15,7 @@
                     <h3 class="panel-title">成績一覧</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="col-md-6">{{ $records->links() }}</div>
+                    <div class="col-md-6">{{ $records->appends(Request::only('key_w'))->links() }}</div>
                     <div class="col-md-6">
                         {!! Form::open(['method' => 'get', 'route' => 'admin.searchRecord']) !!}
                         <div class="input-group">
@@ -23,6 +23,22 @@
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit">検索</button>
                             </span>
+                        </div>
+                        <div class="input-group">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    絞り込み
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="small" data-value="option1" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 1</a></li>
+                                    <li><a class="small" data-value="option2" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 2</a></li>
+                                    <li><a class="small" data-value="option3" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 3</a></li>
+                                    <li><a class="small" data-value="option4" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 4</a></li>
+                                    <li><a class="small" data-value="option5" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 5</a></li>
+                                    <li><a class="small" data-value="option6" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 6</a></li>
+                                </ul>
+                            </div>
                         </div>
                         {!! Form::close() !!}
                     </div>
@@ -45,9 +61,9 @@
                                 <td>{{ $record->block->name }}</td>
                                 <td>{{ $record->user->name }}</td>
                                 <td>{{ $record->user->realname }}</td>
-                                <td>{{ ($record->total / $record->answers->count()) * 100 }}%</td>
+                                <td>{{ $record->rate}}%</td>
                                 <td>
-                                    @if($record->rate >= 0.6)
+                                    @if($record->rate >= 60)
                                         <span style="color:red;font-weight:bold">合格</span>
                                     @else
                                         <span style="color:blue">不合格</span>
@@ -56,7 +72,7 @@
                                 <td>{{ $record->created_at }}</td>
                                 <td>
                                     {!! Form::open(['route' => ['admin.deleteRecord']]) !!}
-                                    {!! Form::hidden('record_id', $record->record_id) !!}
+                                    {!! Form::hidden('record_id', $record->id) !!}
                                     {!! Form::submit('削除', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("本当によろしいですか？")']) !!}
                                     {!! Form::close() !!}
                                 </td>

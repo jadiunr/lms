@@ -23,6 +23,7 @@ class CreateRecordsTable extends Migration
             $table->string('category3',12)->nullable();//カテゴリ
             $table->string('category4',12)->nullable();//カテゴリ
             $table->integer('total');//正解問題数
+            $table->float('rate');//正答率
             $table->timestamps();
 
         });

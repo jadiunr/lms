@@ -69,7 +69,7 @@
                         {{--forでやる--}}
                         <thead>
                             <tr style="border-color: black">
-                                <th style="width: 280px;height:40px">試験名</th>
+                                <th style="width: 280px;height:40px">ブロック名</th>
                                 <th style="height:40px">正答率</th>
                                 <th>合否</th>
                                 <th>受験日</th>
@@ -79,9 +79,9 @@
                         <tbody>
                         @foreach($records as $record)
                             <tr>
-                                <td>平成{{substr($record->year,1,2)}}年@if(substr($record->year,4,1)=='s')春@else秋@endif</td>
-                                <td>{{$record->total/80*100}}%</td>
-                                <td>@if($record->total >=60)<span style="color:greenyellow">合格</span>
+                                <td>{{$record->block->name}}</td>
+                                <td>{{$record->rate}}%</td>
+                                <td>@if($record->rate >= 60)<span style="color:greenyellow">合格</span>
                                     @else<span style="color:red">不合格</span>@endif
                                 </td>
                                 <td>{{$record->created_at}}</td>
