@@ -27,10 +27,11 @@ class Record extends Model
     }
 
     public static function searchRecords($word){
-        $space_separated = explode(' ', $word);
+        $word = str_replace('　', ' ', $word);
+        $word = explode(' ', $word);
         $query = Record::query();
         
-        foreach($space_separated as $keyword) {
+        foreach($word as $keyword) {
             if ($keyword == '合格') {
                 $query->where('rate', '>=', '60');
             } else if ($keyword == '不合格') {
