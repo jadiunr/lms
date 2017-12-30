@@ -14,7 +14,8 @@
         <tbody>
             <?php $i=0 ?>
             @foreach($problems as $problem)
-            <tr>
+            <tr @if($problem->correct == $answer_history[$i]->answer) style="background:#CEF6CE"
+                @else style="background:#F6CECE"@endif>
                 <td>{{$problem->problem_number}}</td>
                 <td>{{$answer_history[$i]->answer}}</td>
                 <td>{{$problem->correct}}</td>
