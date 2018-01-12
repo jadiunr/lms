@@ -5,9 +5,9 @@
 @endsection
 
 @section('flash')
-    @if (session('flash_message')=='Great!')
+    @if (session('flash_message')=='正解です！')
         <div class="flash_message" style="text-align: center;padding: 5px;color: green;background: #CCFFCC; " onclick="this.classList.add('hidden')">{{ session('flash_message') }}</div>
-    @elseif(session('flash_message')=='Fuck!')
+    @elseif(session('flash_message')=='残念、不正解です...')
         <div class="flash_message" style="text-align: center;padding: 5px;color: green;background: #FFCCCC; " onclick="this.classList.add('hidden')">{{ session('flash_message') }}</div>
     @endif
 @endsection

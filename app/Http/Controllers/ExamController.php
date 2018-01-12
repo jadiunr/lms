@@ -70,7 +70,6 @@ class ExamController extends Controller
         }else{
             $Next_btn = $post[$id]->problem_number;
         }
-        $session_item=session()->get('answers_test',[]);
 
         $session_item=session()->get('answers',[]);
 
@@ -106,10 +105,10 @@ class ExamController extends Controller
 
 
                 if ($problem_answer->correct == $answer) {
-                    return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', 'やりますねぇ。。!');
+                    return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', '正解です！');
                 }
 
-                return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', '1145141919810!');
+                return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', '残念、不正解です...');
             }
 
             $answers_test=session()->get('answers_test',[]);
@@ -118,7 +117,7 @@ class ExamController extends Controller
 
             session()->put('answers_test',$answers_test);
 
-            return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id);
+            return redirect('/exam/' . $exam_id . '/' . $block_id . '/' . $mode_id . '/' . $problem_id)->with('flash_message', '記録しました。');
 
     }
 

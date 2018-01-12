@@ -4,6 +4,12 @@
     <link rel="stylesheet" href="/css/learning.css">
 @endsection
 
+@section('flash')
+    @if(session('flash_message')== '記録しました。')
+        <div class="flash_message" style="text-align: center;padding: 5px;color: green;background: #CCFFCC; " onclick="this.classList.add('hidden')">{{ session('flash_message') }}</div>
+    @endif
+@endsection
+
 @section('content')
 
 
