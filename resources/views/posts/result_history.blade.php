@@ -9,6 +9,7 @@
                 <th>答案</th>
                 <th>解答</th>
                 <th>正誤</th>
+                <th>問題内容</th>
             </tr>
         </thead>
         <tbody>
@@ -20,13 +21,21 @@
                 <td>{{$answer_history[$i]->answer}}</td>
                 <td>{{$problem->correct}}</td>
                 <td>{{$judgement($problem->correct,$answer_history[$i++]->answer)}}</td>
+                <td><a href='/record/{{$exam_id}}/history/{{$time}}/{{$problem->id}}' style="text-decoration: none;color: gray">詳細</a></td>
             </tr>
+
             @endforeach
 
         </tbody>
 
 
+
     </table>
 
 
+
+@endsection
+
+@section('script')
+    <script src="/js/learning.js" type="text/javascript"></script>
 @endsection
