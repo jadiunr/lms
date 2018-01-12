@@ -110,7 +110,7 @@ class RecordController extends Controller
 
 
 
-        return view('posts.result_history',['answer_history'=>$answer_history,'problems'=>$problem,
+        return view('posts.result_history',['time'=>$time,'exam_id'=>$exam_id,'answer_history'=>$answer_history,'problems'=>$problem,
             'judgement'=> function($a,$b){
                 if($a==$b){
                     return "○";
@@ -121,6 +121,14 @@ class RecordController extends Controller
 
 
     }
+    public function details($exam_id,$time,$problem_id) {
+
+        $question = Problem::where('id',$problem_id)->get();
+
+        return view('posts.history_details',['exam_id'=>$exam_id,'time'=>$time,'question'=>$question[0]]);
+
+    }
+
 
 
 

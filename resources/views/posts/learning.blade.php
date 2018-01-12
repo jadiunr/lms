@@ -48,7 +48,7 @@
                                 <li style="margin-bottom: 10px"><a href="#1"><button class="box">解答</button></a></li>
                                 <form method="post" name="answer_list" action="/exam/{{$exam_id}}/{{$block_id}}/{{$mode_id}}">
                                     {{csrf_field()}}
-                                    <li><a href="javascript:answer_list.submit()"><button>試験終了</button></a></li>
+                                    <a href="javascript:answer_list.submit()"><button>試験終了</button></a></li>
                                 </form>
                            </ul>
                         </div>
