@@ -12,6 +12,7 @@ use App\Http\Requests\BbsRequest;
 use App\Http\Requests\ThreadRequest;
 use Validator;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 
 class BbsController extends Controller
 {
@@ -51,6 +52,19 @@ class BbsController extends Controller
         $post->user_id = Auth::user()->id;
         $post->comment = $request->comment;
         $post->save();
+
+        //管理者のメールアドレスを取得
+        $admin_users = User::where('admin', true)->get();
+
+        //タイトル
+        $title = $request->title;
+
+        //メール送信
+        foreach ($admin_users as $admin_user) {
+            Mail::send('emails.new_thread', ['title' => $title, 'url' => "http://laravel.test/bbs/show?id={$thread->id}"], function ($message) use ($title, $admin_user) {
+                $message->to($admin_user->email)->subject("新しい質問が投稿されました。タイトル:{$title}");
+            });
+        }
 
         return redirect('/bbs');
     }
