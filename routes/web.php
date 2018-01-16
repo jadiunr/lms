@@ -114,9 +114,6 @@ Route::group(['middleware' => 'auth'], function() {
         // ユーザ更新処理
         Route::post('/users/update/{user_id}', 'AdminController@updateUser')->name('admin.updateUser');
 
-        //ユーザ詳細ページ
-        Route::post('/users/detail/{user_id}', 'AdminController@detailUser')->name('admin.detailUser');
-
         //ユーザ削除処理
         Route::post('/users/delete', 'AdminController@deleteUser')->name('admin.deleteUser');
 
