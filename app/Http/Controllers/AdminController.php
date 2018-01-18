@@ -10,7 +10,6 @@ use App\Problem;
 use App\Category;
 use App\Changelog;
 use App\Record;
-use App\Answer;
 use App\Http\Requests\AdminsUserRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
@@ -53,6 +52,7 @@ class AdminController extends Controller
         return redirect()->route('admin.users');
     }
 
+    //ユーザ削除処理
     public function deleteUser(Request $request){
         User::where('id', $request->user_id)
             ->delete();
@@ -60,13 +60,6 @@ class AdminController extends Controller
         \Session::flash('flash_message', 'User successfully deleted!');
         return redirect()->back();
 
-    }
-
-    //ユーザ詳細ページ
-    public function detailUser($user_id){
-        $user = User::findOrFail($user_id);
-        $record = Record::where('user_id', $user_id)->get();
-        return view('admin.detail_user', compact('user', 'record'));
     }
 
     //ユーザ検索処理

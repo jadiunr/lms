@@ -18,6 +18,7 @@ class RecordController extends Controller
     {
         $request->flashOnly(['start_period', 'end_period']);
 
+
         $user = Auth::id();
         $answers = Answer::where('user_id', $user)->get();
         $exam_list=Exam::all();
@@ -52,10 +53,10 @@ class RecordController extends Controller
 
         if(isset($start_period) and isset($end_period)) {
             $record = Record::where('user_id',$user)->where('exam_id',$exam_id)->whereBetween('created_at', [$start_period.' 00:00:00', $end_period.' 23:59:59'])->get();
+
             $answers = Answer::where('user_id', $user)->whereBetween('created_at', [$start_period.' 00:00:00', $end_period.' 23:59:59'])->get();
 
-            $record_null_set=Record::where('user_id',$user)->where('exam_id',$exam_id)->whereBetween('created_at', [$start_period.' 00:00:00', $end_period.' 23:59:59'])->first();
-
+            $null_set=Record::where('user_id',$user)->where('exam_id',$exam_id)->whereBetween('created_at', [$start_period.' 00:00:00', $end_period.' 23:59:59'])->first();
 
         }
 
@@ -68,6 +69,8 @@ class RecordController extends Controller
             $total_strategy   +=$category->category3;
             $total_etc        +=$category->category4;
         }
+
+
         $q=0;$w=0;$e=0;$r=0;
 //        問題の中のカテゴリカウント
         foreach ($answers as $index => $answer) {
@@ -90,7 +93,7 @@ class RecordController extends Controller
         }
         $a=0;$b=0;$c=0;$d=0;
         //問題の中のカテゴリ中の正答率を計算
-        if(isset($record_null_set)){
+        if(isset($null_set)){
         $a = $total_technology / $q * 100;
         $b = $total_management / $w * 100;
         $c = $total_strategy / $e * 100;
