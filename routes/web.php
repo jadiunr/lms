@@ -61,13 +61,16 @@ Route::group(['middleware' => 'auth'], function() {
     //試験年度選択
     Route::get('/exam/{exam_id}','ExamController@block');
 
+
+    Route::get('/exam/{exam_id}/{block_id}','ExamController@index');
+
     //ラーニングモード or テストモード スタート
     Route::post('/exam/{exam_id}/{block_id}/{mode_id}/start', 'ExamController@start');
 
+    //モード選択
+
     Route::group(['middleware' => 'session_set'], function(){
 
-        //モード選択
-        Route::get('/exam/{exam_id}/{block_id}','ExamController@index');
 
         //ラーニングモード各問題画面
         Route::get('/exam/{exam_id}/{block_id}/{mode_id}/{id}','ExamController@learn_id')->name('problem_id');
