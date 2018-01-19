@@ -49,7 +49,7 @@ class ThreadsTableSeeder extends Seeder
 
             $thread = new Thread();
             $thread->title = 'プロセッサの性能評価に関する計算式';
-            $thread->category_id = 3;
+            $thread->category_id = 1;
             $thread->save();
 
             $thread = new Thread();
