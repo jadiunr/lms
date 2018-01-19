@@ -5,6 +5,7 @@
         <div class="alert alert-success">{{ session('message') }}</div>
     @endif
     <h4>掲示板管理</h4><hr>
+    <div align="center">{{ $threads->links() }}</div>
     <table class="table table-striped">
         <tr>
             <td>タイトル</td>
