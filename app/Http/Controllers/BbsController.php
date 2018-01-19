@@ -7,11 +7,13 @@ use App\Post;
 use App\Thread;
 use App\Category;
 use App\User;
+use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Requests\BbsRequest;
 use App\Http\Requests\ThreadRequest;
 use Validator;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 
 class BbsController extends Controller
 {
@@ -51,6 +53,23 @@ class BbsController extends Controller
         $post->user_id = Auth::user()->id;
         $post->comment = $request->comment;
         $post->save();
+
+        //管理者のメールアドレスを取得
+        $admin_users = User::where('admin', true)->get();
+
+        //タイトル
+        $title = $request->title;
+
+        //メール送信
+        //メール送信設定が有効の場合のみ送信する
+        $setting = Setting::where('name', 'admin_mail')->first();
+        if($setting->flag == 1) {
+            foreach ($admin_users as $admin_user) {
+                Mail::send('emails.new_thread', ['title' => $title, 'url' => config('app.url')."/bbs/show?id={$thread->id}"], function ($message) use ($title, $admin_user) {
+                    $message->to($admin_user->email)->subject("新しい質問が投稿されました。タイトル:{$title}");
+                });
+            }
+        }
 
         return redirect('/bbs');
     }

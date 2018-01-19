@@ -207,5 +207,8 @@ Route::group(['middleware' => 'auth'], function() {
         //コメント削除
         Route::post('/bbs/delete_post', 'BbsAdminController@delete_post');
 
+        //メール送信フラグ変更
+        Route::post('/bbs/set_mail_flag', 'BbsAdminController@set_mail_flag');
+
     });
 });
