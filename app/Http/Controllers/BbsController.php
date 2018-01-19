@@ -124,7 +124,6 @@ class BbsController extends Controller
     public function solved(Request $request) {
         /*
          * 質問を解決済みにする
-         * 質問の投稿者IDとの照合が必要だがまだ実装していない
          */
         $thread = Thread::where('id', $request->thread_id)->first();
         $thread->solved = true;
@@ -136,7 +135,6 @@ class BbsController extends Controller
     public function reopen(Request $request) {
         /*
          * 質問を未解決に戻す
-         * 質問の投稿者IDとの照合が必要だがまだ実装していない
          */
         $thread = Thread::where('id', $request->thread_id)->first();
         $thread->solved = false;
