@@ -10,7 +10,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">掲示板一覧</h3>
+                    <h3 class="panel-title">掲示板管理</h3>
                 </div>
                 <div class="panel-body">
                     <div align="center">{{ $threads->links() }}</div>
