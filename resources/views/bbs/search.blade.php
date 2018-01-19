@@ -6,7 +6,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::select('solved', ['all' => 'ALL' ,false => '未解決', true => '解決済み']) !!}&nbsp;
-                {!! Form::select('category_id', ['all' => 'ALL', 1 => 'その他', 2 => 'テクノロジー', 3 => 'マネジメント', 4 => 'ストラテジー']) !!}<br>
+                {!! Form::select('category_id', ['all' => 'ALL', 1 => 'テクノロジー', 2 => 'マネジメント', 3 => 'ストラテジー', 4 => 'その他']) !!}<br>
             </div>
         </div>
         <div class="col-sm-8">

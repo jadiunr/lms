@@ -13,6 +13,7 @@
                     <h3 class="panel-title">掲示板一覧</h3>
                 </div>
                 <div class="panel-body">
+                    <div align="center">{{ $threads->links() }}</div>
                     {!! Form::open(['action' => 'BbsAdminController@set_mail_flag']) !!}
                         <div align="right">
                             <span style="position:relative;bottom:8px">スレッドが作成された時に管理者宛にメールを送信する</span>
