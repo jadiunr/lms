@@ -43,9 +43,6 @@ class BbsController extends Controller
         /*
          * スレッドを作成する
          */
-
-        dd(config('app.url'));
-
         $thread = new Thread();
         $thread->title = $request->title;
         $thread->category_id = $request->category;
@@ -68,7 +65,7 @@ class BbsController extends Controller
         $setting = Setting::where('name', 'admin_mail')->first();
         if($setting->flag == 1) {
             foreach ($admin_users as $admin_user) {
-                Mail::send('emails.new_thread', ['title' => $title, 'url' => "http://laravel.test/bbs/show?id={$thread->id}"], function ($message) use ($title, $admin_user) {
+                Mail::send('emails.new_thread', ['title' => $title, 'url' => config('app.url')."/bbs/show?id={$thread->id}"], function ($message) use ($title, $admin_user) {
                     $message->to($admin_user->email)->subject("新しい質問が投稿されました。タイトル:{$title}");
                 });
             }
