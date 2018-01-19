@@ -9,7 +9,7 @@
     {!! Form::open() !!}
     <div class="form-group">
         {!! Form::label('category', 'Category:') !!}<br>
-        {!! Form::select('category', [1 => 'その他', 2 => 'テクノロジー', 3 => 'マネジメント', 4 => 'ストラテジー']) !!}
+        {!! Form::select('category', [1 => 'テクノロジー', 2 => 'マネジメント', 3 => 'ストラテジー', 4 => 'その他']) !!}
     </div>
 
     @if ($errors->has('title'))
