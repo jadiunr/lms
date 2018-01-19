@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ExamsTableSeeder::class);
         $this->call(BlocksTableSeeder::class);
         $this->call(ChangelogsTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
     }
 }

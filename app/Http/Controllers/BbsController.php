@@ -7,6 +7,7 @@ use App\Post;
 use App\Thread;
 use App\Category;
 use App\User;
+use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Requests\BbsRequest;
 use App\Http\Requests\ThreadRequest;
@@ -42,6 +43,9 @@ class BbsController extends Controller
         /*
          * スレッドを作成する
          */
+
+        dd(config('app.url'));
+
         $thread = new Thread();
         $thread->title = $request->title;
         $thread->category_id = $request->category;
@@ -60,10 +64,14 @@ class BbsController extends Controller
         $title = $request->title;
 
         //メール送信
-        foreach ($admin_users as $admin_user) {
-            Mail::send('emails.new_thread', ['title' => $title, 'url' => "http://laravel.test/bbs/show?id={$thread->id}"], function ($message) use ($title, $admin_user) {
-                $message->to($admin_user->email)->subject("新しい質問が投稿されました。タイトル:{$title}");
-            });
+        //メール送信設定が有効の場合のみ送信する
+        $setting = Setting::where('name', 'admin_mail')->first();
+        if($setting->flag == 1) {
+            foreach ($admin_users as $admin_user) {
+                Mail::send('emails.new_thread', ['title' => $title, 'url' => "http://laravel.test/bbs/show?id={$thread->id}"], function ($message) use ($title, $admin_user) {
+                    $message->to($admin_user->email)->subject("新しい質問が投稿されました。タイトル:{$title}");
+                });
+            }
         }
 
         return redirect('/bbs');

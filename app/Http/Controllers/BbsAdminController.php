@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Thread;
 use App\Post;
+use App\Setting;
 
 class BbsAdminController extends Controller
 {
@@ -13,8 +14,11 @@ class BbsAdminController extends Controller
             ->orderBy('id','desc')
             ->get();
 
+        $setting = Setting::where('name', 'admin_mail')->first();
+
         return view('admin.bbs.index',[
-            "threads" => $threads
+            "threads" => $threads,
+            "current_mail_flag" => $setting->flag
         ]);
     }
 
@@ -41,6 +45,19 @@ class BbsAdminController extends Controller
             ->delete();
 
         $request->session()->flash('message','削除しました');
+        return redirect()->back();
+    }
+
+    public function set_mail_flag(Request $request){
+        $setting = Setting::where('name', 'admin_mail')->first();
+        if($request->mail_flag == null){
+            $setting->flag = 0;
+        }else {
+            $setting->flag = $request->mail_flag;
+        }
+        $setting->save();
+
+        $request->session()->flash('message','設定を変更しました');
         return redirect()->back();
     }
 }
