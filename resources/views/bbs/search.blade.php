@@ -21,10 +21,33 @@
     </div>
 
     @if(isset($threads[0]))
+        <br>
+        <h4>検索結果</h4><hr>
+        <table class="table table-bordered">
+            <tr>
+                <th>タイトル</th>
+                <th>コメント数</th>
+                <th>質問の状態</th>
+                <th>カテゴリ</th>
+            </tr>
         @foreach($threads as $thread)
-            {{ Html::link('/bbs/show?id='.$thread->id, $thread->title) }}<br>
+            <tr>
+                <td width="70%">{{ Html::link('/bbs/show?id='.$thread->id, $thread->title) }}</td>
+                <td>{{ $thread->posts()->count()-1 }}</td>
+                <td>
+                    @if($thread->solved)
+                        解決済み
+                    @else
+                        未解決
+                    @endif
+                </td>
+                <td>
+                    {{ $thread->category->name }}
+                </td>
+            </tr>
         @endforeach
+        </table>
     @else
-        検索結果:0
+        <h4>検索結果:0</h4>
     @endif
 @endsection
