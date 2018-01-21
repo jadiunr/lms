@@ -1,95 +1,37 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row">
-        <div class="col-lg-6"></div>
-    {{Form::open(['method' => 'get'])}}
-        <div class="form-group">
-            <select class="form-control" name="exam_id">
-                @foreach($exam_id as $e_id)
-                    <option value={{$e_id->id}} @if($exam == $e_id->id) selected @endif>{{$e_id->id}}</option>
+    <form name="form" style="float: right" action="/ranking" method="get">
+        <p><select name="select">
+                <option>試験選択</option>
+                @foreach($exams as $exam)
+                    <option value="{{$exam->id}}">{{$exam->name}}</option>
                 @endforeach
-            </select>
-            <select class="form-control" name="block_id">
-                @foreach($block_id as $b_id)
-                    <option value={{$b_id->id}} @if($block == $b_id->id) selected @endif>{{$b_id->id}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="submit-group">
-            <button class="btn btn-default" type="submit" formaction="/ranking/percentage">試験別正答率</button>
-        </div>
-    {{Form::close()}}
-    </div>
-    <br>
-    {{Form::open(['method' => 'get','action' => 'RankingController@total'])}}
-        <div class="submit-group">
-            <button class="btn btn-default" type="submit">総合正答数</button>
-        </div>
-    {{Form::close()}}<br>
+            </select></p>
+        <p><input class="btn btn-default" type="submit" value="試験選択"></p>
+    </form>
+    <table class="table" style="margin-top: 50px">
+        <caption style="font-size: 20px">@if($null==NULL){{$exam_name[0]->name}}　正答率@else総合正答数@endifランキング</caption>
+        <thead>
+        <tr>
+            <th>順位</th>
+            <th>名前</th>
+            <th>@if($null==NULL)正答率@else正答数@endif</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $i=1 ?>
+        @foreach($users as $user)
+            <tr style="@if($i==1 or $i==2 or $i==3) height:60px ;font-size:20px ;font-weight: bold ;@endif">
+                <td><img @if($i ==1) src ="gold.png" @elseif($i==2)src="silver.png"@elseif($i==3)src="bronze.png"@endif style="width: 28px;height: auto;margin-right: 10px">{{$i++}}</td>
+                <td>{{$names($user->user_id)->name}}</td>
+                <td>@if($null==NULL){{substr($user->rate,0,4)}}%@else{{$user->total}}@endif</td>
+            </tr>
 
-    @if($flag == 0)
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>順位</th>
-                        <th>名前</th>
-                        <th>総合正答数</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($records as $index => $record)
-                        <tr>
-                            <td>
-                                {{++$index}}位
-                            </td>
-                            <td>
-                                @foreach($users as $user)
-                                    @if($user->id == $record->user_id)
-                                        {{$user->name}}
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                {{$record->total}}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        @endforeach
+        </tbody>
+    </table>
+@endsection
+@section('script')
 
-    @endif
-    @if($flag == 1)
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>順位</th>
-                    <th>名前</th>
-                    <th>試験</th>
-                    <th>正答率</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($records as $index => $record)
-                    <tr>
-                        <td>
-                            {{++$index}}位
-                        </td>
-                        <td>
-                            @foreach($users as $user)
-                                @if($user->id == $record->user_id)
-                                    {{$user->name}}
-                                @endif
-                            @endforeach
-                        </td>
-                        <td>
-                            {{$block}}
-                        </td>
-                        <td>
-                            {{substr($record->total,0,4)}}%
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-    @endif
+    <script src="/js/learning.js" type="text/javascript"></script>
 @endsection

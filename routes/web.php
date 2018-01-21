@@ -94,10 +94,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/changelog', 'ChangelogController@show');
 
     //ranking
-    Route::get('/ranking','RankingController@total');
-
-    //試験別正答率
-    Route::get('/ranking/percentage','RankingController@percentage');
+    Route::get('/ranking','RankingController@view');
 
     //管理者用Route
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
