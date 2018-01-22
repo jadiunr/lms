@@ -6,57 +6,38 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use App\Exam;
-use App\Block;
 
 class RankingController extends Controller
 {
-    public function total()
+    function view(Request $request)
     {
-        $flag = 0;
+        $users = DB::select("select user_id, sum(total) total from records group by user_id order by total desc");
 
-        $exam = null;
+        $names=function($index){
 
-        $block = null;
+            $name=User::where('id',$index)->get()->first();
 
-        $exam_id = Exam::all();
+            return $name;
+        };
 
-        $block_id = Block::all();
+        $exams=Exam::all();
+        $null=1;
+        $exam_id=$request->select;
+        $exam_name=Exam::where('id',$exam_id)->get();
+        if(isset($exam_id)){
+//                $users = DB::select("select user_id, avg(rate) rate from records group by user_id order by rate desc");
+            $null = NULL;
+            $users = DB::table('records')
+                ->select(DB::raw('user_id , avg(rate) as rate'))
+                ->where('exam_id', '=', $exam_id)
+                ->groupBy('user_id')
+                ->orderBy('rate','desc')
+                ->get();
+        }
 
-        $users = User::all();
 
-        $records = DB::table('records')
-            ->select(DB::raw('user_id , sum(total) as total'))
-            ->groupBy('user_id')
-            ->orderBy('total','desc')
-            ->get();
 
-        return view('/ranking')
-            ->with(compact('exam_id','block_id','records','users','flag','exam','block'));
+        return view('ranking', ['users' => $users,'exams'=>$exams,'names'=>$names,'null'=>$null,'exam_name'=>$exam_name]);
     }
 
-    public function percentage(Request $request)
-    {
-        $flag = 1;
-
-        $exam = $request->exam_id;
-
-        $block = $request->block_id;
-
-        $exam_id = Exam::all();
-
-        $block_id = Block::all();
-
-        $users = User::all();
-
-        $records = DB::table('records')
-            ->select(DB::raw('user_id , max(total/80*100) as total'))
-            ->where('exam_id','=',$exam)
-            ->where('block_id','=',$block)
-            ->groupBy('user_id')
-            ->orderBy('total','desc')
-            ->get();
-
-        return view('/ranking')
-            ->with(compact('exam_id','block_id','records','users','flag','block','exam','block'));
-    }
 }
