@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ExamRequest;
 use App\Http\Requests\BlockRequest;
+use App\Http\Requests\ProblemRequest;
 
 class AdminController extends Controller
 {
@@ -164,7 +165,7 @@ class AdminController extends Controller
     }
 
     //問題作成処理
-    public function postCreateProblem($exam_id, $block_id, Request $request){
+    public function postCreateProblem($exam_id, $block_id, ProblemRequest $request){
 
         $problem = new Problem();
         $problem->exam_id = $exam_id;
@@ -201,7 +202,7 @@ class AdminController extends Controller
     }
 
     //問題更新処理
-    public function updateProblem($exam_id, $block_id, $problem_id, Request $request){
+    public function updateProblem($exam_id, $block_id, $problem_id, ProblemRequest $request){
         $problem = Problem::findOrFail($problem_id);
         $problem->category_id = $request->category_id;
         $problem->problem_number = $request->problem_number;
