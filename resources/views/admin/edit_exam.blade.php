@@ -11,7 +11,14 @@
                 </div>
             @endif
 
+            @if($errors->has('name'))
+                <div class="alert alert-danger">
+                    <span class="error">{{$errors->first('name')}}</span><br>
+                </div>
+            @endif
+
             {!! Form::open(['route' => ['admin.updateExam', $exam->id]]) !!}
+                {{Form::hidden('id', $exam->id)}}
             <div class="form-group">
                 {!! Form::label('name', 'Name:', ['class' => 'col-md-4 control-label']) !!}
                 {!! Form::text('name', $exam->name, ['class' => 'form-control']) !!}

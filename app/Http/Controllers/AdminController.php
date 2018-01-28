@@ -10,10 +10,11 @@ use App\Problem;
 use App\Category;
 use App\Changelog;
 use App\Record;
-use App\Http\Requests\AdminsUserRequest;
+use App\Http\Requests\UserRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ExamRequest;
 
 class AdminController extends Controller
 {
@@ -33,7 +34,7 @@ class AdminController extends Controller
     }
 
     //ユーザ情報更新処理
-    public function updateUser($user_id, AdminsUserRequest $request){
+    public function updateUser($user_id, UserRequest $request){
         $user = User::findOrFail($user_id);
 
         $user->name = $request->name;
@@ -90,7 +91,7 @@ class AdminController extends Controller
     }
 
     //試験名変更処理
-    public function updateExam($exam_id, Request $request){
+    public function updateExam($exam_id, ExamRequest $request){
         $exam = Exam::findOrFail($exam_id);
         $exam_oldname = $exam->name;
         $exam->name = $request->name;
@@ -110,7 +111,7 @@ class AdminController extends Controller
     }
 
     //試験作成処理
-    public function postCreateExam(Request $request){
+    public function postCreateExam(ExamRequest $request){
         $exam = new Exam();
         $exam->id = $request->id;
         $exam->name = $request->name;
