@@ -5,6 +5,12 @@
 
             <a href="{{ route('admin.editExam', ['exam_id' => $exam_id]) }}"><button type="button" class="btn btn-default">Back</button></a><hr/>
 
+            @if($continuous_flag == false)
+                <div class="alert alert-danger">
+                    <span class="error">現在この試験ブロックでは問題番号が正しく整えられていません。</span><br>
+                </div>
+            @endif
+
             @if(Session::has('flash_message'))
                 <div class="alert alert-success">
                     {{ Session::get('flash_message') }}

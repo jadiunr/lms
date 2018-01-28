@@ -139,8 +139,12 @@ class AdminController extends Controller
     //試験ブロックが共有されていた場合、他の試験のブロック名も変更される
     public function editBlock($exam_id, $block_id){
         $block = Block::findOrFail($block_id);
+
+        $problem_numbers = Problem::getProblemNumbers($exam_id, $block_id);
+        $continuous_flag = Problem::isContinuousProblemNumber($problem_numbers);
+
         $problems = Problem::getBindingProblems($exam_id, $block_id);
-        return view('admin.edit_block',compact('exam_id','block', 'problems'));
+        return view('admin.edit_block',compact('exam_id','block', 'problems', 'continuous_flag'));
     }
 
     //試験ブロック名更新処理
