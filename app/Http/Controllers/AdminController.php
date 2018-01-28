@@ -139,7 +139,7 @@ class AdminController extends Controller
     //試験ブロックが共有されていた場合、他の試験のブロック名も変更される
     public function editBlock($exam_id, $block_id){
         $block = Block::findOrFail($block_id);
-        $problems = DB::select('select p.id, p.problem_number, p.question, c.name, p.created_at, p.updated_at from problems p join categories c on c.id = p.category_id where p.exam_id = \''.$exam_id.'\' and p.block_id = \''.$block_id.'\' order by p.problem_number');
+        $problems = Problem::getBindingProblems($exam_id, $block_id);
         return view('admin.edit_block',compact('exam_id','block', 'problems'));
     }
 
@@ -166,7 +166,6 @@ class AdminController extends Controller
 
     //問題作成処理
     public function postCreateProblem($exam_id, $block_id, ProblemRequest $request){
-
         $problem = new Problem();
         $problem->exam_id = $exam_id;
         $problem->block_id = $block_id;
