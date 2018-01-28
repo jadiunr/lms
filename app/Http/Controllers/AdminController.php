@@ -15,6 +15,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ExamRequest;
+use App\Http\Requests\BlockRequest;
 
 class AdminController extends Controller
 {
@@ -142,7 +143,7 @@ class AdminController extends Controller
     }
 
     //試験ブロック名更新処理
-    public function updateBlock($exam_id, $block_id, Request $request){
+    public function updateBlock($exam_id, $block_id, BlockRequest $request){
         $block = Block::findOrFail($block_id);
         $block_oldname = $block->name;
         $block->name = $request->name;
@@ -239,7 +240,7 @@ class AdminController extends Controller
     }
 
     //ブロック作成処理
-    public function postCreateBlockGlobal(Request $request){
+    public function postCreateBlockGlobal(BlockRequest $request){
         $block = new Block();
         $block->id = $request->id;
         $block->name = $request->name;
@@ -260,7 +261,7 @@ class AdminController extends Controller
     }
 
     //ブロック更新ページ
-    public function updateBlockGlobal($block_id, Request $request){
+    public function updateBlockGlobal($block_id, BlockRequest $request){
         $block = Block::findOrFail($block_id);
         $block_oldname = $block->name;
         $block->id = $request->id;
