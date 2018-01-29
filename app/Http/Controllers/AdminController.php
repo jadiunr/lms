@@ -10,10 +10,13 @@ use App\Problem;
 use App\Category;
 use App\Changelog;
 use App\Record;
-use App\Http\Requests\AdminsUserRequest;
+use App\Http\Requests\UserRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ExamRequest;
+use App\Http\Requests\BlockRequest;
+use App\Http\Requests\ProblemRequest;
 
 class AdminController extends Controller
 {
@@ -33,7 +36,7 @@ class AdminController extends Controller
     }
 
     //ユーザ情報更新処理
-    public function updateUser($user_id, AdminsUserRequest $request){
+    public function updateUser($user_id, UserRequest $request){
         $user = User::findOrFail($user_id);
 
         $user->name = $request->name;
@@ -90,7 +93,7 @@ class AdminController extends Controller
     }
 
     //試験名変更処理
-    public function updateExam($exam_id, Request $request){
+    public function updateExam($exam_id, ExamRequest $request){
         $exam = Exam::findOrFail($exam_id);
         $exam_oldname = $exam->name;
         $exam->name = $request->name;
@@ -110,7 +113,7 @@ class AdminController extends Controller
     }
 
     //試験作成処理
-    public function postCreateExam(Request $request){
+    public function postCreateExam(ExamRequest $request){
         $exam = new Exam();
         $exam->id = $request->id;
         $exam->name = $request->name;
@@ -136,12 +139,16 @@ class AdminController extends Controller
     //試験ブロックが共有されていた場合、他の試験のブロック名も変更される
     public function editBlock($exam_id, $block_id){
         $block = Block::findOrFail($block_id);
-        $problems = DB::select('select p.id, p.problem_number, p.question, c.name, p.created_at, p.updated_at from problems p join categories c on c.id = p.category_id where p.exam_id = \''.$exam_id.'\' and p.block_id = \''.$block_id.'\' order by p.problem_number');
-        return view('admin.edit_block',compact('exam_id','block', 'problems'));
+
+        $problem_numbers = Problem::getProblemNumbers($exam_id, $block_id);
+        $continuous_flag = Problem::isContinuousProblemNumber($problem_numbers);
+
+        $problems = Problem::getBindingProblems($exam_id, $block_id);
+        return view('admin.edit_block',compact('exam_id','block', 'problems', 'continuous_flag'));
     }
 
     //試験ブロック名更新処理
-    public function updateBlock($exam_id, $block_id, Request $request){
+    public function updateBlock($exam_id, $block_id, BlockRequest $request){
         $block = Block::findOrFail($block_id);
         $block_oldname = $block->name;
         $block->name = $request->name;
@@ -162,8 +169,7 @@ class AdminController extends Controller
     }
 
     //問題作成処理
-    public function postCreateProblem($exam_id, $block_id, Request $request){
-
+    public function postCreateProblem($exam_id, $block_id, ProblemRequest $request){
         $problem = new Problem();
         $problem->exam_id = $exam_id;
         $problem->block_id = $block_id;
@@ -199,7 +205,7 @@ class AdminController extends Controller
     }
 
     //問題更新処理
-    public function updateProblem($exam_id, $block_id, $problem_id, Request $request){
+    public function updateProblem($exam_id, $block_id, $problem_id, ProblemRequest $request){
         $problem = Problem::findOrFail($problem_id);
         $problem->category_id = $request->category_id;
         $problem->problem_number = $request->problem_number;
@@ -238,7 +244,7 @@ class AdminController extends Controller
     }
 
     //ブロック作成処理
-    public function postCreateBlockGlobal(Request $request){
+    public function postCreateBlockGlobal(BlockRequest $request){
         $block = new Block();
         $block->id = $request->id;
         $block->name = $request->name;
@@ -259,7 +265,7 @@ class AdminController extends Controller
     }
 
     //ブロック更新ページ
-    public function updateBlockGlobal($block_id, Request $request){
+    public function updateBlockGlobal($block_id, BlockRequest $request){
         $block = Block::findOrFail($block_id);
         $block_oldname = $block->name;
         $block->id = $request->id;
