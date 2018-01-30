@@ -7,7 +7,10 @@
 
             @if($continuous_flag == false)
                 <div class="alert alert-danger">
-                    <span class="error">現在この試験ブロックでは問題番号が正しく整えられていません。</span><br>
+                    <span class="error">
+                        現在この試験ブロックでは問題番号が正しく整えられていません。<br>
+                        問題番号が欠けていないか、或いは重複していないかを確認してください。
+                    </span><br>
                 </div>
             @endif
 
