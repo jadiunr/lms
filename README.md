@@ -19,4 +19,6 @@ Default Accounts
 ```
 admin@example.jp //Admin
 [1-15]@example.jp //User
+
+Password: aaaaaa
 ```
